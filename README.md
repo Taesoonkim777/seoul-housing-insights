@@ -1,9 +1,5 @@
 # Welcome to this data visualization project! - Welcome Insung Lee and Hakyun Song
 
-## Project info
-
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
-
 ## How can I edit this code?
 
 There are several ways of editing your application.
