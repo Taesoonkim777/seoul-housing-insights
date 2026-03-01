@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,12 +13,11 @@
 <!-- ===== Navbar ===== -->
 <nav class="navbar">
   <div class="navbar-inner">
-    <button class="navbar-brand"><span>Seoul</span> Housing</button>
+    <button class="navbar-brand" onclick="window.location.href='index.html'"><span>Seoul</span> Housing</button>
     <div class="navbar-links">
       <button data-scroll="overview">Overview</button>
       <button data-scroll="methodology">Methodology</button>
-      <button data-scroll="data">Data</button>
-      <button data-scroll="visualizations">Visualizations</button>
+      <button data-scroll="analysis">Analysis</button>
       <button data-scroll="team">Team</button>
     </div>
   </div>
@@ -27,16 +26,15 @@
 <!-- ===== Hero ===== -->
 <section class="hero">
   <div class="hero-bg">
-    <img src="https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=1920&q=80" alt="Seoul cityscape at night" />
-    <div class="hero-overlay"></div>
+    <img src="https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=1920&q=80" alt="Seoul cityscape" />
   </div>
   <div class="hero-content fade-up">
     <p class="hero-subtitle">Advanced Data Visualization · Group 1</p>
     <h1 class="hero-title">
-      Urban Amenities &amp; <span class="text-gradient-gold">Housing Price Inequality</span> in Seoul
+      Urban Amenities &amp; <span class="text-highlight">Housing Price Inequality</span> in Seoul
     </h1>
     <p class="hero-desc">
-      Exploring the spatial relationship between urban infrastructure and housing price growth across Seoul's 25 districts
+      서울 25개 자치구의 도시 인프라와 주택 가격 상승률 간의 공간적 관계를 탐구합니다
     </p>
     <div class="hero-authors">
       <span><span class="dot"></span> Hakyun Song</span>
@@ -46,48 +44,48 @@
   </div>
 </section>
 
-<!-- ===== Research Overview ===== -->
-<section id="overview" class="bg-gradient-navy">
+<!-- ===== Overview ===== -->
+<section id="overview">
   <div class="container">
-    <div class="fade-up" style="max-width:700px;margin-bottom:80px;">
-      <p class="section-label">Research Question</p>
-      <h2 class="section-title">What drives housing price inequality across Seoul?</h2>
+    <div class="fade-up" style="max-width:700px;margin-bottom:48px;">
+      <p class="section-label"><span class="picto">📋</span> Overview</p>
+      <h2 class="section-title">프로젝트 소개</h2>
       <p class="section-desc">
-        While Seoul's housing prices have surged over the past decade, the growth has been uneven across its 25 sub-districts. We investigate how urban amenities — safety, transportation, education, and green space — explain this variation.
+        서울의 주택 가격은 지난 10년간 급등했지만, 25개 자치구별로 상승률은 균일하지 않았습니다. 본 연구는 안전, 교통, 교육, 녹지 등 도시 어메니티가 이러한 가격 불균형을 어떻게 설명하는지 분석합니다.
       </p>
     </div>
     <div class="cards-grid">
       <div class="card fade-up">
-        <div class="card-icon" style="color:var(--chart-safety);">🛡️</div>
+        <div class="card-icon safety">🛡️</div>
         <h3>Safety</h3>
-        <p>Crime incidents, crime rates per 1,000 residents, and crime type breakdown across districts</p>
+        <p>범죄 발생 건수, 인구 1,000명당 범죄율 및 유형별 분석</p>
         <div class="card-stat">
           <span class="number">25</span>
           <span class="label">Districts Analyzed</span>
         </div>
       </div>
       <div class="card fade-up">
-        <div class="card-icon" style="color:var(--chart-transport);">🚇</div>
+        <div class="card-icon transport">🚇</div>
         <h3>Transportation</h3>
-        <p>Subway station density, bus stop locations, and daily subway ridership data</p>
+        <p>지하철역 밀도, 버스 정류장 위치, 일일 지하철 이용객 데이터</p>
         <div class="card-stat">
           <span class="number">9</span>
           <span class="label">Subway Lines</span>
         </div>
       </div>
       <div class="card fade-up">
-        <div class="card-icon" style="color:var(--chart-education);">🎓</div>
+        <div class="card-icon education">🎓</div>
         <h3>Education</h3>
-        <p>Schools by district, private academy count, and student population distribution</p>
+        <p>자치구별 학교 수, 학원 수, 학생 인구 분포</p>
         <div class="card-stat">
           <span class="number">2,200+</span>
           <span class="label">Schools Mapped</span>
         </div>
       </div>
       <div class="card fade-up">
-        <div class="card-icon" style="color:var(--chart-green);">🌲</div>
+        <div class="card-icon green">🌲</div>
         <h3>Green Space</h3>
-        <p>Park area per district, green space per capita, and urban forest coverage</p>
+        <p>자치구별 공원 면적, 1인당 녹지, 도시숲 면적</p>
         <div class="card-stat">
           <span class="number">170+</span>
           <span class="label">Parks Surveyed</span>
@@ -98,10 +96,10 @@
 </section>
 
 <!-- ===== Methodology ===== -->
-<section id="methodology">
+<section id="methodology" class="bg-alt">
   <div class="container">
-    <div class="fade-up" style="max-width:700px;margin-bottom:80px;">
-      <p class="section-label">Methodology</p>
+    <div class="fade-up" style="max-width:700px;margin-bottom:48px;">
+      <p class="section-label"><span class="picto">🔬</span> Methodology</p>
       <h2 class="section-title">Three-step analytical framework</h2>
     </div>
 
@@ -135,7 +133,7 @@
       <div class="step-number">03</div>
       <div class="step-content">
         <h3>Cluster Analysis</h3>
-        <p>K-means clustering groups districts by similarities in price and amenity profiles, identifying structural typologies: high-price/high-amenity, emerging, and underdeveloped areas.</p>
+        <p>K-means clustering groups districts by similarities in price and amenity profiles, identifying structural typologies.</p>
         <div class="tags">
           <span class="tag">K-Means</span>
           <span class="tag">District Typology</span>
@@ -146,100 +144,79 @@
   </div>
 </section>
 
-<!-- ===== Data Sources ===== -->
-<section id="data">
+<!-- ===== Analysis & Visualization ===== -->
+<section id="analysis">
   <div class="container">
-    <div class="fade-up" style="max-width:700px;margin-bottom:64px;">
-      <p class="section-label">Data Sources</p>
-      <h2 class="section-title">Built on public, transparent data</h2>
+    <div class="fade-up" style="max-width:700px;margin-bottom:48px;">
+      <p class="section-label"><span class="picto">📊</span> Analysis &amp; Visualization</p>
+      <h2 class="section-title">분석 결과 살펴보기</h2>
+      <p class="section-desc">각 항목을 클릭하면 상세 분석 페이지로 이동합니다.</p>
     </div>
 
-    <div class="cards-grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));">
-      <div class="card source-card fade-up">
-        <div class="card-icon">🗄️</div>
-        <h3>Housing Transaction Data</h3>
-        <p class="source-label">Seoul Open Data Portal</p>
-        <ul>
-          <li>Real apartment sale prices</li>
-          <li>Jeonse (deposit lease) prices</li>
-          <li>Transaction volumes by district</li>
-        </ul>
-      </div>
-      <div class="card source-card fade-up">
-        <div class="card-icon">📄</div>
-        <h3>Urban Amenity Indicators</h3>
-        <p class="source-label">Seoul Open Data API</p>
-        <ul>
-          <li>Crime statistics &amp; safety index</li>
-          <li>Subway/bus infrastructure</li>
-          <li>School &amp; academy counts</li>
-          <li>Park area &amp; green coverage</li>
-        </ul>
-      </div>
-      <div class="card source-card fade-up">
-        <div class="card-icon">📈</div>
-        <h3>Macroeconomic Context</h3>
-        <p class="source-label">Bank of Korea</p>
-        <ul>
-          <li>Policy interest rate history</li>
-          <li>Mortgage lending growth</li>
-          <li>Housing supply indicators</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
+    <div class="analysis-grid fade-up">
+      <a href="apartment_analysis.html" class="analysis-card">
+        <div class="analysis-icon c1">🏢</div>
+        <div class="analysis-info">
+          <h3>Apartment Analysis</h3>
+          <p>서울 아파트 매매·전세 가격 분석 및 자치구별 비교</p>
+          <span class="analysis-arrow">자세히 보기</span>
+        </div>
+      </a>
 
-<!-- ===== Visualizations ===== -->
-<section id="visualizations" class="bg-gradient-navy">
-  <div class="container">
-    <div class="fade-up" style="max-width:700px;margin-bottom:64px;">
-      <p class="section-label">Sample Visualizations</p>
-      <h2 class="section-title">Preliminary data insights</h2>
-    </div>
+      <a href="district_growth.html" class="analysis-card">
+        <div class="analysis-icon c2">📈</div>
+        <div class="analysis-info">
+          <h3>District Growth</h3>
+          <p>자치구별 주택 가격 상승률 및 성장 패턴 분석</p>
+          <span class="analysis-arrow">자세히 보기</span>
+        </div>
+      </a>
 
-    <div class="charts-grid">
-      <div class="chart-card fade-up">
-        <h3>Housing Price Growth by District</h3>
-        <p class="chart-sub">% change in apartment sale prices, 2015–2024</p>
-        <div class="chart-container">
-          <canvas id="barChart"></canvas>
+      <a href="macro_factors.html" class="analysis-card">
+        <div class="analysis-icon c3">🌐</div>
+        <div class="analysis-info">
+          <h3>Macro Factors</h3>
+          <p>금리, 대출, 공급량 등 거시경제 요인 분석</p>
+          <span class="analysis-arrow">자세히 보기</span>
         </div>
-      </div>
+      </a>
 
-      <div class="chart-card fade-up">
-        <h3>Sale vs. Jeonse Price Index</h3>
-        <p class="chart-sub">Seoul average, indexed to 2015 = 100</p>
-        <div class="chart-container">
-          <canvas id="lineChart"></canvas>
+      <a href="micro_amenities.html" class="analysis-card">
+        <div class="analysis-icon c4">🏙️</div>
+        <div class="analysis-info">
+          <h3>Micro Amenities</h3>
+          <p>교통, 교육, 안전, 녹지 등 미시적 어메니티 분석</p>
+          <span class="analysis-arrow">자세히 보기</span>
         </div>
-        <div class="chart-legend">
-          <span><span class="legend-dot" style="background:hsl(40,75%,55%)"></span> Sale Price</span>
-          <span><span class="legend-dot" style="background:hsl(200,65%,50%)"></span> Jeonse Price</span>
-        </div>
-      </div>
+      </a>
 
-      <div class="chart-card full-width fade-up">
-        <h3>Amenity Profile Comparison</h3>
-        <p class="chart-sub">Gangnam vs. Nowon — amenity scores (0–100)</p>
-        <div class="chart-container radar-container">
-          <canvas id="radarChart"></canvas>
+      <a href="regulation.html" class="analysis-card">
+        <div class="analysis-icon c5">⚖️</div>
+        <div class="analysis-info">
+          <h3>Regulation</h3>
+          <p>부동산 규제 정책의 영향 및 효과 분석</p>
+          <span class="analysis-arrow">자세히 보기</span>
         </div>
-        <div class="chart-legend">
-          <span><span class="legend-dot" style="background:hsl(40,75%,55%)"></span> Gangnam</span>
-          <span><span class="legend-dot" style="background:hsl(200,65%,50%)"></span> Nowon</span>
+      </a>
+
+      <a href="outlook.html" class="analysis-card">
+        <div class="analysis-icon c6">🔮</div>
+        <div class="analysis-info">
+          <h3>Outlook</h3>
+          <p>향후 전망 및 정책 제언</p>
+          <span class="analysis-arrow">자세히 보기</span>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </section>
 
 <!-- ===== Team ===== -->
-<section id="team" class="bg-gradient-navy">
+<section id="team" class="bg-alt">
   <div class="container">
     <div class="team-grid">
       <div class="fade-up">
-        <p class="section-label">Research Team</p>
+        <p class="section-label"><span class="picto">👥</span> Research Team</p>
         <h2 class="section-title">Group 1</h2>
         <div class="team-member">
           <div class="avatar">H</div>
@@ -265,23 +242,23 @@
       </div>
 
       <div class="fade-up">
-        <p class="section-label">Success Criteria</p>
+        <p class="section-label"><span class="picto">🎯</span> Success Criteria</p>
         <h2 class="section-title">Project Goals</h2>
         <div class="criteria-item">
           <span class="num">01</span>
-          <p>Identify statistically significant drivers of price inequality</p>
+          <p>가격 불균형의 통계적으로 유의미한 요인 식별</p>
         </div>
         <div class="criteria-item">
           <span class="num">02</span>
-          <p>Quantify effect sizes (e.g., % price change per subway station density)</p>
+          <p>효과 크기 정량화 (예: 지하철역 밀도당 가격 변동률)</p>
         </div>
         <div class="criteria-item">
           <span class="num">03</span>
-          <p>Provide actionable recommendations for urban planning</p>
+          <p>도시 계획을 위한 실행 가능한 정책 제언 제공</p>
         </div>
         <div class="criteria-item">
           <span class="num">04</span>
-          <p>Present findings in a visually intuitive and accessible format</p>
+          <p>시각적으로 직관적이고 접근 가능한 형태로 결과 제시</p>
         </div>
       </div>
     </div>
