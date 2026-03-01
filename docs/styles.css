@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&display=swap');
 
 * {
   margin: 0;
@@ -7,38 +7,38 @@
 }
 
 :root {
-  --bg: hsl(40, 30%, 97%);
-  --bg-alt: hsl(40, 25%, 93%);
-  --fg: hsl(220, 25%, 15%);
+  --bg: hsl(210, 20%, 98%);
+  --bg-alt: hsl(210, 15%, 95%);
+  --fg: hsl(215, 25%, 20%);
   --card: hsl(0, 0%, 100%);
-  --primary: hsl(220, 55%, 45%);
-  --primary-light: hsl(220, 55%, 92%);
+  --primary: hsl(215, 40%, 50%);
+  --primary-light: hsl(215, 40%, 94%);
   --primary-fg: hsl(0, 0%, 100%);
-  --secondary: hsl(40, 60%, 50%);
-  --secondary-light: hsl(40, 65%, 92%);
-  --muted: hsl(220, 10%, 60%);
-  --muted-fg: hsl(220, 10%, 45%);
-  --border: hsl(220, 15%, 88%);
-  --accent-red: hsl(0, 65%, 55%);
-  --accent-blue: hsl(200, 65%, 50%);
-  --accent-green: hsl(140, 50%, 45%);
-  --accent-orange: hsl(30, 75%, 55%);
-  --accent-purple: hsl(270, 50%, 55%);
-  --accent-teal: hsl(175, 50%, 42%);
-  --shadow: 0 2px 12px hsla(220, 25%, 10%, 0.06);
-  --shadow-hover: 0 6px 24px hsla(220, 25%, 10%, 0.1);
-  --radius: 16px;
+  --secondary: hsl(170, 35%, 48%);
+  --secondary-light: hsl(170, 35%, 92%);
+  --muted: hsl(215, 10%, 58%);
+  --muted-fg: hsl(215, 12%, 42%);
+  --border: hsl(215, 12%, 90%);
+  --accent-red: hsl(0, 55%, 58%);
+  --accent-blue: hsl(200, 55%, 52%);
+  --accent-green: hsl(155, 40%, 48%);
+  --accent-orange: hsl(30, 60%, 55%);
+  --accent-purple: hsl(260, 40%, 58%);
+  --accent-teal: hsl(175, 40%, 45%);
+  --shadow: 0 2px 12px hsla(215, 20%, 10%, 0.05);
+  --shadow-hover: 0 6px 20px hsla(215, 20%, 10%, 0.08);
+  --radius: 14px;
 }
 
 body {
   background: var(--bg);
   color: var(--fg);
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Inter', -apple-system, sans-serif;
   line-height: 1.7;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'DM Serif Display', serif;
   color: var(--fg);
 }
 
@@ -70,7 +70,7 @@ a { color: inherit; text-decoration: none; }
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 50;
-  background: hsla(40, 30%, 97%, 0.85);
+  background: hsla(210, 20%, 98%, 0.88);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid transparent;
   transition: border 0.3s, box-shadow 0.3s;
@@ -88,7 +88,7 @@ a { color: inherit; text-decoration: none; }
   margin: 0 auto;
 }
 .navbar-brand {
-  font-family: 'Playfair Display', serif;
+  font-family: 'DM Serif Display', serif;
   font-size: 18px;
   font-weight: 700;
   background: none;
@@ -109,7 +109,7 @@ a { color: inherit; text-decoration: none; }
   font-weight: 500;
   cursor: pointer;
   transition: color 0.2s;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 .navbar-links button:hover { color: var(--primary); }
 
@@ -125,7 +125,7 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: linear-gradient(135deg, hsl(220, 55%, 45%) 0%, hsl(200, 55%, 50%) 100%);
+  background: linear-gradient(135deg, hsl(215, 35%, 35%) 0%, hsl(200, 30%, 45%) 100%);
 }
 .hero-bg {
   position: absolute;
@@ -135,7 +135,8 @@ a { color: inherit; text-decoration: none; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.15;
+  opacity: 0.2;
+  filter: brightness(1.2);
 }
 .hero-content {
   position: relative;
@@ -162,7 +163,7 @@ a { color: inherit; text-decoration: none; }
   color: white;
 }
 .text-highlight {
-  color: hsl(40, 80%, 70%);
+  color: hsl(170, 50%, 65%);
 }
 .hero-desc {
   font-size: 16px;
@@ -187,7 +188,7 @@ a { color: inherit; text-decoration: none; }
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: hsl(40, 80%, 70%);
+  background: hsl(170, 50%, 65%);
   display: inline-block;
 }
 
@@ -260,7 +261,7 @@ section {
 .card-icon.green { background: hsl(85, 50%, 90%); }
 
 .card h3 {
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 17px;
   font-weight: 600;
   margin-bottom: 8px;
@@ -314,7 +315,7 @@ section {
   border-bottom: 1px solid var(--border);
 }
 .step-content h3 {
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 8px;
@@ -416,7 +417,7 @@ section {
 .analysis-icon.c6 { background: hsl(175, 45%, 90%); }
 
 .analysis-info h3 {
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 6px;
@@ -460,7 +461,7 @@ section {
   grid-column: 1 / -1;
 }
 .chart-card h3 {
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 4px;
@@ -523,7 +524,7 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Playfair Display', serif;
+  font-family: 'DM Serif Display', serif;
   font-size: 18px;
   font-weight: 700;
   color: var(--primary);
