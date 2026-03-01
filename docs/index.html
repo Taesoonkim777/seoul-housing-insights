@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,7 +10,6 @@
 </head>
 <body>
 
-<!-- ===== Navbar ===== -->
 <nav class="navbar">
   <div class="navbar-inner">
     <button class="navbar-brand" onclick="window.location.href='index.html'"><span>Seoul</span> Housing</button>
@@ -23,10 +22,9 @@
   </div>
 </nav>
 
-<!-- ===== Hero ===== -->
 <section class="hero">
   <div class="hero-bg">
-    <img src="https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=1920&q=80" alt="Seoul cityscape" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Seoul_districts_map.svg/1200px-Seoul_districts_map.svg.png" alt="Seoul district map" />
   </div>
   <div class="hero-content fade-up">
     <p class="hero-subtitle">Advanced Data Visualization · Group 1</p>
@@ -34,7 +32,7 @@
       Urban Amenities &amp; <span class="text-highlight">Housing Price Inequality</span> in Seoul
     </h1>
     <p class="hero-desc">
-      서울 25개 자치구의 도시 인프라와 주택 가격 상승률 간의 공간적 관계를 탐구합니다
+      Exploring the spatial relationship between urban infrastructure and housing price growth across Seoul's 25 districts.
     </p>
     <div class="hero-authors">
       <span><span class="dot"></span> Hakyun Song</span>
@@ -44,21 +42,20 @@
   </div>
 </section>
 
-<!-- ===== Overview ===== -->
 <section id="overview">
   <div class="container">
     <div class="fade-up" style="max-width:700px;margin-bottom:48px;">
       <p class="section-label"><span class="picto">📋</span> Overview</p>
-      <h2 class="section-title">프로젝트 소개</h2>
+      <h2 class="section-title">About This Project</h2>
       <p class="section-desc">
-        서울의 주택 가격은 지난 10년간 급등했지만, 25개 자치구별로 상승률은 균일하지 않았습니다. 본 연구는 안전, 교통, 교육, 녹지 등 도시 어메니티가 이러한 가격 불균형을 어떻게 설명하는지 분석합니다.
+        Housing prices in Seoul have surged over the past decade, but growth rates vary significantly across the city's 25 districts. This study analyzes how urban amenities — safety, transportation, education, and green space — explain these price disparities.
       </p>
     </div>
     <div class="cards-grid">
       <div class="card fade-up">
         <div class="card-icon safety">🛡️</div>
         <h3>Safety</h3>
-        <p>범죄 발생 건수, 인구 1,000명당 범죄율 및 유형별 분석</p>
+        <p>Crime incidents, per-capita crime rates, and type-specific analysis across districts.</p>
         <div class="card-stat">
           <span class="number">25</span>
           <span class="label">Districts Analyzed</span>
@@ -67,7 +64,7 @@
       <div class="card fade-up">
         <div class="card-icon transport">🚇</div>
         <h3>Transportation</h3>
-        <p>지하철역 밀도, 버스 정류장 위치, 일일 지하철 이용객 데이터</p>
+        <p>Subway station density, bus stop locations, and daily ridership data.</p>
         <div class="card-stat">
           <span class="number">9</span>
           <span class="label">Subway Lines</span>
@@ -76,7 +73,7 @@
       <div class="card fade-up">
         <div class="card-icon education">🎓</div>
         <h3>Education</h3>
-        <p>자치구별 학교 수, 학원 수, 학생 인구 분포</p>
+        <p>School count, private academies, and student population by district.</p>
         <div class="card-stat">
           <span class="number">2,200+</span>
           <span class="label">Schools Mapped</span>
@@ -85,7 +82,7 @@
       <div class="card fade-up">
         <div class="card-icon green">🌲</div>
         <h3>Green Space</h3>
-        <p>자치구별 공원 면적, 1인당 녹지, 도시숲 면적</p>
+        <p>Park area, per-capita green space, and urban forest coverage.</p>
         <div class="card-stat">
           <span class="number">170+</span>
           <span class="label">Parks Surveyed</span>
@@ -95,12 +92,11 @@
   </div>
 </section>
 
-<!-- ===== Methodology ===== -->
 <section id="methodology" class="bg-alt">
   <div class="container">
     <div class="fade-up" style="max-width:700px;margin-bottom:48px;">
       <p class="section-label"><span class="picto">🔬</span> Methodology</p>
-      <h2 class="section-title">Three-step analytical framework</h2>
+      <h2 class="section-title">Three-Step Analytical Framework</h2>
     </div>
 
     <div class="step fade-up">
@@ -144,13 +140,12 @@
   </div>
 </section>
 
-<!-- ===== Analysis & Visualization ===== -->
 <section id="analysis">
   <div class="container">
     <div class="fade-up" style="max-width:700px;margin-bottom:48px;">
       <p class="section-label"><span class="picto">📊</span> Analysis &amp; Visualization</p>
-      <h2 class="section-title">분석 결과 살펴보기</h2>
-      <p class="section-desc">각 항목을 클릭하면 상세 분석 페이지로 이동합니다.</p>
+      <h2 class="section-title">Explore the Results</h2>
+      <p class="section-desc">Click each card to view detailed analysis.</p>
     </div>
 
     <div class="analysis-grid fade-up">
@@ -158,8 +153,8 @@
         <div class="analysis-icon c1">🏢</div>
         <div class="analysis-info">
           <h3>Apartment Analysis</h3>
-          <p>서울 아파트 매매·전세 가격 분석 및 자치구별 비교</p>
-          <span class="analysis-arrow">자세히 보기</span>
+          <p>Sale and rent price analysis with district-level comparison.</p>
+          <span class="analysis-arrow">View details</span>
         </div>
       </a>
 
@@ -167,8 +162,8 @@
         <div class="analysis-icon c2">📈</div>
         <div class="analysis-info">
           <h3>District Growth</h3>
-          <p>자치구별 주택 가격 상승률 및 성장 패턴 분석</p>
-          <span class="analysis-arrow">자세히 보기</span>
+          <p>Housing price growth rates and patterns across districts.</p>
+          <span class="analysis-arrow">View details</span>
         </div>
       </a>
 
@@ -176,8 +171,8 @@
         <div class="analysis-icon c3">🌐</div>
         <div class="analysis-info">
           <h3>Macro Factors</h3>
-          <p>금리, 대출, 공급량 등 거시경제 요인 분석</p>
-          <span class="analysis-arrow">자세히 보기</span>
+          <p>Interest rates, loans, supply volume and macroeconomic drivers.</p>
+          <span class="analysis-arrow">View details</span>
         </div>
       </a>
 
@@ -185,8 +180,8 @@
         <div class="analysis-icon c4">🏙️</div>
         <div class="analysis-info">
           <h3>Micro Amenities</h3>
-          <p>교통, 교육, 안전, 녹지 등 미시적 어메니티 분석</p>
-          <span class="analysis-arrow">자세히 보기</span>
+          <p>Transport, education, safety, and green space amenity analysis.</p>
+          <span class="analysis-arrow">View details</span>
         </div>
       </a>
 
@@ -194,8 +189,8 @@
         <div class="analysis-icon c5">⚖️</div>
         <div class="analysis-info">
           <h3>Regulation</h3>
-          <p>부동산 규제 정책의 영향 및 효과 분석</p>
-          <span class="analysis-arrow">자세히 보기</span>
+          <p>Impact and effectiveness of real estate regulation policies.</p>
+          <span class="analysis-arrow">View details</span>
         </div>
       </a>
 
@@ -203,15 +198,14 @@
         <div class="analysis-icon c6">🔮</div>
         <div class="analysis-info">
           <h3>Outlook</h3>
-          <p>향후 전망 및 정책 제언</p>
-          <span class="analysis-arrow">자세히 보기</span>
+          <p>Future projections and policy recommendations.</p>
+          <span class="analysis-arrow">View details</span>
         </div>
       </a>
     </div>
   </div>
 </section>
 
-<!-- ===== Team ===== -->
 <section id="team" class="bg-alt">
   <div class="container">
     <div class="team-grid">
@@ -246,19 +240,19 @@
         <h2 class="section-title">Project Goals</h2>
         <div class="criteria-item">
           <span class="num">01</span>
-          <p>가격 불균형의 통계적으로 유의미한 요인 식별</p>
+          <p>Identify statistically significant factors behind price inequality.</p>
         </div>
         <div class="criteria-item">
           <span class="num">02</span>
-          <p>효과 크기 정량화 (예: 지하철역 밀도당 가격 변동률)</p>
+          <p>Quantify effect sizes (e.g., price change per subway station density).</p>
         </div>
         <div class="criteria-item">
           <span class="num">03</span>
-          <p>도시 계획을 위한 실행 가능한 정책 제언 제공</p>
+          <p>Provide actionable policy recommendations for urban planning.</p>
         </div>
         <div class="criteria-item">
           <span class="num">04</span>
-          <p>시각적으로 직관적이고 접근 가능한 형태로 결과 제시</p>
+          <p>Present results in a visually intuitive and accessible format.</p>
         </div>
       </div>
     </div>
