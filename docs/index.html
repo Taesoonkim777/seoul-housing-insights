@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Urban Amenities & Housing Price Inequality in Seoul</title>
+  <meta name="description" content="Exploring the spatial relationship between urban infrastructure and housing price growth across Seoul's 25 districts." />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head>
+<body>
+
+<!-- ===== Navbar ===== -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <button class="navbar-brand"><span>Seoul</span> Housing</button>
+    <div class="navbar-links">
+      <button data-scroll="overview">Overview</button>
+      <button data-scroll="methodology">Methodology</button>
+      <button data-scroll="data">Data</button>
+      <button data-scroll="visualizations">Visualizations</button>
+      <button data-scroll="team">Team</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== Hero ===== -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=1920&q=80" alt="Seoul cityscape at night" />
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-content fade-up">
+    <p class="hero-subtitle">Advanced Data Visualization · Group 1</p>
+    <h1 class="hero-title">
+      Urban Amenities &amp; <span class="text-gradient-gold">Housing Price Inequality</span> in Seoul
+    </h1>
+    <p class="hero-desc">
+      Exploring the spatial relationship between urban infrastructure and housing price growth across Seoul's 25 districts
+    </p>
+    <div class="hero-authors">
+      <span><span class="dot"></span> Hakyun Song</span>
+      <span><span class="dot"></span> Insung Lee</span>
+      <span><span class="dot"></span> Taesoon Kim</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Research Overview ===== -->
+<section id="overview" class="bg-gradient-navy">
+  <div class="container">
+    <div class="fade-up" style="max-width:700px;margin-bottom:80px;">
+      <p class="section-label">Research Question</p>
+      <h2 class="section-title">What drives housing price inequality across Seoul?</h2>
+      <p class="section-desc">
+        While Seoul's housing prices have surged over the past decade, the growth has been uneven across its 25 sub-districts. We investigate how urban amenities — safety, transportation, education, and green space — explain this variation.
+      </p>
+    </div>
+    <div class="cards-grid">
+      <div class="card fade-up">
+        <div class="card-icon" style="color:var(--chart-safety);">🛡️</div>
+        <h3>Safety</h3>
+        <p>Crime incidents, crime rates per 1,000 residents, and crime type breakdown across districts</p>
+        <div class="card-stat">
+          <span class="number">25</span>
+          <span class="label">Districts Analyzed</span>
+        </div>
+      </div>
+      <div class="card fade-up">
+        <div class="card-icon" style="color:var(--chart-transport);">🚇</div>
+        <h3>Transportation</h3>
+        <p>Subway station density, bus stop locations, and daily subway ridership data</p>
+        <div class="card-stat">
+          <span class="number">9</span>
+          <span class="label">Subway Lines</span>
+        </div>
+      </div>
+      <div class="card fade-up">
+        <div class="card-icon" style="color:var(--chart-education);">🎓</div>
+        <h3>Education</h3>
+        <p>Schools by district, private academy count, and student population distribution</p>
+        <div class="card-stat">
+          <span class="number">2,200+</span>
+          <span class="label">Schools Mapped</span>
+        </div>
+      </div>
+      <div class="card fade-up">
+        <div class="card-icon" style="color:var(--chart-green);">🌲</div>
+        <h3>Green Space</h3>
+        <p>Park area per district, green space per capita, and urban forest coverage</p>
+        <div class="card-stat">
+          <span class="number">170+</span>
+          <span class="label">Parks Surveyed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Methodology ===== -->
+<section id="methodology">
+  <div class="container">
+    <div class="fade-up" style="max-width:700px;margin-bottom:80px;">
+      <p class="section-label">Methodology</p>
+      <h2 class="section-title">Three-step analytical framework</h2>
+    </div>
+
+    <div class="step fade-up">
+      <div class="step-number">01</div>
+      <div class="step-content">
+        <h3>Descriptive Spatial Analysis</h3>
+        <p>Choropleth maps visualize housing price growth rates by district, revealing spatial concentration patterns. Time-series trends compare sale vs. rent dynamics.</p>
+        <div class="tags">
+          <span class="tag">Choropleth Maps</span>
+          <span class="tag">Time-Series</span>
+          <span class="tag">Spatial Clustering</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step fade-up">
+      <div class="step-number">02</div>
+      <div class="step-content">
+        <h3>Correlation &amp; Regression</h3>
+        <p>A multivariate regression estimates the statistical relationship between price growth and amenity indicators: Price = β₀ + β₁Safety + β₂Transport + β₃Education + β₄Green + ε</p>
+        <div class="tags">
+          <span class="tag">OLS Regression</span>
+          <span class="tag">Effect Sizes</span>
+          <span class="tag">Statistical Significance</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step fade-up">
+      <div class="step-number">03</div>
+      <div class="step-content">
+        <h3>Cluster Analysis</h3>
+        <p>K-means clustering groups districts by similarities in price and amenity profiles, identifying structural typologies: high-price/high-amenity, emerging, and underdeveloped areas.</p>
+        <div class="tags">
+          <span class="tag">K-Means</span>
+          <span class="tag">District Typology</span>
+          <span class="tag">Pattern Recognition</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Data Sources ===== -->
+<section id="data">
+  <div class="container">
+    <div class="fade-up" style="max-width:700px;margin-bottom:64px;">
+      <p class="section-label">Data Sources</p>
+      <h2 class="section-title">Built on public, transparent data</h2>
+    </div>
+
+    <div class="cards-grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));">
+      <div class="card source-card fade-up">
+        <div class="card-icon">🗄️</div>
+        <h3>Housing Transaction Data</h3>
+        <p class="source-label">Seoul Open Data Portal</p>
+        <ul>
+          <li>Real apartment sale prices</li>
+          <li>Jeonse (deposit lease) prices</li>
+          <li>Transaction volumes by district</li>
+        </ul>
+      </div>
+      <div class="card source-card fade-up">
+        <div class="card-icon">📄</div>
+        <h3>Urban Amenity Indicators</h3>
+        <p class="source-label">Seoul Open Data API</p>
+        <ul>
+          <li>Crime statistics &amp; safety index</li>
+          <li>Subway/bus infrastructure</li>
+          <li>School &amp; academy counts</li>
+          <li>Park area &amp; green coverage</li>
+        </ul>
+      </div>
+      <div class="card source-card fade-up">
+        <div class="card-icon">📈</div>
+        <h3>Macroeconomic Context</h3>
+        <p class="source-label">Bank of Korea</p>
+        <ul>
+          <li>Policy interest rate history</li>
+          <li>Mortgage lending growth</li>
+          <li>Housing supply indicators</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Visualizations ===== -->
+<section id="visualizations" class="bg-gradient-navy">
+  <div class="container">
+    <div class="fade-up" style="max-width:700px;margin-bottom:64px;">
+      <p class="section-label">Sample Visualizations</p>
+      <h2 class="section-title">Preliminary data insights</h2>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card fade-up">
+        <h3>Housing Price Growth by District</h3>
+        <p class="chart-sub">% change in apartment sale prices, 2015–2024</p>
+        <div class="chart-container">
+          <canvas id="barChart"></canvas>
+        </div>
+      </div>
+
+      <div class="chart-card fade-up">
+        <h3>Sale vs. Jeonse Price Index</h3>
+        <p class="chart-sub">Seoul average, indexed to 2015 = 100</p>
+        <div class="chart-container">
+          <canvas id="lineChart"></canvas>
+        </div>
+        <div class="chart-legend">
+          <span><span class="legend-dot" style="background:hsl(40,75%,55%)"></span> Sale Price</span>
+          <span><span class="legend-dot" style="background:hsl(200,65%,50%)"></span> Jeonse Price</span>
+        </div>
+      </div>
+
+      <div class="chart-card full-width fade-up">
+        <h3>Amenity Profile Comparison</h3>
+        <p class="chart-sub">Gangnam vs. Nowon — amenity scores (0–100)</p>
+        <div class="chart-container radar-container">
+          <canvas id="radarChart"></canvas>
+        </div>
+        <div class="chart-legend">
+          <span><span class="legend-dot" style="background:hsl(40,75%,55%)"></span> Gangnam</span>
+          <span><span class="legend-dot" style="background:hsl(200,65%,50%)"></span> Nowon</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Team ===== -->
+<section id="team" class="bg-gradient-navy">
+  <div class="container">
+    <div class="team-grid">
+      <div class="fade-up">
+        <p class="section-label">Research Team</p>
+        <h2 class="section-title">Group 1</h2>
+        <div class="team-member">
+          <div class="avatar">H</div>
+          <div>
+            <p class="name">Hakyun Song</p>
+            <p class="role">Spatial Analysis &amp; Mapping</p>
+          </div>
+        </div>
+        <div class="team-member">
+          <div class="avatar">I</div>
+          <div>
+            <p class="name">Insung Lee</p>
+            <p class="role">Statistical Modeling &amp; Regression</p>
+          </div>
+        </div>
+        <div class="team-member">
+          <div class="avatar">T</div>
+          <div>
+            <p class="name">Taesoon Kim</p>
+            <p class="role">Data Visualization &amp; Dashboard</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="fade-up">
+        <p class="section-label">Success Criteria</p>
+        <h2 class="section-title">Project Goals</h2>
+        <div class="criteria-item">
+          <span class="num">01</span>
+          <p>Identify statistically significant drivers of price inequality</p>
+        </div>
+        <div class="criteria-item">
+          <span class="num">02</span>
+          <p>Quantify effect sizes (e.g., % price change per subway station density)</p>
+        </div>
+        <div class="criteria-item">
+          <span class="num">03</span>
+          <p>Provide actionable recommendations for urban planning</p>
+        </div>
+        <div class="criteria-item">
+          <span class="num">04</span>
+          <p>Present findings in a visually intuitive and accessible format</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Advanced Data Visualization · Spring 2026 · Seoul, Korea
+    </div>
+  </div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
