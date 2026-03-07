@@ -1,10 +1,106 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Macro Factors - Seoul Housing</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <style>
+    .macro-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .macro-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      border: 1px solid #ececec;
+    }
+
+    .macro-card h2 {
+      font-size: 20px;
+      margin: 0 0 8px 0;
+    }
+
+    .macro-card p {
+      margin: 0 0 14px 0;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .chart {
+      width: 100%;
+      height: 420px;
+    }
+
+    .insight-box {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .insight-item {
+      background: #fff;
+      border-radius: 16px;
+      padding: 18px;
+      border: 1px solid #ececec;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+    }
+
+    .insight-label {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    .insight-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .insight-note {
+      margin-top: 6px;
+      font-size: 12px;
+      color: #777;
+    }
+
+    .macro-note {
+      background: #f8fafc;
+      border-left: 4px solid #2563eb;
+      padding: 16px 18px;
+      border-radius: 12px;
+      margin-top: 24px;
+      line-height: 1.7;
+      color: #333;
+    }
+
+    .loading-text,
+    .error-text {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 12px;
+      background: #fff;
+      border: 1px solid #ececec;
+    }
+
+    @media (max-width: 900px) {
+      .insight-box {
+        grid-template-columns: 1fr;
+      }
+
+      .chart {
+        height: 340px;
+      }
+    }
+  </style>
 </head>
 <body class="sub-page">
 <nav class="navbar scrolled">
@@ -12,18 +108,254 @@
     <button class="navbar-brand" onclick="window.location.href='index.html'"><span>Seoul</span> Housing</button>
   </div>
 </nav>
+
 <div class="container">
   <div class="sub-hero">
-    <a href="index.html" class="back-link">← 메인으로 돌아가기</a>
+    <a href="index.html" class="back-link">← Back to Main</a>
     <h1>🌐 Macro Factors</h1>
-    <p>금리, 대출, 공급량 등 거시경제 요인 분석</p>
+    <p>Analysis of macroeconomic drivers such as interest rates, credit conditions, and housing supply.</p>
   </div>
-  <div class="content-placeholder">
-    <div class="placeholder-icon">🌐</div>
-    <p>이 영역에 분석 내용을 추가하세요.</p>
-    <p style="font-size:13px;">이 HTML 파일을 직접 수정하여 차트, 테이블, 텍스트 등을 넣을 수 있습니다.</p>
+
+  <div id="loading" class="loading-text">Loading data...</div>
+  <div id="error" class="error-text" style="display:none;"></div>
+
+  <div id="macro-content" style="display:none;">
+    <div class="insight-box">
+      <div class="insight-item">
+        <div class="insight-label">Latest Price YoY</div>
+        <div class="insight-value" id="latest-price-yoy">-</div>
+        <div class="insight-note">Year-over-year growth in Seoul apartment prices</div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-label">Latest Base Rate</div>
+        <div class="insight-value" id="latest-base-rate">-</div>
+        <div class="insight-note">Bank of Korea policy rate</div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-label">Latest Loan YoY</div>
+        <div class="insight-value" id="latest-loan-yoy">-</div>
+        <div class="insight-note">Year-over-year growth in household loans</div>
+      </div>
+    </div>
+
+    <div class="macro-note">
+      Short-term turning points in Seoul’s housing market tend to move closely with changes in interest rates and credit conditions.
+      The charts below compare apartment price growth, the policy rate, and household loan growth to show how macro tightening and easing aligned with major shifts in the housing cycle.
+    </div>
+
+    <div class="macro-grid">
+      <section class="macro-card">
+        <h2>1. Seoul Housing Cycle</h2>
+        <p>This chart shows year-over-year growth in Seoul apartment prices and highlights periods of acceleration and slowdown in the housing market.</p>
+        <div id="chart-price-yoy" class="chart"></div>
+      </section>
+
+      <section class="macro-card">
+        <h2>2. Price vs Base Rate</h2>
+        <p>This chart compares the Seoul apartment price index with the Bank of Korea base rate, helping illustrate how housing momentum shifted during the tightening cycle.</p>
+        <div id="chart-price-rate" class="chart"></div>
+      </section>
+
+      <section class="macro-card">
+        <h2>3. Credit Growth vs Housing Momentum</h2>
+        <p>This chart compares household loan growth with housing price growth, highlighting how credit expansion tends to move alongside housing market momentum.</p>
+        <div id="chart-loan-yoy" class="chart"></div>
+      </section>
+    </div>
   </div>
 </div>
+
+<script>
+  const CSV_PATH = "macro_city_monthly.csv";
+
+  function toNumber(value) {
+    if (value === null || value === undefined || value === "") return null;
+    const n = Number(value);
+    return Number.isNaN(n) ? null : n;
+  }
+
+  function formatPercent(value) {
+    if (value === null || value === undefined || Number.isNaN(value)) return "-";
+    return `${value.toFixed(2)}%`;
+  }
+
+  function parseData(rows) {
+    return rows
+      .filter(row => row.date)
+      .map(row => ({
+        date: row.date,
+        region: row.region,
+        price_index: toNumber(row.price_index),
+        price_yoy: toNumber(row.price_yoy),
+        base_rate: toNumber(row.base_rate),
+        loan_rate: toNumber(row.loan_rate),
+        household_loan: toNumber(row.household_loan),
+        loan_yoy: toNumber(row.loan_yoy)
+      }))
+      .sort((a, b) => new Date(a.date) - new Date(b.date));
+  }
+
+  function updateSummary(data) {
+    const latest = [...data]
+      .filter(d => d.price_yoy !== null || d.base_rate !== null || d.loan_yoy !== null)
+      .pop();
+
+    document.getElementById("latest-price-yoy").textContent =
+      latest && latest.price_yoy !== null ? formatPercent(latest.price_yoy) : "-";
+
+    document.getElementById("latest-base-rate").textContent =
+      latest && latest.base_rate !== null ? formatPercent(latest.base_rate) : "-";
+
+    document.getElementById("latest-loan-yoy").textContent =
+      latest && latest.loan_yoy !== null ? formatPercent(latest.loan_yoy) : "-";
+  }
+
+  function drawPriceYoyChart(data) {
+    const trace = {
+      x: data.map(d => d.date),
+      y: data.map(d => d.price_yoy),
+      mode: "lines",
+      name: "Price YoY (%)",
+      line: { width: 3 }
+    };
+
+    const layout = {
+      margin: { t: 20, r: 20, b: 50, l: 50 },
+      xaxis: {
+        tickformat: "%Y-%m",
+        title: ""
+      },
+      yaxis: {
+        title: "YoY (%)"
+      },
+      hovermode: "x unified",
+      paper_bgcolor: "white",
+      plot_bgcolor: "white"
+    };
+
+    Plotly.newPlot("chart-price-yoy", [trace], layout, { responsive: true, displayModeBar: false });
+  }
+
+  function drawPriceRateChart(data) {
+    const priceTrace = {
+      x: data.map(d => d.date),
+      y: data.map(d => d.price_index),
+      mode: "lines",
+      name: "Price Index",
+      line: { width: 3 },
+      yaxis: "y1"
+    };
+
+    const rateTrace = {
+      x: data.map(d => d.date),
+      y: data.map(d => d.base_rate),
+      mode: "lines",
+      name: "Base Rate (%)",
+      line: { width: 2, dash: "dash" },
+      yaxis: "y2"
+    };
+
+    const layout = {
+      margin: { t: 20, r: 50, b: 50, l: 50 },
+      xaxis: {
+        tickformat: "%Y-%m"
+      },
+      yaxis: {
+        title: "Price Index"
+      },
+      yaxis2: {
+        title: "Base Rate (%)",
+        overlaying: "y",
+        side: "right"
+      },
+      hovermode: "x unified",
+      paper_bgcolor: "white",
+      plot_bgcolor: "white",
+      legend: {
+        orientation: "h",
+        y: 1.12
+      }
+    };
+
+    Plotly.newPlot("chart-price-rate", [priceTrace, rateTrace], layout, { responsive: true, displayModeBar: false });
+  }
+
+  function drawLoanYoyChart(data) {
+    const loanTrace = {
+      x: data.map(d => d.date),
+      y: data.map(d => d.loan_yoy),
+      mode: "lines",
+      name: "Loan YoY (%)",
+      line: { width: 3 }
+    };
+
+    const priceTrace = {
+      x: data.map(d => d.date),
+      y: data.map(d => d.price_yoy),
+      mode: "lines",
+      name: "Price YoY (%)",
+      line: { width: 2, dash: "dash" }
+    };
+
+    const layout = {
+      margin: { t: 20, r: 20, b: 50, l: 50 },
+      xaxis: {
+        tickformat: "%Y-%m"
+      },
+      yaxis: {
+        title: "YoY (%)"
+      },
+      hovermode: "x unified",
+      paper_bgcolor: "white",
+      plot_bgcolor: "white",
+      legend: {
+        orientation: "h",
+        y: 1.12
+      }
+    };
+
+    Plotly.newPlot("chart-loan-yoy", [loanTrace, priceTrace], layout, { responsive: true, displayModeBar: false });
+  }
+
+  function initMacroPage() {
+    Papa.parse(CSV_PATH, {
+      download: true,
+      header: true,
+      complete: function(results) {
+        try {
+          const data = parseData(results.data);
+
+          if (!data.length) {
+            throw new Error("The CSV file is empty.");
+          }
+
+          updateSummary(data);
+          drawPriceYoyChart(data);
+          drawPriceRateChart(data);
+          drawLoanYoyChart(data);
+
+          document.getElementById("loading").style.display = "none";
+          document.getElementById("macro-content").style.display = "block";
+        } catch (err) {
+          document.getElementById("loading").style.display = "none";
+          const errorEl = document.getElementById("error");
+          errorEl.style.display = "block";
+          errorEl.textContent = "Failed to render charts: " + err.message;
+        }
+      },
+      error: function(err) {
+        document.getElementById("loading").style.display = "none";
+        const errorEl = document.getElementById("error");
+        errorEl.style.display = "block";
+        errorEl.textContent = "Failed to load the CSV file. Please check whether macro_city_monthly.csv is in the public folder.";
+        console.error(err);
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", initMacroPage);
+</script>
+
 <script src="script.js"></script>
 </body>
 </html>
