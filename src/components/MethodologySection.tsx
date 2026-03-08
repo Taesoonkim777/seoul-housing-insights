@@ -6,81 +6,79 @@ const steps = [
     step: "01",
     icon: Map,
     title: "Descriptive Spatial Analysis",
-    description:
-      "Choropleth maps visualize housing price growth rates by district, revealing spatial concentration patterns. Time-series trends compare sale vs. rent dynamics.",
+    desc: "Choropleth maps and time-series trends reveal spatial concentration and sale vs. rent dynamics.",
     tags: ["Choropleth Maps", "Time-Series", "Spatial Clustering"],
   },
   {
     step: "02",
     icon: BarChart3,
     title: "Correlation & Regression",
-    description:
-      "A multivariate regression estimates the statistical relationship between price growth and amenity indicators: Price = β₀ + β₁Safety + β₂Transport + β₃Education + β₄Green + ε",
-    tags: ["OLS Regression", "Effect Sizes", "Statistical Significance"],
+    desc: "Multivariate regression quantifies how amenity indicators relate to price growth across districts.",
+    tags: ["OLS Regression", "Effect Sizes", "Significance"],
   },
   {
     step: "03",
     icon: Boxes,
     title: "Cluster Analysis",
-    description:
-      "K-means clustering groups districts by similarities in price and amenity profiles, identifying structural typologies: high-price/high-amenity, emerging, and underdeveloped areas.",
-    tags: ["K-Means", "District Typology", "Pattern Recognition"],
+    desc: "K-means clustering identifies district typologies based on price and amenity profiles.",
+    tags: ["K-Means", "Typology", "Pattern Recognition"],
   },
 ];
 
 const MethodologySection = () => {
   return (
-    <section className="py-24 md:py-32 relative">
+    <section className="py-20 md:py-24 border-t border-border">
       <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="max-w-3xl mb-20"
-        >
-          <p className="font-mono text-xs tracking-[0.3em] uppercase text-primary mb-4">
+        <div className="text-center mb-12">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="font-mono text-[11px] tracking-[0.25em] uppercase text-primary mb-3"
+          >
             Methodology
-          </p>
-          <h2 className="font-display text-3xl md:text-4xl font-bold">
-            Three-step analytical framework
-          </h2>
-        </motion.div>
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.05 }}
+            className="font-display text-2xl md:text-3xl font-bold"
+          >
+            Three-Step Analytical Framework
+          </motion.h2>
+        </div>
 
-        <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {steps.map((s, i) => (
             <motion.div
               key={s.step}
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.15 }}
-              className="flex gap-6 md:gap-10 group"
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              className="bg-card border border-border rounded-xl p-6 hover:border-primary/25 hover:shadow-md transition-all duration-300 group"
+              style={{ boxShadow: "var(--shadow-card)" }}
             >
-              {/* Step number */}
-              <div className="flex-shrink-0 w-16 h-16 rounded-lg bg-secondary flex items-center justify-center border border-border group-hover:border-primary/40 transition-colors">
-                <span className="font-mono text-lg font-bold text-primary">{s.step}</span>
+              <div className="flex items-center gap-3 mb-3">
+                <span className="font-mono text-xs font-bold text-primary/60">
+                  {s.step}
+                </span>
+                <s.icon className="w-4.5 h-4.5 text-primary" />
               </div>
-
-              {/* Content */}
-              <div className="flex-1 pb-8 border-b border-border">
-                <div className="flex items-center gap-3 mb-3">
-                  <s.icon className="w-5 h-5 text-primary" />
-                  <h3 className="font-display text-xl md:text-2xl font-semibold">{s.title}</h3>
-                </div>
-                <p className="text-muted-foreground leading-relaxed mb-4 max-w-2xl">
-                  {s.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {s.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs font-mono px-3 py-1 rounded-full bg-secondary text-secondary-foreground border border-border"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+              <h3 className="font-display text-lg font-semibold mb-2">{s.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                {s.desc}
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {s.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-secondary text-secondary-foreground"
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
             </motion.div>
           ))}
