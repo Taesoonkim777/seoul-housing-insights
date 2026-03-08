@@ -19,6 +19,7 @@ const scrollTo = (id: string) => {
 };
 
 const Index = () => {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <section className="relative flex-1 flex items-center justify-center overflow-hidden min-h-screen">
