@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apartment Analysis - Seoul Housing</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .tab-group {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 12px 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--card);
+      color: var(--muted-fg);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: var(--shadow);
+    }
+    .tab-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .tab-btn.active {
+      background: var(--primary);
+      color: var(--primary-fg);
+      border-color: var(--primary);
+    }
+    .tab-panel {
+      display: none;
+    }
+    .tab-panel.active {
+      display: block;
+    }
+    .viz-container {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      min-height: 500px;
+    }
+    .viz-container iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: 8px;
+    }
+    .insight-box {
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.08), rgba(59, 130, 246, 0.06));
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-left: 4px solid var(--primary);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--foreground);
+    }
+    .insight-box h3 {
+      margin: 0 0 10px 0;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .insight-box ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+    .insight-box li {
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body class="sub-page">
+<nav class="navbar scrolled">
+  <div class="navbar-inner">
+    <button class="navbar-brand" onclick="window.location.href='index.html'"><span>Seoul</span> Housing</button>
+  </div>
+</nav>
+<div class="container">
+  <div class="sub-hero">
+    <a href="index.html" class="back-link">← back to main</a>
+    <h1>🏢 Apartment Analysis</h1>
+    <p>Analysis of Apartment Sale, Jeonse, and Rental Prices in Seoul with District-level Comparison</p>
+  </div>
+
+  <div class="tab-group">
+    <button class="tab-btn active" onclick="switchTab('sales')">Sales Price</button>
+    <button class="tab-btn" onclick="switchTab('jeonse')">Jeonse Deposit</button>
+    <button class="tab-btn" onclick="switchTab('rental')">Rental Price</button>
+  </div>
+
+  <div id="tab-sales" class="tab-panel active">
+    <div class="insight-box">
+      <h3>💰 Key Insights — Sales Price</h3>
+      <ul>
+        <li><strong>Gangnam 3 Districts</strong> (Gangnam, Seocho, Songpa) consistently show the highest average sales prices, often 2–3× the city average.</li>
+        <li><strong>Significant price gap</strong> between the northern (Gangbuk) and southern (Gangnam) areas of the Han River.</li>
+        <li>Districts near major business hubs and subway lines command premium prices due to accessibility and infrastructure.</li>
+        <li>Recent new construction in <strong>Mapo, Yongsan, and Dongjak</strong> has driven notable price increases in these areas.</li>
+      </ul>
+    </div>
+    <div class="viz-container">
+      <iframe src="https://public.tableau.com/views/Assignment_2_1_1_pirce/Sheet1?:language=ko-KR&:display_count=n&:origin=viz_share_link&:showVizHome=no&:embed=true" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div id="tab-jeonse" class="tab-panel">
+    <div class="insight-box">
+      <h3>🏠 Key Insights — Jeonse Deposit</h3>
+      <ul>
+        <li><strong>Jeonse-to-sales price ratio</strong> varies significantly: lower in premium districts (40–50%) and higher in affordable areas (60–70%).</li>
+        <li>Districts with high demand from young professionals — such as <strong>Mapo, Seodaemun, and Gwanak</strong> — show elevated Jeonse prices relative to their sales prices.</li>
+        <li>The <strong>Gangnam cluster</strong> leads in absolute Jeonse deposits, reflecting the overall premium of the area.</li>
+        <li>Rising interest rates have recently caused a shift from Jeonse to monthly rent, softening Jeonse demand in some districts.</li>
+      </ul>
+    </div>
+    <div class="viz-container">
+      <iframe src="https://public.tableau.com/views/Book212_17729283756840/Sheet1?:language=ko-KR&:display_count=n&:origin=viz_share_link&:showVizHome=no&:embed=true" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div id="tab-rental" class="tab-panel">
+    <div class="insight-box">
+      <h3>📋 Key Insights — Rental Price</h3>
+      <ul>
+        <li><strong>Monthly rental prices</strong> are highest in Gangnam, Seocho, and Yongsan, driven by corporate demand and high-end housing stock.</li>
+        <li>University-adjacent districts like <strong>Gwanak and Seodaemun</strong> show high rental volumes but relatively moderate per-unit prices.</li>
+        <li>The rental market has expanded significantly as tenants shift away from large Jeonse deposits amid economic uncertainty.</li>
+        <li><strong>Newer developments</strong> with premium amenities (gyms, co-working spaces) command 20–30% rental premiums over older buildings in the same district.</li>
+      </ul>
+    </div>
+    <div class="viz-container">
+      <iframe src="https://public.tableau.com/views/Book3_17729323581340/Sheet1?:language=ko-KR&:display_count=n&:origin=viz_share_link&:showVizHome=no&:embed=true" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+</script>
+<script src="script.js"></script>
+</body>
+</html>

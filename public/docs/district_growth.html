@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>District Growth — Seoul Housing Insights</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #fff; color: #111; }
+    nav { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid #e5e7eb; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); }
+    nav .container { max-width: 1100px; margin: 0 auto; padding: 0 1rem; display: flex; align-items: center; height: 56px; }
+    nav .logo-primary { font-weight: 700; color: #1e293b; }
+    nav .logo-secondary { color: #334155; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 3rem 1rem; }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.875rem; color: #1e293b; text-decoration: none; margin-bottom: 1rem; }
+    .back-link:hover { text-decoration: underline; }
+    h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .subtitle { color: #64748b; font-size: 1.05rem; max-width: 640px; margin-bottom: 2.5rem; }
+    hr { border: none; border-top: 1px solid #e5e7eb; margin-bottom: 2.5rem; }
+    .intro-note { border-left: 4px solid #1e293b; padding: 0.75rem 1.25rem; margin-bottom: 2.5rem; color: #334155; line-height: 1.7; }
+    .viz-section { border: 1px solid #e5e7eb; border-radius: 12px; background: #fff; padding: 2rem; margin-bottom: 2.5rem; }
+    .viz-section h2 { font-size: 1.35rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .viz-section p { color: #64748b; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6; }
+    .viz-section iframe { width: 100%; height: 700px; border: none; border-radius: 8px; background: #f1f5f9; display: block; }
+    @media (max-width: 768px) {
+      h1 { font-size: 1.5rem; }
+      .viz-section { padding: 1rem; }
+      .viz-section iframe { height: 500px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container" style="padding-top:0;padding-bottom:0;">
+      <span style="font-size:1.125rem;font-weight:600;letter-spacing:-0.02em;">
+        <span class="logo-primary">Seoul</span> <span class="logo-secondary">Housing</span>
+      </span>
+    </div>
+  </nav>
+
+  <div class="container">
+    <a href="https://taesoonkim777.github.io/seoul-housing-insights/" class="back-link">← Back to Main</a>
+    <h1>📈 District Growth</h1>
+    <p class="subtitle">Housing price growth rates and patterns across Seoul's 25 districts.</p>
+    <hr />
+    <div class="intro-note">
+      The visualizations below explore how housing prices have grown across Seoul's districts over time. From interactive drill-down maps to animated temporal views, each chart reveals different dimensions of district-level price dynamics.
+    </div>
+
+    <div class="viz-section">
+      <h2>1. Drilldown Map</h2>
+      <p>Interactive map of Seoul showing real estate price changes by district. Click on a district to drill down into sub-regions for detailed price analysis.</p>
+      <iframe src="https://public.tableau.com/views/districtrealestateprice/DrilldownMap?:language=en-US&:display_count=n&:origin=viz_share_link&:showVizHome=no&:embed=true" allowfullscreen title="Drilldown Map"></iframe>
+    </div>
+
+    <div class="viz-section">
+      <h2>2. Line Chart — Price per Area</h2>
+      <p>District-level average price per area over time. Compare how different districts have experienced varying rates of price appreciation across the timeline.</p>
+      <iframe src="https://public.tableau.com/views/districtrealestateprice/LineChart-PriceperArea?:language=en-US&:display_count=n&:origin=viz_share_link&:showVizHome=no&:embed=true" allowfullscreen title="Line Chart - Price per Area"></iframe>
+    </div>
+
+    <div class="viz-section">
+      <h2>3. Heatmap — Increase of Price per Area</h2>
+      <p>Heatmap visualization highlighting the magnitude of price increases per area across Seoul's districts, revealing spatial patterns of growth intensity.</p>
+      <iframe src="https://public.tableau.com/views/districtrealestateprice/Heatmap-IncreaseofPriceperArea?:language=en-US&:display_count=n&:origin=viz_share_link&:showVizHome=no&:embed=true" allowfullscreen title="Heatmap - Increase of Price per Area"></iframe>
+    </div>
+
+    <div class="viz-section">
+      <h2>4. Animated Map — Price Increase</h2>
+      <p>Animated choropleth map showing the progression of price increases over time across Seoul's districts, illustrating how growth patterns evolved year by year.</p>
+      <iframe src="https://public.tableau.com/views/districtrealestateprice/AnimatedMap-Increase?:language=en-US&:display_count=n&:origin=viz_share_link&:showVizHome=no&:embed=true" allowfullscreen title="Animated Map - Price Increase"></iframe>
+    </div>
+  </div>
+</body>
+</html>
