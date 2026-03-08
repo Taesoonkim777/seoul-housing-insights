@@ -5,6 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Methodology &amp; Team – Seoul Housing</title>
   <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 32px; }
+    @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
+    .team-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 24px; text-align: center; }
+    .team-card .avatar-lg { width: 64px; height: 64px; border-radius: 50%; background: var(--secondary); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--primary); font-weight: 700; }
+    .team-card .name { font-weight: 600; font-size: 0.95rem; margin-bottom: 2px; }
+    .team-card .role { font-size: 0.78rem; color: var(--primary); margin-bottom: 8px; font-weight: 500; }
+    .team-card .desc { font-size: 0.8rem; color: var(--muted-foreground); line-height: 1.5; margin-bottom: 12px; }
+    .team-card .linkedin-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--primary); text-decoration: none; transition: opacity 0.2s; }
+    .team-card .linkedin-link:hover { opacity: 0.7; }
+    .team-cards { display: grid; gap: 20px; }
+    .method-compact .step { margin-bottom: 16px; }
+    .method-compact .step-content h3 { font-size: 0.95rem; margin-bottom: 4px; }
+    .method-compact .step-content p { font-size: 0.82rem; line-height: 1.5; }
+    .method-compact .tags { margin-top: 6px; }
+    .method-compact .tag { font-size: 0.7rem; padding: 3px 8px; }
+    .col-title { font-size: 1.2rem; margin-bottom: 20px; font-family: 'DM Serif Display', serif; }
+  </style>
 </head>
 <body>
 
@@ -20,139 +38,100 @@
       <a href="../index.html" class="back-link">← Back to Home</a>
       <p class="section-label"><span class="picto">🧪</span> Research Design</p>
       <h1 class="section-title">Methodology &amp; Team</h1>
-      <p>Our research approach, data sources, analytical framework, and the team behind this project.</p>
+      <p>Our research approach and the team behind this project.</p>
     </div>
 
-    <!-- Methodology -->
-    <h2 style="font-size:1.4rem; margin-bottom:20px; margin-top:8px;">Methodology</h2>
+    <div class="two-col">
+      <!-- Left: Methodology (compact) -->
+      <div class="method-compact">
+        <h2 class="col-title">Methodology</h2>
 
-    <div class="step fade-up visible">
-      <div class="step-number">01</div>
-      <div class="step-content">
-        <h3>Data Collection</h3>
-        <p>Gathered apartment transaction data (sale, jeonse, monthly rent) from the Korea Ministry of Land, Infrastructure and Transport, along with district-level amenity data from Seoul Open Data Portal.</p>
-        <div class="tags">
-          <span class="tag">MOLIT API</span>
-          <span class="tag">Seoul Open Data</span>
-          <span class="tag">2015–2024</span>
+        <div class="step fade-up visible">
+          <div class="step-number">01</div>
+          <div class="step-content">
+            <h3>Data Collection</h3>
+            <p>Apartment transaction data from MOLIT and district-level amenity data from Seoul Open Data Portal (2015–2024).</p>
+            <div class="tags">
+              <span class="tag">MOLIT API</span>
+              <span class="tag">Seoul Open Data</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step fade-up visible">
+          <div class="step-number">02</div>
+          <div class="step-content">
+            <h3>Amenity Index Construction</h3>
+            <p>Composite urban amenity index using PCA and Z-score normalization across transportation, education, safety, and green space.</p>
+            <div class="tags">
+              <span class="tag">PCA</span>
+              <span class="tag">Composite Index</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step fade-up visible">
+          <div class="step-number">03</div>
+          <div class="step-content">
+            <h3>Macro &amp; Micro Analysis</h3>
+            <p>Regression and correlation analysis examining macro drivers and micro-level amenity impacts on housing prices.</p>
+            <div class="tags">
+              <span class="tag">Regression</span>
+              <span class="tag">Time Series</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step fade-up visible">
+          <div class="step-number">04</div>
+          <div class="step-content">
+            <h3>Visualization</h3>
+            <p>Interactive visualizations with Plotly.js and D3.js for narrative-driven storytelling.</p>
+            <div class="tags">
+              <span class="tag">Plotly.js</span>
+              <span class="tag">D3.js</span>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="step fade-up visible">
-      <div class="step-number">02</div>
-      <div class="step-content">
-        <h3>Amenity Index Construction</h3>
-        <p>Built a composite urban amenity index incorporating transportation access (subway/bus), education quality, public safety (crime rates), and green space availability for each of Seoul's 25 districts.</p>
-        <div class="tags">
-          <span class="tag">PCA</span>
-          <span class="tag">Z-score normalization</span>
-          <span class="tag">Composite Index</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="step fade-up visible">
-      <div class="step-number">03</div>
-      <div class="step-content">
-        <h3>Macro & Micro Analysis</h3>
-        <p>Examined macroeconomic drivers (interest rates, household debt, supply volume) alongside micro-level amenity factors to understand their relative impact on housing prices.</p>
-        <div class="tags">
-          <span class="tag">Regression</span>
-          <span class="tag">Correlation</span>
-          <span class="tag">Time Series</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="step fade-up visible">
-      <div class="step-number">04</div>
-      <div class="step-content">
-        <h3>Visualization & Storytelling</h3>
-        <p>Created interactive visualizations using Plotly.js and D3.js to communicate findings through an accessible, narrative-driven web interface.</p>
-        <div class="tags">
-          <span class="tag">Plotly.js</span>
-          <span class="tag">D3.js</span>
-          <span class="tag">Scrollytelling</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Data Sources -->
-    <h2 style="font-size:1.4rem; margin:40px 0 20px;">Data Sources</h2>
-
-    <div class="cards-grid fade-up visible">
-      <div class="card source-card">
-        <h3>Transaction Data</h3>
-        <p class="source-label">Ministry of Land, Infrastructure and Transport</p>
-        <ul>
-          <li>Apartment sale prices (2015–2024)</li>
-          <li>Jeonse deposit amounts</li>
-          <li>Monthly rental prices</li>
-          <li>District and building-level records</li>
-        </ul>
-      </div>
-      <div class="card source-card">
-        <h3>Urban Amenity Data</h3>
-        <p class="source-label">Seoul Open Data Portal &amp; Public APIs</p>
-        <ul>
-          <li>Subway station locations &amp; ridership</li>
-          <li>School ratings &amp; enrollment</li>
-          <li>Crime statistics by district</li>
-          <li>Park area &amp; green space ratio</li>
-        </ul>
-      </div>
-      <div class="card source-card">
-        <h3>Macroeconomic Data</h3>
-        <p class="source-label">Bank of Korea &amp; Statistics Korea</p>
-        <ul>
-          <li>Base interest rate history</li>
-          <li>Household debt &amp; mortgage data</li>
-          <li>Housing supply volume</li>
-          <li>Consumer price index</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Team -->
-    <h2 style="font-size:1.4rem; margin:48px 0 20px;">Team</h2>
-
-    <div class="team-grid fade-up visible">
+      <!-- Right: Team -->
       <div>
-        <div class="team-member">
-          <div class="avatar">HS</div>
-          <div>
+        <h2 class="col-title">Team</h2>
+
+        <div class="team-cards">
+          <div class="team-card">
+            <div class="avatar-lg">HS</div>
             <div class="name">Hakyun Song</div>
-            <div class="role">Data Analysis &amp; Visualization</div>
+            <div class="role">Spatial Analysis &amp; Mapping</div>
+            <div class="desc">Focused on geospatial visualization of housing price distributions and district-level amenity mapping across Seoul's 25 districts.</div>
+            <a href="https://www.linkedin.com/in/hakyun-song-34354b327/" target="_blank" class="linkedin-link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+              LinkedIn
+            </a>
           </div>
-        </div>
-        <div class="team-member">
-          <div class="avatar">IL</div>
-          <div>
+
+          <div class="team-card">
+            <div class="avatar-lg">IL</div>
             <div class="name">Insung Lee</div>
-            <div class="role">Macro Analysis &amp; Policy Research</div>
+            <div class="role">Statistical Modeling &amp; Regression</div>
+            <div class="desc">Led macro-economic analysis including interest rate impacts, household debt correlations, and policy scenario modeling.</div>
+            <a href="https://www.linkedin.com/in/insung-lee-563226130/" target="_blank" class="linkedin-link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+              LinkedIn
+            </a>
           </div>
-        </div>
-        <div class="team-member">
-          <div class="avatar">TK</div>
-          <div>
+
+          <div class="team-card">
+            <div class="avatar-lg">TK</div>
             <div class="name">Taesoon Kim</div>
-            <div class="role">Micro Amenities &amp; Web Development</div>
+            <div class="role">Data Visualization &amp; Dashboard</div>
+            <div class="desc">Built interactive dashboards and micro-level amenity analysis, connecting transit, education, and green space data to housing trends.</div>
+            <a href="https://www.linkedin.com/in/taesoon-kim-a474b7346/" target="_blank" class="linkedin-link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+              LinkedIn
+            </a>
           </div>
-        </div>
-      </div>
-      <div>
-        <div class="criteria-item">
-          <div class="num">01</div>
-          <p>Harvard Kennedy School, DPI 852M: Advanced Data and Information Visualization (Spring 2025)</p>
-        </div>
-        <div class="criteria-item">
-          <div class="num">02</div>
-          <p>Research focused on the intersection of urban amenities, housing affordability, and spatial inequality in Seoul.</p>
-        </div>
-        <div class="criteria-item">
-          <div class="num">03</div>
-          <p>Combining quantitative data analysis with narrative visualization to inform evidence-based policy recommendations.</p>
         </div>
       </div>
     </div>
