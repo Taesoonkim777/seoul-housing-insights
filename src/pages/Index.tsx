@@ -4,10 +4,10 @@ import seoulHero from "@/assets/seoul-hero.jpg";
 import { Search, BarChart3, Lightbulb, FlaskConical } from "lucide-react";
 
 const navButtons = [
-  { id: "why", label: "Why We Chose This\nTopic", icon: Search, route: null },
-  { id: "findings", label: "Explore Key\nFindings", icon: BarChart3, route: "/findings" },
-  { id: "policy", label: "Policy\nRecommendation", icon: Lightbulb, route: null },
-  { id: "methodology-team", label: "Methodology &\nTeam", icon: FlaskConical, route: null },
+  { id: "why", label: "Why We Chose This Topic", icon: Search, route: null },
+  { id: "findings", label: "Explore Key Findings", icon: BarChart3, route: "/findings" },
+  { id: "policy", label: "Policy Recommendation", icon: Lightbulb, route: null },
+  { id: "methodology-team", label: "Methodology & Team", icon: FlaskConical, route: null },
 ];
 
 const team = ["Hakyun Song", "Insung Lee", "Taesoon Kim"];
