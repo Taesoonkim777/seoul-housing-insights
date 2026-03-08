@@ -82,11 +82,11 @@ const Index = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: 0.55 }}
-            className="flex flex-wrap justify-center gap-5 text-[11px] text-white/35"
+            className="flex justify-center gap-4"
           >
             {team.map((name) => (
-              <span key={name} className="flex items-center gap-1.5">
-                <span className="w-1 h-1 rounded-full bg-white/25" />{name}
+              <span key={name} className="px-4 py-1.5 rounded-full bg-white/10 border border-white/15 text-white/75 text-xs font-medium tracking-wide backdrop-blur-sm">
+                {name}
               </span>
             ))}
           </motion.div>
