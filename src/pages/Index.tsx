@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import seoulHero from "@/assets/seoul-hero.jpg";
-import { MessageCircle, BarChart3, Lightbulb, FlaskConical, ArrowRight } from "lucide-react";
+import { MessageCircle, BarChart3, Lightbulb, FlaskConical } from "lucide-react";
 
 const navButtons = [
   { id: "why", label: "Why We Chose This Topic", icon: MessageCircle },
@@ -58,23 +58,12 @@ const Index = () => {
             How transportation, education, safety, and green space shape housing price growth across Seoul's 25 districts.
           </motion.p>
 
-          {/* CTA */}
-          <motion.button
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.35 }}
-            onClick={() => scrollTo("analysis")}
-            className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors mb-8"
-          >
-            Explore Findings <ArrowRight className="w-4 h-4" />
-          </motion.button>
-
           {/* Nav buttons */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.45 }}
-            className="flex flex-wrap justify-center gap-2 mb-10"
+            transition={{ duration: 0.4, delay: 0.35 }}
+            className="flex justify-center gap-3 mb-10"
           >
             {navButtons.map((btn) => (
               <button
