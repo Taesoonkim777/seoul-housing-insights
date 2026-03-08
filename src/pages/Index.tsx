@@ -4,10 +4,10 @@ import seoulHero from "@/assets/seoul-hero.jpg";
 import { MessageCircle, BarChart3, Lightbulb, FlaskConical } from "lucide-react";
 
 const navButtons = [
-  { id: "why", label: "Why We Chose This Topic", icon: MessageCircle },
-  { id: "findings", label: "Explore Key Findings", icon: BarChart3 },
-  { id: "policy", label: "Policy Recommendation", icon: Lightbulb },
-  { id: "methodology-team", label: "Methodology & Team", icon: FlaskConical },
+  { id: "why", label: "Why We Chose This Topic", icon: MessageCircle, route: null },
+  { id: "findings", label: "Explore Key Findings", icon: BarChart3, route: "/findings" },
+  { id: "policy", label: "Policy Recommendation", icon: Lightbulb, route: null },
+  { id: "methodology-team", label: "Methodology & Team", icon: FlaskConical, route: null },
 ];
 
 const team = [
