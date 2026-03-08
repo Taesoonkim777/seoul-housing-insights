@@ -1,12 +1,13 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import seoulHero from "@/assets/seoul-hero.jpg";
 import { MessageCircle, BarChart3, Lightbulb, FlaskConical } from "lucide-react";
 
 const navButtons = [
-  { id: "why", label: "Why We Chose This Topic", icon: MessageCircle },
-  { id: "findings", label: "Explore Key Findings", icon: BarChart3 },
-  { id: "policy", label: "Policy Recommendation", icon: Lightbulb },
-  { id: "methodology-team", label: "Methodology & Team", icon: FlaskConical },
+  { id: "why", label: "Why We Chose This Topic", icon: MessageCircle, route: null },
+  { id: "findings", label: "Explore Key Findings", icon: BarChart3, route: "/findings" },
+  { id: "policy", label: "Policy Recommendation", icon: Lightbulb, route: null },
+  { id: "methodology-team", label: "Methodology & Team", icon: FlaskConical, route: null },
 ];
 
 const team = [
@@ -18,6 +19,7 @@ const scrollTo = (id: string) => {
 };
 
 const Index = () => {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <section className="relative flex-1 flex items-center justify-center overflow-hidden min-h-screen">
@@ -68,7 +70,7 @@ const Index = () => {
             {navButtons.map((btn) => (
               <button
                 key={btn.id}
-                onClick={() => scrollTo(btn.id)}
+                onClick={() => btn.route ? navigate(btn.route) : scrollTo(btn.id)}
                 className="group flex items-center gap-2 px-4 py-2 rounded-full bg-white/8 border border-white/12 text-white/60 hover:bg-white/15 hover:text-white/90 hover:border-white/25 backdrop-blur-sm transition-all duration-200 text-xs font-medium"
               >
                 <btn.icon className="w-3.5 h-3.5" />
