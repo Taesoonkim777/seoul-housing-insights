@@ -78,7 +78,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.35 }}
-            className="flex justify-center gap-4 mb-10 flex-wrap"
+            className="flex justify-center gap-3 mb-10"
           >
             {navButtons.map((btn) => (
               <button
@@ -86,12 +86,10 @@ const Index = () => {
                 onClick={() =>
                   btn.route ? navigate(btn.route) : scrollTo(btn.id)
                 }
-                className="group flex items-center gap-3 px-7 py-4 rounded-full bg-white/[0.07] border border-white/20 text-white/80 hover:bg-white/[0.14] hover:text-white hover:border-white/35 backdrop-blur-md transition-all duration-300 text-sm font-medium min-w-[180px] justify-center"
+                className="group flex items-center gap-2.5 px-6 py-3 rounded-full bg-white/[0.1] border border-white/20 text-white/80 hover:bg-white/[0.18] hover:text-white hover:border-white/35 backdrop-blur-md transition-all duration-300 text-sm font-medium"
               >
-                <btn.icon className="w-5 h-5 flex-shrink-0 opacity-70 group-hover:opacity-100 transition-opacity" />
-                <span className="text-center whitespace-pre-line leading-tight">
-                  {btn.label}
-                </span>
+                <btn.icon className="w-4.5 h-4.5 flex-shrink-0 opacity-70 group-hover:opacity-100 transition-opacity" />
+                <span>{btn.label}</span>
               </button>
             ))}
           </motion.div>
