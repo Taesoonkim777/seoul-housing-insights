@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import seoulHero from "@/assets/seoul-hero.jpg";
 import { MessageCircle, BarChart3, Lightbulb, FlaskConical } from "lucide-react";
 
