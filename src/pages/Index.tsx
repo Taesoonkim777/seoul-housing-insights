@@ -70,7 +70,7 @@ const Index = () => {
             {navButtons.map((btn) => (
               <button
                 key={btn.id}
-                onClick={() => scrollTo(btn.id)}
+                onClick={() => btn.route ? navigate(btn.route) : scrollTo(btn.id)}
                 className="group flex items-center gap-2 px-4 py-2 rounded-full bg-white/8 border border-white/12 text-white/60 hover:bg-white/15 hover:text-white/90 hover:border-white/25 backdrop-blur-sm transition-all duration-200 text-xs font-medium"
               >
                 <btn.icon className="w-3.5 h-3.5" />
