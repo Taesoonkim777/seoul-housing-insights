@@ -1,18 +1,16 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import seoulHero from "@/assets/seoul-hero.jpg";
-import { MessageCircle, BarChart3, Lightbulb, FlaskConical } from "lucide-react";
+import { Search, BarChart3, Lightbulb, FlaskConical } from "lucide-react";
 
 const navButtons = [
-  { id: "why", label: "Why We Chose This Topic", icon: MessageCircle, route: null },
-  { id: "findings", label: "Explore Key Findings", icon: BarChart3, route: "/findings" },
-  { id: "policy", label: "Policy Recommendation", icon: Lightbulb, route: null },
-  { id: "methodology-team", label: "Methodology & Team", icon: FlaskConical, route: null },
+  { id: "why", label: "Why We Chose This\nTopic", icon: Search, route: null },
+  { id: "findings", label: "Explore Key\nFindings", icon: BarChart3, route: "/findings" },
+  { id: "policy", label: "Policy\nRecommendation", icon: Lightbulb, route: null },
+  { id: "methodology-team", label: "Methodology &\nTeam", icon: FlaskConical, route: null },
 ];
 
-const team = [
-  "Hakyun Song", "Insung Lee", "Taesoon Kim",
-];
+const team = ["Hakyun Song", "Insung Lee", "Taesoon Kim"];
 
 const scrollTo = (id: string) => {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -23,71 +21,93 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <section className="relative flex-1 flex items-center justify-center overflow-hidden min-h-screen">
+        {/* Background */}
         <div className="absolute inset-0">
-          <img src={seoulHero} alt="Seoul cityscape" className="w-full h-full object-cover" loading="eager" />
-          <div className="absolute inset-0" style={{ background: "var(--gradient-hero-overlay)" }} />
+          <img
+            src={seoulHero}
+            alt="Seoul cityscape at night"
+            className="w-full h-full object-cover"
+            loading="eager"
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, hsla(220, 30%, 8%, 0.6) 0%, hsla(220, 30%, 8%, 0.85) 100%)",
+            }}
+          />
         </div>
 
-        <div className="relative z-10 container mx-auto px-6 text-center max-w-3xl">
-          {/* Course label */}
+        {/* Content */}
+        <div className="relative z-10 container mx-auto px-6 text-center max-w-4xl">
+          {/* Course */}
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="font-mono text-[10px] tracking-[0.2em] uppercase text-white/45 mb-5"
+            transition={{ duration: 0.5 }}
+            className="font-mono text-[11px] md:text-xs tracking-[0.3em] uppercase text-white/50 mb-6"
           >
             Harvard Kennedy School · DPI 852M: Advanced Data and Information Visualization
           </motion.p>
 
           {/* Title */}
           <motion.h1
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.15] text-white mb-4"
-            style={{ fontFamily: "'Playfair Display', serif" }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] text-white mb-5"
           >
-            Urban Amenities & Housing Price Inequality in Seoul
+            Urban Amenities & Housing Price
+            <br />
+            Inequality in Seoul
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.25 }}
-            className="text-sm text-white/55 max-w-lg mx-auto mb-8 leading-relaxed"
+            transition={{ duration: 0.5, delay: 0.25 }}
+            className="text-base md:text-lg text-white/60 max-w-xl mx-auto mb-10 leading-relaxed"
           >
-            What is driving the rapid surge in apartment prices in Seoul, Korea — and how should we respond?
+            What is driving the rapid surge in apartment prices in Seoul, Korea — and
+            how should we respond?
           </motion.p>
 
-          {/* Nav buttons */}
+          {/* Nav buttons - large pills */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.35 }}
-            className="flex justify-center gap-3 mb-10"
+            transition={{ duration: 0.5, delay: 0.35 }}
+            className="flex justify-center gap-4 mb-10 flex-wrap"
           >
             {navButtons.map((btn) => (
               <button
                 key={btn.id}
-                onClick={() => btn.route ? navigate(btn.route) : scrollTo(btn.id)}
-                className="group flex items-center gap-2 px-4 py-2 rounded-full bg-white/8 border border-white/12 text-white/60 hover:bg-white/15 hover:text-white/90 hover:border-white/25 backdrop-blur-sm transition-all duration-200 text-xs font-medium"
+                onClick={() =>
+                  btn.route ? navigate(btn.route) : scrollTo(btn.id)
+                }
+                className="group flex items-center gap-3 px-7 py-4 rounded-full bg-white/[0.07] border border-white/20 text-white/80 hover:bg-white/[0.14] hover:text-white hover:border-white/35 backdrop-blur-md transition-all duration-300 text-sm font-medium min-w-[180px] justify-center"
               >
-                <btn.icon className="w-3.5 h-3.5" />
-                {btn.label}
+                <btn.icon className="w-5 h-5 flex-shrink-0 opacity-70 group-hover:opacity-100 transition-opacity" />
+                <span className="text-center whitespace-pre-line leading-tight">
+                  {btn.label}
+                </span>
               </button>
             ))}
           </motion.div>
 
-          {/* Team */}
+          {/* Team badges */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.55 }}
-            className="flex justify-center gap-4"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="flex justify-center gap-4 flex-wrap"
           >
             {team.map((name) => (
-              <span key={name} className="px-4 py-1.5 rounded-full bg-white/10 border border-white/15 text-white/75 text-xs font-medium tracking-wide backdrop-blur-sm">
+              <span
+                key={name}
+                className="px-6 py-2.5 rounded-full bg-white/[0.08] border border-white/15 text-white/80 text-sm font-medium tracking-wide backdrop-blur-md"
+              >
                 {name}
               </span>
             ))}
