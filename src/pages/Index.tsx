@@ -53,9 +53,9 @@ const Index = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.25 }}
-            className="text-sm text-white/50 max-w-md mx-auto mb-8"
+            className="text-sm text-white/55 max-w-lg mx-auto mb-8 leading-relaxed"
           >
-            How transportation, education, safety, and green space shape housing price growth across Seoul's 25 districts.
+            What is driving the rapid surge in apartment prices in Seoul, Korea — and how should we respond?
           </motion.p>
 
           {/* Nav buttons */}
