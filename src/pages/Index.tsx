@@ -4,10 +4,10 @@ import seoulHero from "@/assets/seoul-hero.jpg";
 import { Search, BarChart3, Lightbulb, FlaskConical } from "lucide-react";
 
 const navButtons = [
-  { id: "why", label: "Why We Chose This\nTopic", icon: Search, route: null },
-  { id: "findings", label: "Explore Key\nFindings", icon: BarChart3, route: "/findings" },
-  { id: "policy", label: "Policy\nRecommendation", icon: Lightbulb, route: null },
-  { id: "methodology-team", label: "Methodology &\nTeam", icon: FlaskConical, route: null },
+  { id: "why", label: "Why We Chose This Topic", icon: Search, route: null },
+  { id: "findings", label: "Explore Key Findings", icon: BarChart3, route: "/findings" },
+  { id: "policy", label: "Policy Recommendation", icon: Lightbulb, route: null },
+  { id: "methodology-team", label: "Methodology & Team", icon: FlaskConical, route: null },
 ];
 
 const team = ["Hakyun Song", "Insung Lee", "Taesoon Kim"];
@@ -33,7 +33,7 @@ const Index = () => {
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, hsla(220, 30%, 8%, 0.6) 0%, hsla(220, 30%, 8%, 0.85) 100%)",
+                "linear-gradient(180deg, hsla(220, 30%, 8%, 0.35) 0%, hsla(220, 30%, 8%, 0.65) 100%)",
             }}
           />
         </div>
@@ -78,7 +78,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.35 }}
-            className="flex justify-center gap-4 mb-10 flex-wrap"
+            className="flex justify-center gap-3 mb-10"
           >
             {navButtons.map((btn) => (
               <button
@@ -86,12 +86,10 @@ const Index = () => {
                 onClick={() =>
                   btn.route ? navigate(btn.route) : scrollTo(btn.id)
                 }
-                className="group flex items-center gap-3 px-7 py-4 rounded-full bg-white/[0.07] border border-white/20 text-white/80 hover:bg-white/[0.14] hover:text-white hover:border-white/35 backdrop-blur-md transition-all duration-300 text-sm font-medium min-w-[180px] justify-center"
+                className="group flex items-center gap-2.5 px-6 py-3 rounded-full bg-white/[0.1] border border-white/20 text-white/80 hover:bg-white/[0.18] hover:text-white hover:border-white/35 backdrop-blur-md transition-all duration-300 text-sm font-medium"
               >
-                <btn.icon className="w-5 h-5 flex-shrink-0 opacity-70 group-hover:opacity-100 transition-opacity" />
-                <span className="text-center whitespace-pre-line leading-tight">
-                  {btn.label}
-                </span>
+                <btn.icon className="w-4.5 h-4.5 flex-shrink-0 opacity-70 group-hover:opacity-100 transition-opacity" />
+                <span>{btn.label}</span>
               </button>
             ))}
           </motion.div>
