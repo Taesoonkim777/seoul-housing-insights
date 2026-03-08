@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import seoulHero from "@/assets/seoul-hero.jpg";
-import { MessageCircle, BarChart3, Lightbulb, FlaskConical, ArrowRight } from "lucide-react";
+import { MessageCircle, BarChart3, Lightbulb, FlaskConical } from "lucide-react";
 
 const navButtons = [
   { id: "why", label: "Why We Chose This Topic", icon: MessageCircle },
