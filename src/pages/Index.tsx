@@ -1,9 +1,10 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import QuickNav from "@/components/QuickNav";
 import ResearchOverview from "@/components/ResearchOverview";
+import StorySection from "@/components/StorySection";
 import MethodologySection from "@/components/MethodologySection";
-import DataSourcesSection from "@/components/DataSourcesSection";
-import DataVisualization from "@/components/DataVisualization";
+import AnalysisSection from "@/components/AnalysisSection";
 import TeamSection from "@/components/TeamSection";
 
 const Index = () => {
@@ -11,17 +12,18 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <HeroSection />
+      <QuickNav />
       <div id="overview">
         <ResearchOverview />
+      </div>
+      <div id="story">
+        <StorySection />
       </div>
       <div id="methodology">
         <MethodologySection />
       </div>
-      <div id="data">
-        <DataSourcesSection />
-      </div>
-      <div id="visualizations">
-        <DataVisualization />
+      <div id="analysis">
+        <AnalysisSection />
       </div>
       <div id="team">
         <TeamSection />

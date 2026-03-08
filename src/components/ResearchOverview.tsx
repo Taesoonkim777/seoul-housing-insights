@@ -1,102 +1,68 @@
 import { motion } from "framer-motion";
 import { Shield, Train, GraduationCap, TreePine } from "lucide-react";
 
-const amenities = [
-  {
-    icon: Shield,
-    title: "Safety",
-    description: "Crime incidents, crime rates per 1,000 residents, and crime type breakdown across districts",
-    color: "text-chart-safety" as const,
-    stat: "25",
-    statLabel: "Districts Analyzed",
-  },
-  {
-    icon: Train,
-    title: "Transportation",
-    description: "Subway station density, bus stop locations, and daily subway ridership data",
-    color: "text-chart-transport" as const,
-    stat: "9",
-    statLabel: "Subway Lines",
-  },
-  {
-    icon: GraduationCap,
-    title: "Education",
-    description: "Schools by district, private academy count, and student population distribution",
-    color: "text-chart-education" as const,
-    stat: "2,200+",
-    statLabel: "Schools Mapped",
-  },
-  {
-    icon: TreePine,
-    title: "Green Space",
-    description: "Park area per district, green space per capita, and urban forest coverage",
-    color: "text-chart-green" as const,
-    stat: "170+",
-    statLabel: "Parks Surveyed",
-  },
+const tags = [
+  { icon: Shield, label: "Safety", stat: "25 districts" },
+  { icon: Train, label: "Transportation", stat: "9 subway lines" },
+  { icon: GraduationCap, label: "Education", stat: "2,200+ schools" },
+  { icon: TreePine, label: "Green Space", stat: "170+ parks" },
 ];
-
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 },
-  },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
 
 const ResearchOverview = () => {
   return (
-    <section className="py-24 md:py-32 bg-gradient-navy">
+    <section className="py-20 md:py-24">
       <div className="container mx-auto px-6">
-        {/* Section header */}
+        <div className="max-w-3xl mx-auto text-center mb-12">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="font-mono text-[11px] tracking-[0.25em] uppercase text-primary mb-3"
+          >
+            Overview
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.05 }}
+            className="font-display text-2xl md:text-3xl font-bold mb-4"
+          >
+            What drives housing price inequality across Seoul?
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-muted-foreground text-[15px] leading-relaxed"
+          >
+            Seoul's housing prices have surged over the past decade, but growth
+            varies dramatically across its 25 districts. We investigate how four
+            key urban amenities explain this spatial inequality.
+          </motion.p>
+        </div>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="max-w-3xl mb-20"
+          transition={{ delay: 0.15 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-3"
         >
-          <p className="font-mono text-xs tracking-[0.3em] uppercase text-primary mb-4">
-            Research Question
-          </p>
-          <h2 className="font-display text-3xl md:text-4xl font-bold mb-6">
-            What drives housing price inequality across Seoul?
-          </h2>
-          <p className="text-muted-foreground text-lg leading-relaxed">
-            While Seoul's housing prices have surged over the past decade, the growth has been
-            uneven across its 25 sub-districts. We investigate how urban amenities — safety,
-            transportation, education, and green space — explain this variation.
-          </p>
-        </motion.div>
-
-        {/* Amenity cards */}
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-        >
-          {amenities.map((a) => (
+          {tags.map((t, i) => (
             <motion.div
-              key={a.title}
-              variants={item}
-              className="group relative bg-card border border-border rounded-lg p-6 hover:border-primary/30 transition-colors duration-300"
+              key={t.label}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 + i * 0.06 }}
+              className="bg-card border border-border rounded-xl p-5 text-center hover:border-primary/25 hover:shadow-md transition-all duration-300"
+              style={{ boxShadow: "var(--shadow-card)" }}
             >
-              <a.icon className={`w-8 h-8 ${a.color} mb-4`} />
-              <h3 className="font-display text-xl font-semibold mb-2">{a.title}</h3>
-              <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
-                {a.description}
-              </p>
-              <div className="border-t border-border pt-4">
-                <span className="text-2xl font-bold text-primary">{a.stat}</span>
-                <span className="block text-xs text-muted-foreground mt-1">{a.statLabel}</span>
-              </div>
+              <t.icon className="w-5 h-5 text-primary mx-auto mb-2.5" />
+              <p className="text-sm font-semibold mb-1">{t.label}</p>
+              <p className="text-xs text-muted-foreground">{t.stat}</p>
             </motion.div>
           ))}
         </motion.div>

@@ -2,13 +2,17 @@ import { motion } from "framer-motion";
 import seoulHero from "@/assets/seoul-hero.jpg";
 
 const HeroSection = () => {
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
+    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
+      {/* Background */}
       <div className="absolute inset-0">
         <img
           src={seoulHero}
-          alt="Seoul cityscape at night"
+          alt="Seoul cityscape"
           className="w-full h-full object-cover"
           loading="eager"
         />
@@ -19,67 +23,74 @@ const HeroSection = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 text-center">
+      <div className="relative z-10 container mx-auto px-6 text-center max-w-4xl">
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="font-mono text-sm tracking-[0.3em] uppercase text-primary mb-6"
+          transition={{ duration: 0.5 }}
+          className="font-mono text-[11px] tracking-[0.25em] uppercase text-white/60 mb-5"
         >
-          Advanced Data Visualization · Group 1
+          DPI 852M · Advanced Data and Information Visualization
         </motion.p>
 
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="font-display text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 max-w-5xl mx-auto"
+          transition={{ duration: 0.7, delay: 0.15 }}
+          className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-bold leading-[1.15] text-white mb-5"
         >
           Urban Amenities &{" "}
-          <span className="text-gradient-gold">Housing Price Inequality</span>
+          <span className="italic text-white/90">Housing Price Inequality</span>
+          <br className="hidden sm:block" />
           {" "}in Seoul
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="text-[15px] md:text-base text-white/65 max-w-xl mx-auto mb-8 leading-relaxed"
         >
-          Exploring the spatial relationship between urban infrastructure and
-          housing price growth across Seoul's 25 districts
+          How transportation, education, safety, and green space shape housing
+          price growth across Seoul's 25 districts.
         </motion.p>
 
+        {/* CTAs */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="flex flex-wrap justify-center gap-8 text-sm text-muted-foreground"
+          transition={{ duration: 0.5, delay: 0.45 }}
+          className="flex flex-wrap justify-center gap-3 mb-10"
+        >
+          <button
+            onClick={() => scrollTo("analysis")}
+            className="px-6 py-2.5 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+          >
+            Explore Findings
+          </button>
+          <button
+            onClick={() => scrollTo("story")}
+            className="px-6 py-2.5 text-sm font-medium bg-white/10 text-white border border-white/20 rounded-lg hover:bg-white/15 backdrop-blur-sm transition-colors"
+          >
+            Read Our Story
+          </button>
+        </motion.div>
+
+        {/* Team */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="flex flex-wrap justify-center gap-6 text-[13px] text-white/50"
         >
           {["Hakyun Song", "Insung Lee", "Taesoon Kim"].map((name) => (
             <span key={name} className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+              <span className="w-1 h-1 rounded-full bg-white/40" />
               {name}
             </span>
           ))}
         </motion.div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="w-5 h-8 rounded-full border-2 border-primary/40 flex items-start justify-center p-1"
-        >
-          <div className="w-1 h-2 rounded-full bg-primary" />
-        </motion.div>
-      </motion.div>
     </section>
   );
 };
