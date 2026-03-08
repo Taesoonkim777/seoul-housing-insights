@@ -1,13 +1,12 @@
 import { motion } from "framer-motion";
 import seoulHero from "@/assets/seoul-hero.jpg";
-import { BookOpen, MessageCircle, FlaskConical, BarChart3, Users, ArrowRight } from "lucide-react";
+import { MessageCircle, BarChart3, Lightbulb, FlaskConical, ArrowRight } from "lucide-react";
 
 const navButtons = [
-  { id: "overview", label: "Overview", icon: BookOpen },
-  { id: "story", label: "Story", icon: MessageCircle },
-  { id: "methodology", label: "Methodology", icon: FlaskConical },
-  { id: "analysis", label: "Analysis", icon: BarChart3 },
-  { id: "team", label: "Team", icon: Users },
+  { id: "why", label: "Why We Chose This Topic", icon: MessageCircle },
+  { id: "findings", label: "Explore Key Findings", icon: BarChart3 },
+  { id: "policy", label: "Policy Recommendation", icon: Lightbulb },
+  { id: "methodology-team", label: "Methodology & Team", icon: FlaskConical },
 ];
 
 const team = [
@@ -43,11 +42,10 @@ const Index = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-display text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.15] text-white mb-4"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.15] text-white mb-4"
+            style={{ fontFamily: "'Playfair Display', serif" }}
           >
-            Urban Amenities &{" "}
-            <span className="italic text-white/90">Housing Price Inequality</span>
-            {" "}in Seoul
+            Urban Amenities & Housing Price Inequality in Seoul
           </motion.h1>
 
           {/* Subtitle */}
