@@ -202,9 +202,8 @@ a { color: inherit; text-decoration: none; }
 .hero-nav-buttons {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
   margin-bottom: 32px;
-  flex-wrap: wrap;
 }
 .nav-pill {
   display: inline-flex;
