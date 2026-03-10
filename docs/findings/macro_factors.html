@@ -1,640 +1,633 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Macro Factors - Seoul Housing</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
-<title>Macro Factors - Seoul Housing</title>
+  <style>
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      margin:0;
+      background:#f7f9fc;
+    }
 
-<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    .container{
+      max-width:1240px;
+      margin:auto;
+      padding:32px 20px;
+    }
 
-<style>
+    .navbar{
+      background:white;
+      border-bottom:1px solid #eee;
+    }
 
-body{
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  margin:0;
-  background:#f7f9fc;
-}
+    .navbar-inner{
+      max-width:1240px;
+      margin:auto;
+      padding:16px 20px;
+    }
 
-.container{
-  max-width:1240px;
-  margin:auto;
-  padding:32px 20px;
-}
+    .navbar-brand{
+      font-size:18px;
+      font-weight:700;
+      border:none;
+      background:none;
+      cursor:pointer;
+    }
 
-.navbar{
-  background:white;
-  border-bottom:1px solid #eee;
-}
+    .sub-hero h1{
+      margin-bottom:8px;
+    }
 
-.navbar-inner{
-  max-width:1240px;
-  margin:auto;
-  padding:16px 20px;
-}
+    .sub-hero p{
+      color:#666;
+    }
 
-.navbar-brand{
-  font-size:18px;
-  font-weight:700;
-  border:none;
-  background:none;
-  cursor:pointer;
-}
+    .back-link{
+      display:inline-block;
+      margin-bottom:10px;
+      color:#2563eb;
+      text-decoration:none;
+    }
 
-.sub-hero h1{
-  margin-bottom:8px;
-}
+    .macro-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:24px;
+      margin-top:24px;
+    }
 
-.sub-hero p{
-  color:#666;
-}
+    .macro-card{
+      background:white;
+      border-radius:18px;
+      padding:20px;
+      box-shadow:0 4px 16px rgba(0,0,0,0.06);
+      border:1px solid #ececec;
+    }
 
-.back-link{
-  display:inline-block;
-  margin-bottom:10px;
-  color:#2563eb;
-  text-decoration:none;
-}
+    .macro-card h2{
+      margin:0 0 8px 0;
+    }
 
-.macro-grid{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:24px;
-  margin-top:24px;
-}
+    .chart-row{
+      display:grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap:20px;
+      align-items:start;
+    }
 
-.macro-card{
-  background:white;
-  border-radius:18px;
-  padding:20px;
-  box-shadow:0 4px 16px rgba(0,0,0,0.06);
-  border:1px solid #ececec;
-}
+    .chart-block{
+      min-width:0;
+    }
 
-.macro-card h2{
-  margin:0 0 8px 0;
-}
+    .chart{
+      width:100%;
+      height:420px;
+    }
 
-.chart-row{
-  display:grid;
-  grid-template-columns: 1.35fr 1fr;
-  gap:20px;
-  align-items:start;
-}
+    .reg-box{
+      margin-top:10px;
+      padding:12px 14px;
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:12px;
+      font-size:13px;
+      line-height:1.6;
+      color:#334155;
+    }
 
-.chart-block{
-  min-width:0;
-}
+    .reg-title{
+      font-weight:700;
+      margin-bottom:4px;
+      color:#111827;
+    }
 
-.chart{
-  width:100%;
-  height:420px;
-}
+    .insight-box{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+      margin-top:24px;
+    }
 
-.reg-box{
-  margin-top:10px;
-  padding:12px 14px;
-  background:#f8fafc;
-  border:1px solid #e5e7eb;
-  border-radius:12px;
-  font-size:13px;
-  line-height:1.6;
-  color:#334155;
-}
+    .insight-item{
+      background:white;
+      border-radius:16px;
+      padding:18px;
+      border:1px solid #ececec;
+      box-shadow:0 4px 16px rgba(0,0,0,0.05);
+    }
 
-.reg-title{
-  font-weight:700;
-  margin-bottom:4px;
-  color:#111827;
-}
+    .insight-label{
+      font-size:13px;
+      color:#666;
+    }
 
-.insight-box{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:16px;
-  margin-top:24px;
-}
+    .insight-value{
+      font-size:28px;
+      font-weight:700;
+    }
 
-.insight-item{
-  background:white;
-  border-radius:16px;
-  padding:18px;
-  border:1px solid #ececec;
-  box-shadow:0 4px 16px rgba(0,0,0,0.05);
-}
+    .insight-note{
+      font-size:12px;
+      color:#777;
+    }
 
-.insight-label{
-  font-size:13px;
-  color:#666;
-}
+    .macro-note{
+      background:#f8fafc;
+      border-left:4px solid #2563eb;
+      padding:16px 18px;
+      border-radius:12px;
+      margin-top:24px;
+      line-height:1.7;
+    }
 
-.insight-value{
-  font-size:28px;
-  font-weight:700;
-}
+    .loading-text,
+    .error-text{
+      margin-top:20px;
+      padding:16px;
+      border-radius:12px;
+      background:white;
+      border:1px solid #ececec;
+    }
 
-.insight-note{
-  font-size:12px;
-  color:#777;
-}
+    @media (max-width:1000px){
+      .chart-row{
+        grid-template-columns:1fr;
+      }
+    }
 
-.macro-note{
-  background:#f8fafc;
-  border-left:4px solid #2563eb;
-  padding:16px 18px;
-  border-radius:12px;
-  margin-top:24px;
-  line-height:1.7;
-}
-
-.loading-text,
-.error-text{
-  margin-top:20px;
-  padding:16px;
-  border-radius:12px;
-  background:white;
-  border:1px solid #ececec;
-}
-
-@media (max-width:1000px){
-  .chart-row{
-    grid-template-columns:1fr;
-  }
-}
-
-@media (max-width:900px){
-  .insight-box{
-    grid-template-columns:1fr;
-  }
-}
-
-</style>
+    @media (max-width:900px){
+      .insight-box{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<nav class="navbar">
-<div class="navbar-inner">
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <button class="navbar-brand" onclick="window.location.href='../index.html'">
+        <span>Seoul</span> Housing
+      </button>
+    </div>
+  </nav>
 
-<button class="navbar-brand"
-onclick="window.location.href='../index.html'">
+  <div class="container">
 
-<span>Seoul</span> Housing
+    <div class="sub-hero">
+      <a href="../index.html" class="back-link">← Back to Main</a>
+      <h1>🌐 Macro Factors</h1>
+      <p>
+        Analysis of macroeconomic drivers such as interest rates, credit conditions,
+        and housing supply.
+      </p>
+    </div>
 
-</button>
+    <div id="loading" class="loading-text">
+      Loading data...
+    </div>
 
-</div>
-</nav>
+    <div id="error" class="error-text" style="display:none;"></div>
 
-<div class="container">
+    <div id="macro-content" style="display:none;">
 
-<div class="sub-hero">
+      <div class="insight-box">
+        <div class="insight-item">
+          <div class="insight-label">Latest Price YoY</div>
+          <div class="insight-value" id="latest-price-yoy">-</div>
+          <div class="insight-note">Year-over-year growth in Seoul apartment prices</div>
+        </div>
 
-<a href="../index.html" class="back-link">← Back to Main</a>
+        <div class="insight-item">
+          <div class="insight-label">Latest Base Rate</div>
+          <div class="insight-value" id="latest-base-rate">-</div>
+          <div class="insight-note">Bank of Korea policy rate</div>
+        </div>
 
-<h1>🌐 Macro Factors</h1>
+        <div class="insight-item">
+          <div class="insight-label">Latest Loan YoY</div>
+          <div class="insight-value" id="latest-loan-yoy">-</div>
+          <div class="insight-note">Year-over-year growth in household loans</div>
+        </div>
+      </div>
 
-<p>
-Analysis of macroeconomic drivers such as interest rates, credit conditions,
-and housing supply.
-</p>
+      <div class="macro-note">
+        Short-term turning points in Seoul’s housing market tend to move closely with
+        changes in interest rates and credit conditions.
+        The charts below compare apartment price growth, the policy rate,
+        and household loan growth to show how macro tightening and easing aligned
+        with major shifts in the housing cycle.
+      </div>
 
-</div>
+      <div class="macro-grid">
 
-<div id="loading" class="loading-text">
-Loading data...
-</div>
+        <section class="macro-card">
+          <h2>1. Seoul Housing Cycle</h2>
+          <p>
+            Year-over-year growth in Seoul apartment prices, together with its relationship to the policy rate.
+          </p>
 
-<div id="error" class="error-text" style="display:none;"></div>
+          <div class="chart-row">
+            <div class="chart-block">
+              <div id="chart-price-yoy" class="chart"></div>
+            </div>
+            <div class="chart-block">
+              <div id="scatter-price-yoy" class="chart"></div>
+              <div id="reg-price-yoy" class="reg-box"></div>
+            </div>
+          </div>
+        </section>
 
-<div id="macro-content" style="display:none;">
+        <section class="macro-card">
+          <h2>2. Price vs Base Rate</h2>
+          <p>
+            Comparison of the Seoul apartment price index and the Bank of Korea policy rate.
+          </p>
 
-<div class="insight-box">
+          <div class="chart-row">
+            <div class="chart-block">
+              <div id="chart-price-rate" class="chart"></div>
+            </div>
+            <div class="chart-block">
+              <div id="scatter-price-rate" class="chart"></div>
+              <div id="reg-price-rate" class="reg-box"></div>
+            </div>
+          </div>
+        </section>
 
-<div class="insight-item">
-<div class="insight-label">Latest Price YoY</div>
-<div class="insight-value" id="latest-price-yoy">-</div>
-<div class="insight-note">Year-over-year growth in Seoul apartment prices</div>
-</div>
+        <section class="macro-card">
+          <h2>3. Credit Growth vs Housing Momentum</h2>
+          <p>
+            Household loan growth compared with housing price growth.
+          </p>
 
-<div class="insight-item">
-<div class="insight-label">Latest Base Rate</div>
-<div class="insight-value" id="latest-base-rate">-</div>
-<div class="insight-note">Bank of Korea policy rate</div>
-</div>
+          <div class="chart-row">
+            <div class="chart-block">
+              <div id="chart-loan-yoy" class="chart"></div>
+            </div>
+            <div class="chart-block">
+              <div id="scatter-loan-yoy" class="chart"></div>
+              <div id="reg-loan-yoy" class="reg-box"></div>
+            </div>
+          </div>
+        </section>
 
-<div class="insight-item">
-<div class="insight-label">Latest Loan YoY</div>
-<div class="insight-value" id="latest-loan-yoy">-</div>
-<div class="insight-note">Year-over-year growth in household loans</div>
-</div>
+      </div>
 
-</div>
-
-<div class="macro-note">
-
-Short-term turning points in Seoul’s housing market tend to move closely with
-changes in interest rates and credit conditions.
-
-The charts below compare apartment price growth, the policy rate,
-and household loan growth to show how macro tightening and easing aligned
-with major shifts in the housing cycle.
-
-</div>
-
-<div class="macro-grid">
-
-<section class="macro-card">
-
-<h2>1. Seoul Housing Cycle</h2>
-
-<p>
-Year-over-year growth in Seoul apartment prices, together with its relationship to the policy rate.
-</p>
-
-<div class="chart-row">
-  <div class="chart-block">
-    <div id="chart-price-yoy" class="chart"></div>
+    </div>
   </div>
-  <div class="chart-block">
-    <div id="scatter-price-yoy" class="chart"></div>
-    <div id="reg-price-yoy" class="reg-box"></div>
-  </div>
-</div>
 
-</section>
+  <script>
+    const CSV_PATH = "macro_city_monthly.csv";
 
-<section class="macro-card">
-
-<h2>2. Price vs Base Rate</h2>
-
-<p>
-Comparison of the Seoul apartment price index and the Bank of Korea
-policy rate.
-</p>
-
-<div class="chart-row">
-  <div class="chart-block">
-    <div id="chart-price-rate" class="chart"></div>
-  </div>
-  <div class="chart-block">
-    <div id="scatter-price-rate" class="chart"></div>
-    <div id="reg-price-rate" class="reg-box"></div>
-  </div>
-</div>
-
-</section>
-
-<section class="macro-card">
-
-<h2>3. Credit Growth vs Housing Momentum</h2>
-
-<p>
-Household loan growth compared with housing price growth.
-</p>
-
-<div class="chart-row">
-  <div class="chart-block">
-    <div id="chart-loan-yoy" class="chart"></div>
-  </div>
-  <div class="chart-block">
-    <div id="scatter-loan-yoy" class="chart"></div>
-    <div id="reg-loan-yoy" class="reg-box"></div>
-  </div>
-</div>
-
-</section>
-
-</div>
-
-</div>
-
-</div>
-
-<script>
-
-const CSV_PATH = "macro_city_monthly.csv"
-
-function toNumber(v){
-  if(v === null || v === undefined || v === "") return null
-  const n = Number(v)
-  return isNaN(n) ? null : n
-}
-
-function formatPercent(v){
-  if(v===null || v===undefined || isNaN(v)) return "-"
-  return v.toFixed(2) + "%"
-}
-
-function parseData(rows){
-  return rows
-    .filter(r => r.date)
-    .map((r, idx) => ({
-      date:new Date(r.date),
-      dateLabel:r.date,
-      time_index: idx + 1,
-      price_index:toNumber(r.price_index),
-      price_yoy:toNumber(r.price_yoy),
-      base_rate:toNumber(r.base_rate),
-      loan_yoy:toNumber(r.loan_yoy)
-    }))
-    .sort((a,b) => a.date - b.date)
-    .map((d, idx) => ({ ...d, time_index: idx + 1 }))
-}
-
-function updateSummary(data){
-  const latest = data[data.length-1]
-
-  document.getElementById("latest-price-yoy").textContent =
-    formatPercent(latest.price_yoy)
-
-  document.getElementById("latest-base-rate").textContent =
-    formatPercent(latest.base_rate)
-
-  document.getElementById("latest-loan-yoy").textContent =
-    formatPercent(latest.loan_yoy)
-}
-
-function linearRegression(x, y){
-  const n = x.length
-  if(n < 2) return null
-
-  const meanX = x.reduce((a,b)=>a+b,0) / n
-  const meanY = y.reduce((a,b)=>a+b,0) / n
-
-  let num = 0
-  let den = 0
-
-  for(let i=0; i<n; i++){
-    num += (x[i] - meanX) * (y[i] - meanY)
-    den += (x[i] - meanX) ** 2
-  }
-
-  if(den === 0) return null
-
-  const slope = num / den
-  const intercept = meanY - slope * meanX
-
-  let ssTot = 0
-  let ssRes = 0
-
-  for(let i=0; i<n; i++){
-    const yHat = intercept + slope * x[i]
-    ssTot += (y[i] - meanY) ** 2
-    ssRes += (y[i] - yHat) ** 2
-  }
-
-  const r2 = ssTot === 0 ? null : 1 - (ssRes / ssTot)
-
-  return { slope, intercept, r2 }
-}
-
-function getScatterData(data, xKey, yKey){
-  return data
-    .filter(d => d[xKey] !== null && d[yKey] !== null && !isNaN(d[xKey]) && !isNaN(d[yKey]))
-    .map(d => ({ x: d[xKey], y: d[yKey], date: d.dateLabel }))
-}
-
-function regressionText({slope, intercept, r2}, xLabel, yLabel){
-  const sign = intercept >= 0 ? "+" : "-"
-  return `
-    <div class="reg-title">OLS Regression</div>
-    <div><strong>Equation:</strong> ${yLabel} = ${slope.toFixed(4)} × ${xLabel} ${sign} ${Math.abs(intercept).toFixed(4)}</div>
-    <div><strong>R²:</strong> ${r2 !== null ? r2.toFixed(4) : "-"}</div>
-  `
-}
-
-function drawScatterWithRegression({
-  elementId,
-  regBoxId,
-  data,
-  xKey,
-  yKey,
-  xLabel,
-  yLabel,
-  title
-}){
-  const pts = getScatterData(data, xKey, yKey)
-
-  if(pts.length < 2){
-    document.getElementById(regBoxId).innerHTML = `
-      <div class="reg-title">OLS Regression</div>
-      <div>Not enough valid observations to estimate a regression.</div>
-    `
-    return
-  }
-
-  const xs = pts.map(d => d.x)
-  const ys = pts.map(d => d.y)
-  const reg = linearRegression(xs, ys)
-
-  const minX = Math.min(...xs)
-  const maxX = Math.max(...xs)
-
-  const lineX = [minX, maxX]
-  const lineY = lineX.map(v => reg.intercept + reg.slope * v)
-
-  const scatterTrace = {
-    x: xs,
-    y: ys,
-    mode: "markers",
-    name: "Observations",
-    text: pts.map(d => d.date),
-    hovertemplate:
-      "%{text}<br>" +
-      xLabel + ": %{x:.2f}<br>" +
-      yLabel + ": %{y:.2f}<extra></extra>",
-    marker: {
-      size: 8,
-      opacity: 0.75
+    function toNumber(v){
+      if(v === null || v === undefined || v === "") return null;
+      const n = Number(v);
+      return isNaN(n) ? null : n;
     }
-  }
 
-  const lineTrace = {
-    x: lineX,
-    y: lineY,
-    mode: "lines",
-    name: "Regression line",
-    line: {
-      width: 2,
-      dash: "dash"
-    },
-    hoverinfo: "skip"
-  }
-
-  Plotly.newPlot(
-    elementId,
-    [scatterTrace, lineTrace],
-    {
-      title: {
-        text: title,
-        x: 0.02,
-        y: 0.98,
-        xanchor: "left",
-        yanchor: "top",
-        font: { size: 14 }
-      },
-      margin:{ t:70, r:20, b:60, l:60 },
-      xaxis:{ title:xLabel },
-      yaxis:{ title:yLabel },
-      paper_bgcolor:"white",
-      plot_bgcolor:"white",
-      legend:{
-        orientation:"h",
-        x: 0,
-        y: 1.18,
-        xanchor: "left",
-        yanchor: "bottom"
-      }
-    },
-    { responsive:true, displayModeBar:false }
-  )
-
-  document.getElementById(regBoxId).innerHTML = regressionText(reg, xLabel, yLabel)
-}
-  
-function drawCharts(data){
-
-  const dates = data.map(d=>d.date)
-
-  Plotly.newPlot("chart-price-yoy",[{
-    x:dates,
-    y:data.map(d=>d.price_yoy),
-    mode:"lines",
-    name:"Price YoY",
-    line:{ width:3 }
-  }],{
-    margin:{t:20, r:20, b:50, l:50},
-    yaxis:{ title:"YoY (%)" },
-    paper_bgcolor:"white",
-    plot_bgcolor:"white"
-  },{ responsive:true, displayModeBar:false })
-
-  Plotly.newPlot("chart-price-rate",[
-    {
-      x:dates,
-      y:data.map(d=>d.price_index),
-      mode:"lines",
-      name:"Price Index",
-      line:{ width:3 }
-    },
-    {
-      x:dates,
-      y:data.map(d=>d.base_rate),
-      mode:"lines",
-      name:"Base Rate",
-      yaxis:"y2",
-      line:{ width:2, dash:"dash" }
+    function formatPercent(v){
+      if(v === null || v === undefined || isNaN(v)) return "-";
+      return v.toFixed(2) + "%";
     }
-  ],{
-    margin:{t:20, r:50, b:50, l:50},
-    yaxis:{title:"Price Index"},
-    yaxis2:{
-      overlaying:"y",
-      side:"right",
-      title:"Base Rate (%)"
-    },
-    paper_bgcolor:"white",
-    plot_bgcolor:"white"
-  },{ responsive:true, displayModeBar:false })
 
-  Plotly.newPlot("chart-loan-yoy",[
-    {
-      x:dates,
-      y:data.map(d=>d.loan_yoy),
-      mode:"lines",
-      name:"Loan YoY",
-      line:{ width:3 }
-    },
-    {
-      x:dates,
-      y:data.map(d=>d.price_yoy),
-      mode:"lines",
-      name:"Price YoY",
-      line:{ width:2, dash:"dash" }
+    function parseData(rows){
+      return rows
+        .filter(r => r.date)
+        .map((r, idx) => ({
+          date: new Date(r.date),
+          dateLabel: r.date,
+          time_index: idx + 1,
+          price_index: toNumber(r.price_index),
+          price_yoy: toNumber(r.price_yoy),
+          base_rate: toNumber(r.base_rate),
+          loan_yoy: toNumber(r.loan_yoy)
+        }))
+        .sort((a, b) => a.date - b.date)
+        .map((d, idx) => ({ ...d, time_index: idx + 1 }));
     }
-  ],{
-    margin:{t:20, r:20, b:50, l:50},
-    yaxis:{ title:"YoY (%)" },
-    paper_bgcolor:"white",
-    plot_bgcolor:"white"
-  },{ responsive:true, displayModeBar:false })
 
-drawScatterWithRegression({
-  elementId: "scatter-price-yoy",
-  regBoxId: "reg-price-yoy",
-  data: data,
-  xKey: "base_rate",
-  yKey: "price_yoy",
-  xLabel: "Base Rate (%)",
-  yLabel: "Price YoY (%)",
-  title: "Price YoY vs Base Rate"
-})
+    function updateSummary(data){
+      const latest = data[data.length - 1];
 
-drawScatterWithRegression({
-  elementId: "scatter-price-rate",
-  regBoxId: "reg-price-rate",
-  data: data,
-  xKey: "base_rate",
-  yKey: "price_index",
-  xLabel: "Base Rate (%)",
-  yLabel: "Price Index",
-  title: "Price Index vs Base Rate"
-})
+      document.getElementById("latest-price-yoy").textContent =
+        formatPercent(latest.price_yoy);
 
-drawScatterWithRegression({
-  elementId: "scatter-loan-yoy",
-  regBoxId: "reg-loan-yoy",
-  data: data,
-  xKey: "loan_yoy",
-  yKey: "price_yoy",
-  xLabel: "Loan YoY (%)",
-  yLabel: "Price YoY (%)",
-  title: "Price YoY vs Loan YoY"
-})
+      document.getElementById("latest-base-rate").textContent =
+        formatPercent(latest.base_rate);
 
-function init(){
+      document.getElementById("latest-loan-yoy").textContent =
+        formatPercent(latest.loan_yoy);
+    }
 
-  Papa.parse(CSV_PATH,{
-    download:true,
-    header:true,
+    function linearRegression(x, y){
+      const n = x.length;
+      if(n < 2) return null;
 
-    complete:function(results){
-      const data = parseData(results.data)
+      const meanX = x.reduce((a, b) => a + b, 0) / n;
+      const meanY = y.reduce((a, b) => a + b, 0) / n;
 
-      if(!data.length){
-        document.getElementById("loading").style.display="none"
-        const errorEl = document.getElementById("error")
-        errorEl.style.display="block"
-        errorEl.textContent = "Failed to load macro_city_monthly.csv"
-        return
+      let num = 0;
+      let den = 0;
+
+      for(let i = 0; i < n; i++){
+        num += (x[i] - meanX) * (y[i] - meanY);
+        den += (x[i] - meanX) ** 2;
       }
 
-      updateSummary(data)
-      drawCharts(data)
+      if(den === 0) return null;
 
-      document.getElementById("loading").style.display="none"
-      document.getElementById("macro-content").style.display="block"
-    },
+      const slope = num / den;
+      const intercept = meanY - slope * meanX;
 
-    error:function(err){
-      document.getElementById("loading").style.display="none"
+      let ssTot = 0;
+      let ssRes = 0;
 
-      const errorEl = document.getElementById("error")
-      errorEl.style.display="block"
-      errorEl.textContent =
-      "Failed to load macro_city_monthly.csv"
+      for(let i = 0; i < n; i++){
+        const yHat = intercept + slope * x[i];
+        ssTot += (y[i] - meanY) ** 2;
+        ssRes += (y[i] - yHat) ** 2;
+      }
 
-      console.error(err)
+      const r2 = ssTot === 0 ? null : 1 - (ssRes / ssTot);
+
+      return { slope, intercept, r2 };
     }
-  })
-}
 
-document.addEventListener("DOMContentLoaded",init)
+    function getScatterData(data, xKey, yKey){
+      return data
+        .filter(d =>
+          d[xKey] !== null &&
+          d[yKey] !== null &&
+          !isNaN(d[xKey]) &&
+          !isNaN(d[yKey])
+        )
+        .map(d => ({ x: d[xKey], y: d[yKey], date: d.dateLabel }));
+    }
 
-</script>
+    function regressionText(reg, xLabel, yLabel){
+      if(!reg){
+        return `
+          <div class="reg-title">OLS Regression</div>
+          <div>Not enough valid observations to estimate a regression.</div>
+        `;
+      }
+
+      const { slope, intercept, r2 } = reg;
+      const sign = intercept >= 0 ? "+" : "-";
+
+      return `
+        <div class="reg-title">OLS Regression</div>
+        <div><strong>Equation:</strong> ${yLabel} = ${slope.toFixed(4)} × ${xLabel} ${sign} ${Math.abs(intercept).toFixed(4)}</div>
+        <div><strong>R²:</strong> ${r2 !== null ? r2.toFixed(4) : "-"}</div>
+      `;
+    }
+
+    function drawScatterWithRegression({
+      elementId,
+      regBoxId,
+      data,
+      xKey,
+      yKey,
+      xLabel,
+      yLabel,
+      title
+    }){
+      const pts = getScatterData(data, xKey, yKey);
+
+      if(pts.length < 2){
+        document.getElementById(regBoxId).innerHTML = regressionText(null, xLabel, yLabel);
+        return;
+      }
+
+      const xs = pts.map(d => d.x);
+      const ys = pts.map(d => d.y);
+      const reg = linearRegression(xs, ys);
+
+      const minX = Math.min(...xs);
+      const maxX = Math.max(...xs);
+
+      const lineX = [minX, maxX];
+      const lineY = lineX.map(v => reg.intercept + reg.slope * v);
+
+      const scatterTrace = {
+        x: xs,
+        y: ys,
+        mode: "markers",
+        name: "Observations",
+        text: pts.map(d => d.date),
+        hovertemplate:
+          "%{text}<br>" +
+          xLabel + ": %{x:.2f}<br>" +
+          yLabel + ": %{y:.2f}<extra></extra>",
+        marker: {
+          size: 8,
+          opacity: 0.75
+        }
+      };
+
+      const lineTrace = {
+        x: lineX,
+        y: lineY,
+        mode: "lines",
+        name: "Regression line",
+        line: {
+          width: 2,
+          dash: "dash"
+        },
+        hoverinfo: "skip"
+      };
+
+      Plotly.newPlot(
+        elementId,
+        [scatterTrace, lineTrace],
+        {
+          title: {
+            text: title,
+            x: 0.02,
+            y: 0.98,
+            xanchor: "left",
+            yanchor: "top",
+            font: { size: 14 }
+          },
+          margin: { t: 80, r: 20, b: 60, l: 60 },
+          xaxis: { title: xLabel },
+          yaxis: { title: yLabel },
+          paper_bgcolor: "white",
+          plot_bgcolor: "white",
+          legend: {
+            orientation: "h",
+            x: 0,
+            y: 1.22,
+            xanchor: "left",
+            yanchor: "bottom"
+          }
+        },
+        { responsive: true, displayModeBar: false }
+      );
+
+      document.getElementById(regBoxId).innerHTML = regressionText(reg, xLabel, yLabel);
+    }
+
+    function drawCharts(data){
+      const dates = data.map(d => d.date);
+
+      Plotly.newPlot(
+        "chart-price-yoy",
+        [{
+          x: dates,
+          y: data.map(d => d.price_yoy),
+          mode: "lines",
+          name: "Price YoY",
+          line: { width: 3 }
+        }],
+        {
+          margin: { t: 20, r: 20, b: 50, l: 50 },
+          yaxis: { title: "YoY (%)" },
+          paper_bgcolor: "white",
+          plot_bgcolor: "white"
+        },
+        { responsive: true, displayModeBar: false }
+      );
+
+      Plotly.newPlot(
+        "chart-price-rate",
+        [
+          {
+            x: dates,
+            y: data.map(d => d.price_index),
+            mode: "lines",
+            name: "Price Index",
+            line: { width: 3 }
+          },
+          {
+            x: dates,
+            y: data.map(d => d.base_rate),
+            mode: "lines",
+            name: "Base Rate",
+            yaxis: "y2",
+            line: { width: 2, dash: "dash" }
+          }
+        ],
+        {
+          margin: { t: 20, r: 50, b: 50, l: 50 },
+          yaxis: { title: "Price Index" },
+          yaxis2: {
+            overlaying: "y",
+            side: "right",
+            title: "Base Rate (%)"
+          },
+          paper_bgcolor: "white",
+          plot_bgcolor: "white"
+        },
+        { responsive: true, displayModeBar: false }
+      );
+
+      Plotly.newPlot(
+        "chart-loan-yoy",
+        [
+          {
+            x: dates,
+            y: data.map(d => d.loan_yoy),
+            mode: "lines",
+            name: "Loan YoY",
+            line: { width: 3 }
+          },
+          {
+            x: dates,
+            y: data.map(d => d.price_yoy),
+            mode: "lines",
+            name: "Price YoY",
+            line: { width: 2, dash: "dash" }
+          }
+        ],
+        {
+          margin: { t: 20, r: 20, b: 50, l: 50 },
+          yaxis: { title: "YoY (%)" },
+          paper_bgcolor: "white",
+          plot_bgcolor: "white"
+        },
+        { responsive: true, displayModeBar: false }
+      );
+
+      drawScatterWithRegression({
+        elementId: "scatter-price-yoy",
+        regBoxId: "reg-price-yoy",
+        data: data,
+        xKey: "base_rate",
+        yKey: "price_yoy",
+        xLabel: "Base Rate (%)",
+        yLabel: "Price YoY (%)",
+        title: "Price YoY vs Base Rate"
+      });
+
+      drawScatterWithRegression({
+        elementId: "scatter-price-rate",
+        regBoxId: "reg-price-rate",
+        data: data,
+        xKey: "base_rate",
+        yKey: "price_index",
+        xLabel: "Base Rate (%)",
+        yLabel: "Price Index",
+        title: "Price Index vs Base Rate"
+      });
+
+      drawScatterWithRegression({
+        elementId: "scatter-loan-yoy",
+        regBoxId: "reg-loan-yoy",
+        data: data,
+        xKey: "loan_yoy",
+        yKey: "price_yoy",
+        xLabel: "Loan YoY (%)",
+        yLabel: "Price YoY (%)",
+        title: "Price YoY vs Loan YoY"
+      });
+    }
+
+    function init(){
+      Papa.parse(CSV_PATH, {
+        download: true,
+        header: true,
+
+        complete: function(results){
+          const data = parseData(results.data);
+
+          if(!data.length){
+            document.getElementById("loading").style.display = "none";
+            const errorEl = document.getElementById("error");
+            errorEl.style.display = "block";
+            errorEl.textContent = "Failed to load macro_city_monthly.csv";
+            return;
+          }
+
+          updateSummary(data);
+          drawCharts(data);
+
+          document.getElementById("loading").style.display = "none";
+          document.getElementById("macro-content").style.display = "block";
+        },
+
+        error: function(err){
+          document.getElementById("loading").style.display = "none";
+
+          const errorEl = document.getElementById("error");
+          errorEl.style.display = "block";
+          errorEl.textContent = "Failed to load macro_city_monthly.csv";
+
+          console.error(err);
+        }
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
+  </script>
 
 </body>
 </html>
