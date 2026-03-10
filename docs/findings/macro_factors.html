@@ -7,10 +7,7 @@
 
 <title>Macro Factors - Seoul Housing</title>
 
-<!-- Plotly -->
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
-
-<!-- PapaParse -->
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
 <style>
@@ -22,7 +19,7 @@ body{
 }
 
 .container{
-  max-width:1100px;
+  max-width:1240px;
   margin:auto;
   padding:32px 20px;
 }
@@ -33,7 +30,7 @@ body{
 }
 
 .navbar-inner{
-  max-width:1100px;
+  max-width:1240px;
   margin:auto;
   padding:16px 20px;
 }
@@ -80,9 +77,37 @@ body{
   margin:0 0 8px 0;
 }
 
+.chart-row{
+  display:grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap:20px;
+  align-items:start;
+}
+
+.chart-block{
+  min-width:0;
+}
+
 .chart{
   width:100%;
   height:420px;
+}
+
+.reg-box{
+  margin-top:10px;
+  padding:12px 14px;
+  background:#f8fafc;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  font-size:13px;
+  line-height:1.6;
+  color:#334155;
+}
+
+.reg-title{
+  font-weight:700;
+  margin-bottom:4px;
+  color:#111827;
 }
 
 .insight-box{
@@ -131,6 +156,12 @@ body{
   border-radius:12px;
   background:white;
   border:1px solid #ececec;
+}
+
+@media (max-width:1000px){
+  .chart-row{
+    grid-template-columns:1fr;
+  }
 }
 
 @media (max-width:900px){
@@ -224,7 +255,15 @@ Year-over-year growth in Seoul apartment prices highlighting
 housing market acceleration and slowdown periods.
 </p>
 
-<div id="chart-price-yoy" class="chart"></div>
+<div class="chart-row">
+  <div class="chart-block">
+    <div id="chart-price-yoy" class="chart"></div>
+  </div>
+  <div class="chart-block">
+    <div id="scatter-price-yoy" class="chart"></div>
+    <div id="reg-price-yoy" class="reg-box"></div>
+  </div>
+</div>
 
 </section>
 
@@ -237,7 +276,15 @@ Comparison of the Seoul apartment price index and the Bank of Korea
 policy rate.
 </p>
 
-<div id="chart-price-rate" class="chart"></div>
+<div class="chart-row">
+  <div class="chart-block">
+    <div id="chart-price-rate" class="chart"></div>
+  </div>
+  <div class="chart-block">
+    <div id="scatter-price-rate" class="chart"></div>
+    <div id="reg-price-rate" class="reg-box"></div>
+  </div>
+</div>
 
 </section>
 
@@ -249,7 +296,15 @@ policy rate.
 Household loan growth compared with housing price growth.
 </p>
 
-<div id="chart-loan-yoy" class="chart"></div>
+<div class="chart-row">
+  <div class="chart-block">
+    <div id="chart-loan-yoy" class="chart"></div>
+  </div>
+  <div class="chart-block">
+    <div id="scatter-loan-yoy" class="chart"></div>
+    <div id="reg-loan-yoy" class="reg-box"></div>
+  </div>
+</div>
 
 </section>
 
@@ -264,142 +319,303 @@ Household loan growth compared with housing price growth.
 const CSV_PATH = "macro_city_monthly.csv"
 
 function toNumber(v){
+  if(v === null || v === undefined || v === "") return null
   const n = Number(v)
   return isNaN(n) ? null : n
 }
 
 function formatPercent(v){
-  if(v===null) return "-"
+  if(v===null || v===undefined || isNaN(v)) return "-"
   return v.toFixed(2) + "%"
 }
 
 function parseData(rows){
-
   return rows
     .filter(r => r.date)
-    .map(r => ({
+    .map((r, idx) => ({
       date:new Date(r.date),
+      dateLabel:r.date,
+      time_index: idx + 1,
       price_index:toNumber(r.price_index),
       price_yoy:toNumber(r.price_yoy),
       base_rate:toNumber(r.base_rate),
       loan_yoy:toNumber(r.loan_yoy)
     }))
-
+    .sort((a,b) => a.date - b.date)
+    .map((d, idx) => ({ ...d, time_index: idx + 1 }))
 }
 
 function updateSummary(data){
+  const latest = data[data.length-1]
 
-const latest = data[data.length-1]
+  document.getElementById("latest-price-yoy").textContent =
+    formatPercent(latest.price_yoy)
 
-document.getElementById("latest-price-yoy").textContent =
-formatPercent(latest.price_yoy)
+  document.getElementById("latest-base-rate").textContent =
+    formatPercent(latest.base_rate)
 
-document.getElementById("latest-base-rate").textContent =
-formatPercent(latest.base_rate)
+  document.getElementById("latest-loan-yoy").textContent =
+    formatPercent(latest.loan_yoy)
+}
 
-document.getElementById("latest-loan-yoy").textContent =
-formatPercent(latest.loan_yoy)
+function linearRegression(x, y){
+  const n = x.length
+  if(n < 2) return null
 
+  const meanX = x.reduce((a,b)=>a+b,0) / n
+  const meanY = y.reduce((a,b)=>a+b,0) / n
+
+  let num = 0
+  let den = 0
+
+  for(let i=0; i<n; i++){
+    num += (x[i] - meanX) * (y[i] - meanY)
+    den += (x[i] - meanX) ** 2
+  }
+
+  if(den === 0) return null
+
+  const slope = num / den
+  const intercept = meanY - slope * meanX
+
+  let ssTot = 0
+  let ssRes = 0
+
+  for(let i=0; i<n; i++){
+    const yHat = intercept + slope * x[i]
+    ssTot += (y[i] - meanY) ** 2
+    ssRes += (y[i] - yHat) ** 2
+  }
+
+  const r2 = ssTot === 0 ? null : 1 - (ssRes / ssTot)
+
+  return { slope, intercept, r2 }
+}
+
+function getScatterData(data, xKey, yKey){
+  return data
+    .filter(d => d[xKey] !== null && d[yKey] !== null && !isNaN(d[xKey]) && !isNaN(d[yKey]))
+    .map(d => ({ x: d[xKey], y: d[yKey], date: d.dateLabel }))
+}
+
+function regressionText({slope, intercept, r2}, xLabel, yLabel){
+  const sign = intercept >= 0 ? "+" : "-"
+  return `
+    <div class="reg-title">OLS Regression</div>
+    <div><strong>Equation:</strong> ${yLabel} = ${slope.toFixed(4)} × ${xLabel} ${sign} ${Math.abs(intercept).toFixed(4)}</div>
+    <div><strong>R²:</strong> ${r2 !== null ? r2.toFixed(4) : "-"}</div>
+  `
+}
+
+function drawScatterWithRegression({
+  elementId,
+  regBoxId,
+  data,
+  xKey,
+  yKey,
+  xLabel,
+  yLabel,
+  title
+}){
+  const pts = getScatterData(data, xKey, yKey)
+
+  if(pts.length < 2){
+    document.getElementById(regBoxId).innerHTML = `
+      <div class="reg-title">OLS Regression</div>
+      <div>Not enough valid observations to estimate a regression.</div>
+    `
+    return
+  }
+
+  const xs = pts.map(d => d.x)
+  const ys = pts.map(d => d.y)
+  const reg = linearRegression(xs, ys)
+
+  const minX = Math.min(...xs)
+  const maxX = Math.max(...xs)
+
+  const lineX = [minX, maxX]
+  const lineY = lineX.map(v => reg.intercept + reg.slope * v)
+
+  const scatterTrace = {
+    x: xs,
+    y: ys,
+    mode: "markers",
+    name: "Observations",
+    text: pts.map(d => d.date),
+    hovertemplate: "%{text}<br>" + xLabel + ": %{x:.2f}<br>" + yLabel + ": %{y:.2f}<extra></extra>",
+    marker: {
+      size: 8,
+      opacity: 0.75
+    }
+  }
+
+  const lineTrace = {
+    x: lineX,
+    y: lineY,
+    mode: "lines",
+    name: "Regression line",
+    line: {
+      width: 2,
+      dash: "dash"
+    },
+    hoverinfo: "skip"
+  }
+
+  Plotly.newPlot(
+    elementId,
+    [scatterTrace, lineTrace],
+    {
+      title: { text: title, font: { size: 14 } },
+      margin:{t:40, r:20, b:50, l:55},
+      xaxis:{ title:xLabel },
+      yaxis:{ title:yLabel },
+      paper_bgcolor:"white",
+      plot_bgcolor:"white",
+      legend:{ orientation:"h", y:1.12 }
+    },
+    { responsive:true, displayModeBar:false }
+  )
+
+  document.getElementById(regBoxId).innerHTML = regressionText(reg, xLabel, yLabel)
 }
 
 function drawCharts(data){
 
-const dates = data.map(d=>d.date)
+  const dates = data.map(d=>d.date)
 
-Plotly.newPlot("chart-price-yoy",[{
-  x:dates,
-  y:data.map(d=>d.price_yoy),
-  mode:"lines",
-  name:"Price YoY"
-}],{margin:{t:20}})
+  Plotly.newPlot("chart-price-yoy",[{
+    x:dates,
+    y:data.map(d=>d.price_yoy),
+    mode:"lines",
+    name:"Price YoY",
+    line:{ width:3 }
+  }],{
+    margin:{t:20, r:20, b:50, l:50},
+    yaxis:{ title:"YoY (%)" },
+    paper_bgcolor:"white",
+    plot_bgcolor:"white"
+  },{ responsive:true, displayModeBar:false })
 
-Plotly.newPlot("chart-price-rate",[
+  Plotly.newPlot("chart-price-rate",[
+    {
+      x:dates,
+      y:data.map(d=>d.price_index),
+      mode:"lines",
+      name:"Price Index",
+      line:{ width:3 }
+    },
+    {
+      x:dates,
+      y:data.map(d=>d.base_rate),
+      mode:"lines",
+      name:"Base Rate",
+      yaxis:"y2",
+      line:{ width:2, dash:"dash" }
+    }
+  ],{
+    margin:{t:20, r:50, b:50, l:50},
+    yaxis:{title:"Price Index"},
+    yaxis2:{
+      overlaying:"y",
+      side:"right",
+      title:"Base Rate (%)"
+    },
+    paper_bgcolor:"white",
+    plot_bgcolor:"white"
+  },{ responsive:true, displayModeBar:false })
 
-{
-x:dates,
-y:data.map(d=>d.price_index),
-mode:"lines",
-name:"Price Index"
-},
+  Plotly.newPlot("chart-loan-yoy",[
+    {
+      x:dates,
+      y:data.map(d=>d.loan_yoy),
+      mode:"lines",
+      name:"Loan YoY",
+      line:{ width:3 }
+    },
+    {
+      x:dates,
+      y:data.map(d=>d.price_yoy),
+      mode:"lines",
+      name:"Price YoY",
+      line:{ width:2, dash:"dash" }
+    }
+  ],{
+    margin:{t:20, r:20, b:50, l:50},
+    yaxis:{ title:"YoY (%)" },
+    paper_bgcolor:"white",
+    plot_bgcolor:"white"
+  },{ responsive:true, displayModeBar:false })
 
-{
-x:dates,
-y:data.map(d=>d.base_rate),
-mode:"lines",
-name:"Base Rate",
-yaxis:"y2"
-}
+  drawScatterWithRegression({
+    elementId: "scatter-price-yoy",
+    regBoxId: "reg-price-yoy",
+    data: data,
+    xKey: "time_index",
+    yKey: "price_yoy",
+    xLabel: "Time Index",
+    yLabel: "Price YoY (%)",
+    title: "Trend in Price YoY"
+  })
 
-],{
+  drawScatterWithRegression({
+    elementId: "scatter-price-rate",
+    regBoxId: "reg-price-rate",
+    data: data,
+    xKey: "base_rate",
+    yKey: "price_index",
+    xLabel: "Base Rate (%)",
+    yLabel: "Price Index",
+    title: "Price Index vs Base Rate"
+  })
 
-margin:{t:20},
-
-yaxis:{title:"Price Index"},
-
-yaxis2:{
-overlaying:"y",
-side:"right",
-title:"Base Rate"
-}
-
-})
-
-Plotly.newPlot("chart-loan-yoy",[
-
-{
-x:dates,
-y:data.map(d=>d.loan_yoy),
-mode:"lines",
-name:"Loan YoY"
-},
-
-{
-x:dates,
-y:data.map(d=>d.price_yoy),
-mode:"lines",
-name:"Price YoY"
-}
-
-],{margin:{t:20}})
-
+  drawScatterWithRegression({
+    elementId: "scatter-loan-yoy",
+    regBoxId: "reg-loan-yoy",
+    data: data,
+    xKey: "loan_yoy",
+    yKey: "price_yoy",
+    xLabel: "Loan YoY (%)",
+    yLabel: "Price YoY (%)",
+    title: "Price YoY vs Loan YoY"
+  })
 }
 
 function init(){
 
-Papa.parse(CSV_PATH,{
+  Papa.parse(CSV_PATH,{
+    download:true,
+    header:true,
 
-download:true,
-header:true,
+    complete:function(results){
+      const data = parseData(results.data)
 
-complete:function(results){
+      if(!data.length){
+        document.getElementById("loading").style.display="none"
+        const errorEl = document.getElementById("error")
+        errorEl.style.display="block"
+        errorEl.textContent = "Failed to load macro_city_monthly.csv"
+        return
+      }
 
-const data = parseData(results.data)
+      updateSummary(data)
+      drawCharts(data)
 
-updateSummary(data)
-drawCharts(data)
+      document.getElementById("loading").style.display="none"
+      document.getElementById("macro-content").style.display="block"
+    },
 
-document.getElementById("loading").style.display="none"
-document.getElementById("macro-content").style.display="block"
+    error:function(err){
+      document.getElementById("loading").style.display="none"
 
-},
+      const errorEl = document.getElementById("error")
+      errorEl.style.display="block"
+      errorEl.textContent =
+      "Failed to load macro_city_monthly.csv"
 
-error:function(err){
-
-document.getElementById("loading").style.display="none"
-
-const errorEl = document.getElementById("error")
-
-errorEl.style.display="block"
-
-errorEl.textContent =
-"Failed to load macro_city_monthly.csv"
-
-console.error(err)
-
-}
-
-})
-
+      console.error(err)
+    }
+  })
 }
 
 document.addEventListener("DOMContentLoaded",init)
