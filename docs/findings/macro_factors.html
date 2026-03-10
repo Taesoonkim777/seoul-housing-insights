@@ -251,8 +251,7 @@ with major shifts in the housing cycle.
 <h2>1. Seoul Housing Cycle</h2>
 
 <p>
-Year-over-year growth in Seoul apartment prices highlighting
-housing market acceleration and slowdown periods.
+Year-over-year growth in Seoul apartment prices, together with its relationship to the policy rate.
 </p>
 
 <div class="chart-row">
@@ -443,7 +442,10 @@ function drawScatterWithRegression({
     mode: "markers",
     name: "Observations",
     text: pts.map(d => d.date),
-    hovertemplate: "%{text}<br>" + xLabel + ": %{x:.2f}<br>" + yLabel + ": %{y:.2f}<extra></extra>",
+    hovertemplate:
+      "%{text}<br>" +
+      xLabel + ": %{x:.2f}<br>" +
+      yLabel + ": %{y:.2f}<extra></extra>",
     marker: {
       size: 8,
       opacity: 0.75
@@ -466,20 +468,33 @@ function drawScatterWithRegression({
     elementId,
     [scatterTrace, lineTrace],
     {
-      title: { text: title, font: { size: 14 } },
-      margin:{t:40, r:20, b:50, l:55},
+      title: {
+        text: title,
+        x: 0.02,
+        y: 0.98,
+        xanchor: "left",
+        yanchor: "top",
+        font: { size: 14 }
+      },
+      margin:{ t:70, r:20, b:60, l:60 },
       xaxis:{ title:xLabel },
       yaxis:{ title:yLabel },
       paper_bgcolor:"white",
       plot_bgcolor:"white",
-      legend:{ orientation:"h", y:1.12 }
+      legend:{
+        orientation:"h",
+        x: 0,
+        y: 1.18,
+        xanchor: "left",
+        yanchor: "bottom"
+      }
     },
     { responsive:true, displayModeBar:false }
   )
 
   document.getElementById(regBoxId).innerHTML = regressionText(reg, xLabel, yLabel)
 }
-
+  
 function drawCharts(data){
 
   const dates = data.map(d=>d.date)
@@ -547,39 +562,38 @@ function drawCharts(data){
     plot_bgcolor:"white"
   },{ responsive:true, displayModeBar:false })
 
-  drawScatterWithRegression({
-    elementId: "scatter-price-yoy",
-    regBoxId: "reg-price-yoy",
-    data: data,
-    xKey: "time_index",
-    yKey: "price_yoy",
-    xLabel: "Time Index",
-    yLabel: "Price YoY (%)",
-    title: "Trend in Price YoY"
-  })
+drawScatterWithRegression({
+  elementId: "scatter-price-yoy",
+  regBoxId: "reg-price-yoy",
+  data: data,
+  xKey: "base_rate",
+  yKey: "price_yoy",
+  xLabel: "Base Rate (%)",
+  yLabel: "Price YoY (%)",
+  title: "Price YoY vs Base Rate"
+})
 
-  drawScatterWithRegression({
-    elementId: "scatter-price-rate",
-    regBoxId: "reg-price-rate",
-    data: data,
-    xKey: "base_rate",
-    yKey: "price_index",
-    xLabel: "Base Rate (%)",
-    yLabel: "Price Index",
-    title: "Price Index vs Base Rate"
-  })
+drawScatterWithRegression({
+  elementId: "scatter-price-rate",
+  regBoxId: "reg-price-rate",
+  data: data,
+  xKey: "base_rate",
+  yKey: "price_index",
+  xLabel: "Base Rate (%)",
+  yLabel: "Price Index",
+  title: "Price Index vs Base Rate"
+})
 
-  drawScatterWithRegression({
-    elementId: "scatter-loan-yoy",
-    regBoxId: "reg-loan-yoy",
-    data: data,
-    xKey: "loan_yoy",
-    yKey: "price_yoy",
-    xLabel: "Loan YoY (%)",
-    yLabel: "Price YoY (%)",
-    title: "Price YoY vs Loan YoY"
-  })
-}
+drawScatterWithRegression({
+  elementId: "scatter-loan-yoy",
+  regBoxId: "reg-loan-yoy",
+  data: data,
+  xKey: "loan_yoy",
+  yKey: "price_yoy",
+  xLabel: "Loan YoY (%)",
+  yLabel: "Price YoY (%)",
+  title: "Price YoY vs Loan YoY"
+})
 
 function init(){
 
