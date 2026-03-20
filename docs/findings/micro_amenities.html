@@ -58,7 +58,17 @@
       display: flex;
       flex-direction: column;
     }
+    .dw-wrap {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+}
 
+.dw-wrap > div[id^="datawrapper-vis-"] {
+  width: 100% !important;
+  height: 100%;
+  min-height: 320px;
+}
     .map-card-header {
       padding: 14px 16px;
       font-size: 15px;
@@ -75,6 +85,7 @@
       justify-content: stretch;
       padding: 12px;
       background: #ffffff;
+      min-height: 300px;
     }
 
     .map-image {
@@ -272,8 +283,6 @@
              <img src="https://datawrapper.dwcdn.net/sWxww/full.png" 
                   alt="Spatial Distribution of Apartment Prices in Seoul (2025)" />
          </noscript>
-        </div>
-
        </div>
      </div>
     </div>
