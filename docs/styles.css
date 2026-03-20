@@ -711,3 +711,47 @@ section {
   font-size: 48px;
   opacity: 0.5;
 }
+
+.final-line {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 1.5rem;
+}
+
+.final-line p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--fg-muted);
+  margin: 0;
+  flex: 1;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 8px 14px;
+  border-radius: 999px;
+
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  color: var(--fg);
+  background: rgba(0, 0, 0, 0.04);
+
+  text-decoration: none;
+
+  transition: all 0.25s ease;
+}
+
+.back-btn:hover {
+  background: rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+.back-btn:active {
+  transform: translateY(0);
+}
