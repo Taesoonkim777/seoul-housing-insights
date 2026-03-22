@@ -117,7 +117,12 @@
       color: #111827;
       overflow-x: auto;
     }
-
+    .chart-desc {
+      margin-top: 12px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #4b5563;
+    }
     .stats-grid {
       display: grid;
       grid-template-columns: 1.1fr 1fr;
@@ -400,44 +405,63 @@
 </section>
 
     <!-- Part 2 -->
-    <section class="section-block">
-      <h2>2. Statistical Relationship</h2>
-      <p class="section-desc">
-        To examine how local amenities are associated with housing prices, we estimate a regression model
-        using safety, transport, education, and green space indicators. This section presents the model,
-        statistical correlations, and an interpretation of the main findings.
+<section class="section-block">
+  <h2>2. Statistical Relationship</h2>
+  <p class="section-desc">
+    To examine how local amenities are associated with housing prices, we combine correlation analysis
+    and regression estimates. Correlation highlights simple pairwise relationships, while regression
+    helps identify which variables remain meaningful after accounting for overlapping neighborhood factors.
+  </p>
+
+  <div class="equation-box">
+    <strong>
+      log(Price) = β₀ + β₁ log(Transit) + β₂ log(Education) + β₃ log(Childcare) + β₄ log(Daily Living) + β₅ Growth + β₆ Green + ε
+    </strong>
+  </div>
+
+  <div class="stats-grid">
+    <!-- Correlation -->
+    <div class="stats-card">
+      <h3>Correlation with Housing Price</h3>
+      <img
+        src="images/figure_2_correlation_with_price.png"
+        alt="Bivariate correlations between housing price and neighborhood variables"
+        style="width:100%; border-radius:16px; margin-top:12px;"
+      />
+      <p class="chart-desc">
+        This chart shows the simple correlation between housing prices and each neighborhood variable.
+        Year-over-year growth has the strongest positive relationship with housing prices, followed by
+        private academy density. In contrast, transit and daily living indicators show relatively weak associations.
       </p>
+    </div>
 
-      <div class="equation-box">
-        <strong>Price = β₀ + β₁ Safety + β₂ Transport + β₃ Education + β₄ Green + ε</strong>
-      </div>
+    <!-- Regression -->
+    <div class="stats-card">
+      <h3>Regression Estimates (Controlled Effects)</h3>
+      <img
+        src="images/figure_3_regression_coefficients.png"
+        alt="Standardized regression coefficients with 95 percent confidence intervals"
+        style="width:100%; border-radius:16px; margin-top:12px;"
+      />
+      <p class="chart-desc">
+        This figure presents standardized regression coefficients with 95% confidence intervals.
+        After controlling for multiple neighborhood factors simultaneously, growth dynamics and education-related amenities
+        remain the most meaningful predictors, while other variables lose significance due to overlapping effects.
+      </p>
+    </div>
+  </div>
 
-      <div class="stats-grid">
-        <div class="stats-card">
-          <h3>Correlation Matrix / Regression Output</h3>
-          <div class="stats-placeholder">
-            상관관계 표, 회귀 결과표, coefficient chart 등을 넣는 영역
-          </div>
-        </div>
-
-        <div class="stats-card">
-          <h3>Visual Relationship</h3>
-          <div class="stats-placeholder">
-            산점도, coefficient plot, partial effect plot 등을 넣는 영역
-          </div>
-        </div>
-      </div>
-
-      <div class="interpretation-box">
-        <h3>Interpretation</h3>
-        <ul>
-          <li>Safety, transport accessibility, education quality, and green amenities may each show different relationships with housing prices.</li>
-          <li>Positive coefficients suggest that better local amenity conditions are associated with higher housing prices.</li>
-          <li>The size and significance of coefficients help identify which amenity matters most in explaining spatial price variation.</li>
-          <li>This framework helps distinguish simple correlation from more structured statistical association.</li>
-        </ul>
-      </div>
-    </section>
+  <div class="interpretation-box">
+    <h3>Interpretation</h3>
+    <ul>
+      <li>Housing prices are more strongly associated with growth dynamics than with most static neighborhood amenities.</li>
+      <li>Education-related amenities show a moderate positive relationship with housing prices, highlighting the role of local human capital environments.</li>
+      <li>Many amenity variables move together, suggesting they reflect a broader “neighborhood quality” rather than independent effects.</li>
+      <li>Once these overlapping factors are considered simultaneously, only a few variables remain statistically meaningful.</li>
+      <li>Overall, housing prices are shaped by both growth expectations and bundled neighborhood characteristics, not a single factor alone.</li>
+    </ul>
+  </div>
+</section>
 
     <!-- Part 3 -->
     <section class="section-block">
