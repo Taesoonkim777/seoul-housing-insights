@@ -359,13 +359,13 @@
     </div>
   </div>
 
-  <script src="../script.js"></script>
   <script>
-    // Override chart init errors since this page has no charts
-    window.initBarChart = window.initBarChart || function(){};
-    window.initLineChart = window.initLineChart || function(){};
-    window.initRadarChart = window.initRadarChart || function(){};
+    // Stub chart functions before loading shared script (no charts on this page)
+    function initBarChart(){}
+    function initLineChart(){}
+    function initRadarChart(){}
   </script>
+  <script src="../script.js"></script>
 
 </body>
 </html>
