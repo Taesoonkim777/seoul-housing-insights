@@ -1,1 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Policy Recommendations · Seoul Housing</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    /* ===== Hero ===== */
+    .rec-hero {
+      padding: 100px 0 56px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+    .rec-hero .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .rec-hero .eyebrow::before {
+      content: '';
+      width: 20px;
+      height: 2px;
+      background: var(--primary);
+      display: inline-block;
+    }
+    .rec-hero h1 {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--fg);
+    }
+    .rec-hero .subtitle {
+      font-size: 15px;
+      color: var(--muted-fg);
+      line-height: 1.8;
+      max-width: 680px;
+    }
 
+    /* ===== Summary Callout ===== */
+    .summary-callout {
+      background: var(--primary-light);
+      border: 1px solid hsl(215, 30%, 88%);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 56px;
+      position: relative;
+    }
+    .summary-callout::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 16px;
+      bottom: 16px;
+      width: 4px;
+      background: var(--primary);
+      border-radius: 4px;
+    }
+    .summary-callout p {
+      font-size: 15px;
+      color: var(--muted-fg);
+      line-height: 1.8;
+      max-width: 740px;
+      margin: 0;
+    }
+
+    /* ===== Policy Grid ===== */
+    .policy-section-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .policy-section-heading {
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: 32px;
+    }
+
+    .policy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 64px;
+    }
+
+    .policy-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px 28px 28px;
+      box-shadow: var(--shadow);
+      transition: box-shadow 0.3s ease, transform 0.25s ease, border-color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .policy-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      border-radius: 18px 18px 0 0;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .policy-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-4px);
+      border-color: transparent;
+    }
+    .policy-card:hover::after {
+      opacity: 1;
+    }
+    .policy-card.supply::after { background: var(--accent-blue); }
+    .policy-card.education::after { background: var(--accent-green); }
+    .policy-card.stabilization::after { background: var(--accent-orange); }
+    .policy-card.bundled::after { background: var(--accent-purple); }
+
+    .policy-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .policy-icon.supply { background: hsl(200, 65%, 92%); color: var(--accent-blue); }
+    .policy-icon.education { background: hsl(155, 45%, 92%); color: var(--accent-green); }
+    .policy-icon.stabilization { background: hsl(30, 70%, 92%); color: var(--accent-orange); }
+    .policy-icon.bundled { background: hsl(260, 45%, 92%); color: var(--accent-purple); }
+
+    .policy-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke-width: 1.8;
+    }
+
+    .policy-card h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 17px;
+      font-weight: 650;
+      color: var(--fg);
+      margin-bottom: 12px;
+    }
+    .policy-card p {
+      font-size: 14px;
+      color: var(--muted-fg);
+      line-height: 1.75;
+      margin: 0;
+    }
+
+    /* ===== Conclusion ===== */
+    .conclusion-band {
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 56px 0;
+      margin-bottom: 0;
+    }
+    .conclusion-inner {
+      max-width: 620px;
+    }
+    .conclusion-inner h2 {
+      font-size: clamp(1.3rem, 2.8vw, 1.9rem);
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: 16px;
+    }
+    .conclusion-inner p {
+      font-size: 15px;
+      color: var(--muted-fg);
+      line-height: 1.8;
+    }
+
+    /* ===== Back link ===== */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      color: var(--primary);
+      font-weight: 500;
+      margin-bottom: 24px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      .policy-grid {
+        grid-template-columns: 1fr;
+      }
+      .rec-hero {
+        padding: 80px 0 40px;
+      }
+      .summary-callout {
+        padding: 22px 24px;
+      }
+      .policy-card {
+        padding: 26px 22px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <button class="navbar-brand" onclick="window.location.href='../../'">Seoul <span>Housing</span></button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="container">
+    <div class="rec-hero fade-up">
+      <a href="index.html" class="back-link">← Back to Policy</a>
+      <div class="eyebrow">Policy</div>
+      <h1>Policy Recommendations</h1>
+      <p class="subtitle">
+        Addressing Seoul's housing inequality requires more than short-term market controls.
+        Based on the findings, Seoul needs targeted, place-based policies that reduce demand concentration,
+        improve neighborhood quality, and respond earlier to market overheating.
+      </p>
+    </div>
+
+    <!-- Summary Callout -->
+    <div class="summary-callout fade-up">
+      <p>
+        The analysis suggests that Seoul's housing prices are shaped not only by macroeconomic cycles,
+        but also by growth expectations, education-related demand, and bundled neighborhood amenities.
+        Therefore, effective policy should combine supply, education, market stabilization, and local
+        amenity investment rather than relying on one-dimensional regulation alone.
+      </p>
+    </div>
+
+    <!-- Section Heading -->
+    <div class="fade-up">
+      <div class="policy-section-title">Recommendations</div>
+      <h2 class="policy-section-heading">Four Policy Directions</h2>
+    </div>
+
+    <!-- Policy Grid -->
+    <div class="policy-grid">
+
+      <!-- Card 1: Targeted Supply Expansion -->
+      <div class="policy-card supply fade-up">
+        <div class="policy-icon supply">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="2" width="16" height="20" rx="2" ry="2"/>
+            <path d="M9 22v-4h6v4"/>
+            <path d="M8 6h.01M16 6h.01M12 6h.01M8 10h.01M16 10h.01M12 10h.01M8 14h.01M16 14h.01M12 14h.01"/>
+          </svg>
+        </div>
+        <h3>Targeted Supply Expansion</h3>
+        <p>
+          Expand housing supply in and around high-demand districts such as Gangnam, Yongsan, Mapo, and Dongjak.
+          Rather than relying on blanket citywide expansion, Seoul should prioritize transit-connected areas
+          where demand is structurally strong. Upzoning, redevelopment, and mixed-use planning in these locations
+          can reduce localized supply pressure and slow extreme price escalation.
+        </p>
+      </div>
+
+      <!-- Card 2: Reducing the Education Premium -->
+      <div class="policy-card education fade-up">
+        <div class="policy-icon education">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/>
+          </svg>
+        </div>
+        <h3>Reducing the Education Premium</h3>
+        <p>
+          Housing demand in Seoul is closely tied to access to strong education environments.
+          The city should invest more in public education, childcare, and after-school support in non-core
+          districts to reduce residential sorting based on school access. Strengthening education infrastructure
+          outside top-tier neighborhoods can help weaken one of the most persistent drivers of housing inequality.
+        </p>
+      </div>
+
+      <!-- Card 3: Early and Targeted Market Stabilization -->
+      <div class="policy-card stabilization fade-up">
+        <div class="policy-icon stabilization">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+        </div>
+        <h3>Early and Targeted Market Stabilization</h3>
+        <p>
+          Housing market turning points tend to move with interest rates and credit conditions,
+          but policy responses have often come too late. Seoul should adopt an early-warning framework
+          using price growth, transaction surges, and loan expansion to identify overheating areas sooner.
+          Targeted financial and tax measures in those districts would make policy more proactive
+          and reduce speculative demand.
+        </p>
+      </div>
+
+      <!-- Card 4: Bundled Neighborhood Improvement -->
+      <div class="policy-card bundled fade-up">
+        <div class="policy-icon bundled">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+            <path d="M2 12h20"/>
+            <path d="M5 5.6A16 16 0 0 0 5 18.4"/>
+            <path d="M19 5.6A16 16 0 0 1 19 18.4"/>
+          </svg>
+        </div>
+        <h3>Bundled Neighborhood Improvement</h3>
+        <p>
+          Housing prices are influenced less by any single amenity than by overall neighborhood quality.
+          Instead of isolated improvements, Seoul should upgrade under-served districts through coordinated
+          investments in transport, green space, education, safety, and daily services. A bundled approach
+          can create more attractive alternatives to high-demand areas and support more balanced urban development.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Conclusion Band -->
+  <div class="conclusion-band">
+    <div class="container">
+      <div class="conclusion-inner fade-up">
+        <h2>Toward a More Balanced Seoul</h2>
+        <p>
+          A more balanced housing market requires not only more housing, but more equal access to opportunity.
+          Long-term affordability in Seoul depends on reducing the structural concentration of demand and
+          improving the quality of neighborhoods across the city.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="container">
+    <div class="footer">
+      Seoul Housing Inequality · DPI 852M · 2025
+    </div>
+  </div>
+
+  <script>
+    // Stub chart functions before loading shared script (no charts on this page)
+    function initBarChart(){}
+    function initLineChart(){}
+    function initRadarChart(){}
+  </script>
+  <script src="../script.js"></script>
+
+</body>
+</html>
