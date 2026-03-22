@@ -464,50 +464,65 @@
 </section>
 
     <!-- Part 3 -->
-    <section class="section-block">
-      <h2>3. Machine Learning Algorithm</h2>
-      <p class="section-desc">
-        Finally, we apply K-means clustering to group districts based on similarities in housing prices and
-        amenity characteristics. This unsupervised learning approach helps identify neighborhood types that
-        share common spatial and socioeconomic features.
+<section class="section-block">
+  <h2>3. Machine Learning Interpretation</h2>
+  <p class="section-desc">
+    To complement the statistical analysis, we apply a machine learning model to examine how neighborhood
+    characteristics jointly relate to housing prices. Instead of focusing only on average linear effects,
+    this approach helps capture non-linear patterns and differences in variable importance across dongs.
+  </p>
+
+  <div class="ml-layout">
+    <div class="ml-card">
+      <h3>SHAP-Based Model Interpretation</h3>
+      <div class="ml-text">
+        <p>
+          We use SHAP (SHapley Additive exPlanations) values to interpret the machine learning model.
+          SHAP shows how much each feature contributes to the predicted housing price for each neighborhood.
+        </p>
+        <p>
+          This helps move beyond simple correlations by identifying which variables matter most in the model
+          and whether higher values of each feature tend to push predicted prices upward or downward.
+        </p>
+      </div>
+    </div>
+
+    <div class="ml-card">
+      <h3>SHAP Summary Plot</h3>
+      <img
+        src="findings/image/figure_5_shap_analysis.png"
+        alt="SHAP summary plot showing the contribution of neighborhood variables to predicted housing prices"
+        style="width:100%; border-radius:16px; margin-top:12px;"
+      />
+      <p class="chart-desc">
+        Each point represents one neighborhood. The horizontal position shows whether a variable increases
+        or decreases the predicted housing price, while color indicates whether the feature value is high or low.
       </p>
+    </div>
+  </div>
 
-      <div class="ml-layout">
-        <div class="ml-card">
-          <h3>K-means Clustering Overview</h3>
-          <div class="ml-text">
-            <p>
-              We cluster dong-level observations using variables such as housing price, safety, transport
-              accessibility, education environment, and green space. The algorithm groups areas with similar
-              profiles into the same cluster.
-            </p>
-            <p>
-              This approach helps move beyond individual variables and reveals broader neighborhood patterns
-              in Seoul’s housing market.
-            </p>
-          </div>
-        </div>
-
-        <div class="ml-card">
-          <h3>Cluster Visualization</h3>
-          <div class="stats-placeholder">
-            군집 지도, scatter plot, PCA plot 등을 넣는 영역
-          </div>
-        </div>
-      </div>
-
-      <div class="full-width-box">
-        <h3>Cluster Interpretation</h3>
-        <div class="ml-text">
-          <p>
-            The clustering results can be used to identify distinct types of neighborhoods, such as
-            high-price / high-amenity areas, emerging mid-price districts, or lower-price neighborhoods with
-            weaker amenity access. These groups help show how multiple factors jointly shape housing market
-            outcomes across Seoul.
-          </p>
-        </div>
-      </div>
-    </section>
+  <div class="full-width-box">
+    <h3>Model Interpretation</h3>
+    <div class="ml-text">
+      <p>
+        The SHAP results suggest that <strong>year-over-year growth</strong> is the most influential variable
+        in the model. Higher growth values are consistently associated with higher predicted housing prices,
+        indicating that market momentum plays a central role in Seoul’s housing market.
+      </p>
+      <p>
+        <strong>Private academy and childcare availability</strong> also contribute positively to predicted
+        prices, suggesting that education-related amenities are important components of neighborhood desirability.
+        By contrast, <strong>daily transit and daily living infrastructure</strong> show more moderate and
+        less consistent effects, while <strong>green ratio</strong> contributes very little overall.
+      </p>
+      <p>
+        Taken together, the machine learning model indicates that housing prices are shaped less by any single
+        static amenity and more by a combination of <strong>growth expectations and clustered neighborhood
+        quality factors</strong>.
+      </p>
+    </div>
+  </div>
+</section>
 
     <div class="bottom-nav">
       <a href="index.html" class="back-btn">
