@@ -17,7 +17,7 @@
     }
 
     .section-title-sm {
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 700;
       margin-bottom: 12px;
       color: #111827;
@@ -28,68 +28,91 @@
       color: #6b7280;
       margin-bottom: 24px;
       line-height: 1.7;
+      max-width: 860px;
     }
 
     .timeline-box {
       width: 100%;
-      height: 420px;
-      border-radius: 12px;
+      min-height: 440px;
+      border-radius: 14px;
       overflow: hidden;
       border: 1px solid #e5e7eb;
+      background: #f9fafb;
     }
 
-    .policy-list {
+    .policy-grid {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 20px;
     }
 
-    .policy-card {
+    .policy-group {
       padding: 22px;
       border: 1px solid #e5e7eb;
-      border-radius: 16px;
+      border-radius: 18px;
       background: #ffffff;
-      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
     }
 
-    .policy-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.05);
+    .policy-group-title {
+      margin-bottom: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #111827;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #f0f2f5;
     }
 
-    .policy-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
+    .policy-item + .policy-item {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px dashed #e5e7eb;
     }
 
-    .policy-title {
-      font-size: 18px;
+    .policy-name {
+      margin-bottom: 6px;
+      font-size: 16px;
       font-weight: 700;
       color: #111827;
     }
 
     .policy-date {
-      font-size: 13px;
+      display: inline-block;
+      margin-bottom: 10px;
+      font-size: 12px;
+      font-weight: 700;
       color: #2563eb;
-      font-weight: 600;
+      text-transform: uppercase;
     }
 
-    .policy-card ul {
+    .policy-item ul {
       margin: 0;
       padding-left: 18px;
-      color: #4b5563;
       font-size: 14px;
+      color: #4b5563;
       line-height: 1.7;
     }
 
-    .policy-card li {
-      margin-bottom: 6px;
+    .policy-eval {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid #f0f2f5;
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    .policy-eval p {
+      margin: 4px 0;
     }
 
     .bottom-nav {
       margin-top: 40px;
+    }
+
+    @media (max-width: 900px) {
+      .policy-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -106,116 +129,195 @@
 
 <div class="container">
 
-  <!-- Hero -->
+  <!-- HERO -->
   <div class="sub-hero">
     <a href="../index.html" class="back-link">← Back to Home</a>
     <h1>📊 Policy Evaluation</h1>
-    <p>Assessment of major housing policies and their impact on Seoul’s housing market</p>
+    <p>Assessment of major housing policy interventions and their effectiveness in Seoul</p>
   </div>
 
-  <!-- Timeline Section -->
+  <!-- TIMELINE -->
   <section class="section-block">
     <h2 class="section-title-sm">Policy Timeline</h2>
     <p class="section-desc">
-      The chart below shows the timing of major policy interventions alongside housing price trends.
-      This helps us understand how policy actions aligned with market dynamics.
+      This timeline shows when major policies were implemented relative to housing price trends.
+      It helps identify whether interventions aligned with market dynamics or lagged behind them.
     </p>
 
     <div class="timeline-box">
-      <!-- Datawrapper iframe 넣는 자리 -->
-      <!-- 예시:
-      <iframe src="YOUR_DATAWRAPPER_LINK" width="100%" height="100%" frameborder="0"></iframe>
-      -->
+      <!-- Datawrapper iframe 넣기 -->
     </div>
   </section>
 
-  <!-- Policy List Section -->
+  <!-- POLICY GRID -->
   <section class="section-block">
-    <h2 class="section-title-sm">Major Policies Since 2017</h2>
+    <h2 class="section-title-sm">Major Housing Policies (2017–2025)</h2>
     <p class="section-desc">
-      Below is a summary of key housing policies implemented in Seoul, focusing on regulation,
-      taxation, and supply-side interventions.
+      The policies below illustrate how the government's approach evolved over time.
+      Despite repeated interventions, structural challenges remained unresolved.
     </p>
 
-    <div class="policy-list">
+    <div class="policy-grid">
 
-      <div class="policy-card">
-        <div class="policy-header">
-          <div class="policy-title">8.2 Housing Measures</div>
+      <!-- Phase 1 -->
+      <div class="policy-group">
+        <div class="policy-group-title">Phase 1. Initial Anti-Speculation Measures</div>
+
+        <div class="policy-item">
+          <div class="policy-name">8.2 Measures</div>
           <div class="policy-date">Aug 2017</div>
+          <ul>
+            <li>Speculative zone designation</li>
+            <li>Mortgage restrictions</li>
+            <li>Capital gains tax increase</li>
+          </ul>
+          <div class="policy-eval">
+            <p><strong>Outcome:</strong> Temporary demand reduction.</p>
+            <p><strong>Limitation:</strong> Prices rebounded quickly.</p>
+          </div>
         </div>
-        <ul>
-          <li>Designated Seoul as speculative overheating zone</li>
-          <li>Strengthened mortgage lending restrictions</li>
-          <li>Increased capital gains tax for multi-homeowners</li>
-          <li>Expanded resale restrictions</li>
-        </ul>
-      </div>
 
-      <div class="policy-card">
-        <div class="policy-header">
-          <div class="policy-title">9.13 Measures</div>
+        <div class="policy-item">
+          <div class="policy-name">9.13 Measures</div>
           <div class="policy-date">Sep 2018</div>
+          <ul>
+            <li>Stronger taxation on multi-homeowners</li>
+            <li>Tighter loan regulation</li>
+          </ul>
+          <div class="policy-eval">
+            <p><strong>Outcome:</strong> Reduced transaction volume.</p>
+            <p><strong>Limitation:</strong> Limited effect on expectations.</p>
+          </div>
         </div>
-        <ul>
-          <li>Higher tax burden on multi-homeowners</li>
-          <li>Tightened housing loan regulations</li>
-          <li>Reformed subscription system toward end-users</li>
-        </ul>
       </div>
 
-      <div class="policy-card">
-        <div class="policy-header">
-          <div class="policy-title">12.16 Measures</div>
+      <!-- Phase 2 -->
+      <div class="policy-group">
+        <div class="policy-group-title">Phase 2. Credit Tightening</div>
+
+        <div class="policy-item">
+          <div class="policy-name">12.16 Measures</div>
           <div class="policy-date">Dec 2019</div>
+          <ul>
+            <li>Mortgage ban for high-end housing</li>
+            <li>Stricter LTV rules</li>
+          </ul>
+          <div class="policy-eval">
+            <p><strong>Outcome:</strong> High-end transactions declined.</p>
+            <p><strong>Limitation:</strong> Mid-market prices continued rising.</p>
+          </div>
         </div>
-        <ul>
-          <li>Mortgage ban for homes above KRW 1.5B</li>
-          <li>Stricter LTV rules</li>
-          <li>Increased tax on high-value properties</li>
-        </ul>
-      </div>
 
-      <div class="policy-card">
-        <div class="policy-header">
-          <div class="policy-title">6.17 Measures</div>
+        <div class="policy-item">
+          <div class="policy-name">6.17 Measures</div>
           <div class="policy-date">Jun 2020</div>
+          <ul>
+            <li>Expanded regulation zones</li>
+            <li>Land transaction permits</li>
+          </ul>
+          <div class="policy-eval">
+            <p><strong>Outcome:</strong> Slowed activity locally.</p>
+            <p><strong>Limitation:</strong> Spillover to nearby areas.</p>
+          </div>
         </div>
-        <ul>
-          <li>Expanded regulated areas</li>
-          <li>Introduced land transaction permits</li>
-          <li>Tightened jeonse-loan usage rules</li>
-        </ul>
       </div>
 
-      <div class="policy-card">
-        <div class="policy-header">
-          <div class="policy-title">7.10 Measures</div>
+      <!-- Phase 3 -->
+      <div class="policy-group">
+        <div class="policy-group-title">Phase 3. Tax & Supply Mix</div>
+
+        <div class="policy-item">
+          <div class="policy-name">7.10 Measures</div>
           <div class="policy-date">Jul 2020</div>
+          <ul>
+            <li>Higher taxes on multiple properties</li>
+            <li>Rental tax benefit reduction</li>
+          </ul>
+          <div class="policy-eval">
+            <p><strong>Outcome:</strong> Increased holding costs.</p>
+            <p><strong>Limitation:</strong> Did not expand supply.</p>
+          </div>
         </div>
-        <ul>
-          <li>Increased acquisition and holding taxes</li>
-          <li>Reduced rental housing tax benefits</li>
-          <li>Strengthened multi-homeowner regulation</li>
-        </ul>
+
+        <div class="policy-item">
+          <div class="policy-name">8.4 Supply Plan</div>
+          <div class="policy-date">Aug 2020</div>
+          <ul>
+            <li>Large-scale housing supply plan</li>
+            <li>Public-led development</li>
+          </ul>
+          <div class="policy-eval">
+            <p><strong>Outcome:</strong> Improved supply expectations.</p>
+            <p><strong>Limitation:</strong> Delayed implementation.</p>
+          </div>
+        </div>
       </div>
 
-      <div class="policy-card">
-        <div class="policy-header">
-          <div class="policy-title">8.4 Supply Plan</div>
-          <div class="policy-date">Aug 2020</div>
+      <!-- Phase 4 -->
+      <div class="policy-group">
+        <div class="policy-group-title">Phase 4. Public Supply & Deregulation</div>
+
+        <div class="policy-item">
+          <div class="policy-name">2.4 Supply Plan</div>
+          <div class="policy-date">Feb 2021</div>
+          <ul>
+            <li>Public-led redevelopment</li>
+            <li>Fast-track approval</li>
+          </ul>
+          <div class="policy-eval">
+            <p><strong>Outcome:</strong> Strengthened supply strategy.</p>
+            <p><strong>Limitation:</strong> Local resistance slowed progress.</p>
+          </div>
         </div>
-        <ul>
-          <li>Large-scale housing supply expansion</li>
-          <li>Public-led redevelopment projects</li>
-          <li>Focus on urban housing supply</li>
-        </ul>
+
+        <div class="policy-item">
+          <div class="policy-name">Normalization Policies</div>
+          <div class="policy-date">2022–2023</div>
+          <ul>
+            <li>Deregulation and easing</li>
+            <li>Removal of control zones</li>
+          </ul>
+          <div class="policy-eval">
+            <p><strong>Outcome:</strong> Transactions recovered.</p>
+            <p><strong>Limitation:</strong> Risk of renewed price surge.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 5 -->
+      <div class="policy-group">
+        <div class="policy-group-title">Phase 5. New Cycle</div>
+
+        <div class="policy-item">
+          <div class="policy-name">Supply Expansion Package</div>
+          <div class="policy-date">Aug 2024</div>
+          <ul>
+            <li>Accelerated housing projects</li>
+            <li>Urban supply expansion</li>
+          </ul>
+          <div class="policy-eval">
+            <p><strong>Outcome:</strong> Supply expectations improved.</p>
+            <p><strong>Limitation:</strong> Structural demand remains strong.</p>
+          </div>
+        </div>
+
+        <div class="policy-item">
+          <div class="policy-name">Loan Regulation Package</div>
+          <div class="policy-date">2025</div>
+          <ul>
+            <li>Stricter mortgage rules</li>
+            <li>Combined supply-demand policy</li>
+          </ul>
+          <div class="policy-eval">
+            <p><strong>Outcome:</strong> Targeted demand control.</p>
+            <p><strong>Limitation:</strong> Reduced accessibility for buyers.</p>
+          </div>
+        </div>
       </div>
 
     </div>
   </section>
 
-  <!-- Bottom -->
   <div class="bottom-nav">
     <a href="index.html" class="back-btn">← Go back</a>
   </div>
