@@ -6,7 +6,7 @@
   <title>Methodology &amp; Team – Seoul Housing</title>
   <link rel="stylesheet" href="../styles.css" />
   <style>
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 32px; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 32px; align-items: start; }
     @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
     .team-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 24px; text-align: center; }
     .team-card .avatar-lg { width: 64px; height: 64px; border-radius: 50%; background: var(--secondary); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--primary); font-weight: 700; }
@@ -16,12 +16,27 @@
     .team-card .linkedin-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--primary); text-decoration: none; transition: opacity 0.2s; }
     .team-card .linkedin-link:hover { opacity: 0.7; }
     .team-cards { display: grid; gap: 20px; }
-    .method-compact .step { margin-bottom: 16px; }
-    .method-compact .step-content h3 { font-size: 0.95rem; margin-bottom: 4px; }
-    .method-compact .step-content p { font-size: 0.82rem; line-height: 1.5; }
-    .method-compact .tags { margin-top: 6px; }
-    .method-compact .tag { font-size: 0.7rem; padding: 3px 8px; }
-    .col-title { font-size: 1.2rem; margin-bottom: 20px; font-family: 'DM Serif Display', serif; }
+    .col-title { font-size: 1.2rem; margin-bottom: 4px; font-family: 'DM Serif Display', serif; }
+    .col-subtitle { font-size: 0.78rem; color: var(--muted); margin-bottom: 20px; line-height: 1.5; }
+
+    /* Pipeline */
+    .pipeline { display: flex; flex-direction: column; gap: 0; }
+    .pipe-step { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px 18px; box-shadow: var(--shadow); transition: box-shadow 0.3s, transform 0.2s; }
+    .pipe-step:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+    .pipe-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; flex-shrink: 0; }
+    .pipe-icon svg { width: 18px; height: 18px; stroke-width: 1.8; }
+    .pipe-icon.ic1 { background: hsl(200, 65%, 92%); color: hsl(200, 55%, 42%); }
+    .pipe-icon.ic2 { background: hsl(260, 45%, 92%); color: hsl(260, 40%, 48%); }
+    .pipe-icon.ic3 { background: hsl(30, 70%, 92%); color: hsl(30, 60%, 42%); }
+    .pipe-icon.ic4 { background: hsl(155, 45%, 90%); color: hsl(155, 40%, 38%); }
+    .pipe-icon.ic5 { background: hsl(215, 50%, 92%); color: hsl(215, 45%, 45%); }
+    .pipe-icon.ic6 { background: hsl(0, 50%, 93%); color: hsl(0, 45%, 48%); }
+    .pipe-step h3 { font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 600; margin-bottom: 4px; }
+    .pipe-step p { font-size: 0.76rem; color: var(--muted-fg); line-height: 1.55; margin: 0; }
+    .pipe-step .tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px; }
+    .pipe-step .tag { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; padding: 2px 8px; border-radius: 999px; background: var(--primary-light); color: var(--primary); font-weight: 500; }
+    .pipe-arrow { display: flex; justify-content: center; padding: 6px 0; color: var(--border); }
+    .pipe-arrow svg { width: 16px; height: 16px; }
   </style>
 </head>
 <body>
@@ -42,55 +57,79 @@
     </div>
 
     <div class="two-col">
-      <!-- Left: Methodology (compact) -->
-      <div class="method-compact">
+      <!-- Left: Methodology Pipeline -->
+      <div>
         <h2 class="col-title">Methodology</h2>
+        <p class="col-subtitle">A structured workflow from data collection to interactive visualization.</p>
 
-        <div class="step fade-up visible">
-          <div class="step-number">01</div>
-          <div class="step-content">
-            <h3>Data Collection</h3>
-            <p>Apartment transaction data from MOLIT and district-level amenity data from Seoul Open Data Portal (2015–2024).</p>
-            <div class="tags">
-              <span class="tag">MOLIT API</span>
-              <span class="tag">Seoul Open Data</span>
+        <div class="pipeline">
+          <!-- 1. Data Source -->
+          <div class="pipe-step">
+            <div class="pipe-icon ic1">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/></svg>
             </div>
+            <h3>Data Source</h3>
+            <p>Data is collected from the Seoul Open Data Portal, including housing transactions and district-level amenity indicators.</p>
+            <div class="tags"><span class="tag">Seoul Open Data</span></div>
           </div>
-        </div>
 
-        <div class="step fade-up visible">
-          <div class="step-number">02</div>
-          <div class="step-content">
-            <h3>Amenity Index Construction</h3>
-            <p>Composite urban amenity index using PCA and Z-score normalization across transportation, education, safety, and green space.</p>
-            <div class="tags">
-              <span class="tag">PCA</span>
-              <span class="tag">Composite Index</span>
+          <div class="pipe-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></div>
+
+          <!-- 2. Data Processing -->
+          <div class="pipe-step">
+            <div class="pipe-icon ic2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
             </div>
+            <h3>Data Processing</h3>
+            <p>Datasets are cleaned, merged, and transformed using Python. Scripts are developed in VS Code with Codex support.</p>
+            <div class="tags"><span class="tag">Python</span><span class="tag">VS Code</span></div>
           </div>
-        </div>
 
-        <div class="step fade-up visible">
-          <div class="step-number">03</div>
-          <div class="step-content">
-            <h3>Macro &amp; Micro Analysis</h3>
-            <p>Regression and correlation analysis examining macro drivers and micro-level amenity impacts on housing prices.</p>
-            <div class="tags">
-              <span class="tag">Regression</span>
-              <span class="tag">Time Series</span>
+          <div class="pipe-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></div>
+
+          <!-- 3. AI-Assisted Analysis -->
+          <div class="pipe-step">
+            <div class="pipe-icon ic3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/><path d="M10 21h4"/><path d="M9 9h.01"/><path d="M15 9h.01"/></svg>
             </div>
+            <h3>AI-Assisted Analysis</h3>
+            <p>Initial ideas are written as detailed prompts and refined through AI-assisted discussions to structure analysis and explore variable relationships.</p>
+            <div class="tags"><span class="tag">AI Prompting</span></div>
           </div>
-        </div>
 
-        <div class="step fade-up visible">
-          <div class="step-number">04</div>
-          <div class="step-content">
+          <div class="pipe-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></div>
+
+          <!-- 4. Visualization -->
+          <div class="pipe-step">
+            <div class="pipe-icon ic4">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            </div>
             <h3>Visualization</h3>
-            <p>Interactive visualizations with Plotly.js and D3.js for narrative-driven storytelling.</p>
-            <div class="tags">
-              <span class="tag">Plotly.js</span>
-              <span class="tag">D3.js</span>
+            <p>Visual outputs are created using Datawrapper, Tableau, Flourish, and Matplotlib, depending on the analysis type.</p>
+            <div class="tags"><span class="tag">Datawrapper</span><span class="tag">Tableau</span><span class="tag">Flourish</span></div>
+          </div>
+
+          <div class="pipe-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></div>
+
+          <!-- 5. Web Integration -->
+          <div class="pipe-step">
+            <div class="pipe-icon ic5">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
             </div>
+            <h3>Web Integration</h3>
+            <p>Final results are integrated into the website using GitHub Pages and Lovable.dev, focusing on clarity and storytelling.</p>
+            <div class="tags"><span class="tag">GitHub</span><span class="tag">Lovable</span></div>
+          </div>
+
+          <div class="pipe-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></div>
+
+          <!-- 6. Update Process -->
+          <div class="pipe-step">
+            <div class="pipe-icon ic6">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/><path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"/></svg>
+            </div>
+            <h3>Update Process</h3>
+            <p>Data and visuals can be updated by re-running Python scripts and regenerating charts. Most steps are automated with minor manual adjustments.</p>
           </div>
         </div>
       </div>
