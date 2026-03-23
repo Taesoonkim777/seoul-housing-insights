@@ -6,6 +6,12 @@
   <title>Workflow &amp; Team – Seoul Housing</title>
   <link rel="stylesheet" href="../styles.css" />
   <style>
+    .avatar-lg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 32px; align-items: start; }
     @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
     .team-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 24px; text-align: center; }
@@ -152,7 +158,9 @@
           </div>
 
           <div class="team-card">
-            <div class="avatar-lg">IL</div>
+            <div class="avatar-lg">
+  <img src="Insung.png" alt="Insung Lee" />
+</div>
             <div class="name">Insung Lee</div>
             <div class="role">Statistical Modeling &amp; Regression</div>
             <div class="desc">Led macro-economic analysis including interest rate impacts, household debt correlations, and policy scenario modeling.</div>
@@ -163,7 +171,9 @@
           </div>
 
           <div class="team-card">
-            <div class="avatar-lg">TK</div>
+            <div class="avatar-lg">
+  <img src="Taesoon.png" alt="Taesoon Kim" />
+</div>
             <div class="name">Taesoon Kim</div>
             <div class="role">Data Visualization &amp; Dashboard</div>
             <div class="desc">Built interactive dashboards and micro-level amenity analysis, connecting transit, education, and green space data to housing trends.</div>
