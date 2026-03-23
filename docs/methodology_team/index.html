@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Methodology &amp; Team – Seoul Housing</title>
+  <title>Workflow &amp; Team – Seoul Housing</title>
   <link rel="stylesheet" href="../styles.css" />
   <style>
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 32px; align-items: start; }
@@ -21,21 +21,23 @@
 
     /* Pipeline */
     .pipeline { display: flex; flex-direction: column; gap: 0; }
-    .pipe-step { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px 18px; box-shadow: var(--shadow); transition: box-shadow 0.3s, transform 0.2s; }
+    .pipe-step { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 12px 14px; box-shadow: var(--shadow); transition: box-shadow 0.3s, transform 0.2s; }
     .pipe-step:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
-    .pipe-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; flex-shrink: 0; }
-    .pipe-icon svg { width: 18px; height: 18px; stroke-width: 1.8; }
+    .pipe-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; flex-shrink: 0; }
+    .pipe-icon svg { width: 14px; height: 14px; stroke-width: 1.8; }
     .pipe-icon.ic1 { background: hsl(200, 65%, 92%); color: hsl(200, 55%, 42%); }
     .pipe-icon.ic2 { background: hsl(260, 45%, 92%); color: hsl(260, 40%, 48%); }
     .pipe-icon.ic3 { background: hsl(30, 70%, 92%); color: hsl(30, 60%, 42%); }
     .pipe-icon.ic4 { background: hsl(155, 45%, 90%); color: hsl(155, 40%, 38%); }
     .pipe-icon.ic5 { background: hsl(215, 50%, 92%); color: hsl(215, 45%, 45%); }
     .pipe-icon.ic6 { background: hsl(0, 50%, 93%); color: hsl(0, 45%, 48%); }
-    .pipe-step h3 { font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 600; margin-bottom: 4px; }
-    .pipe-step p { font-size: 0.76rem; color: var(--muted-fg); line-height: 1.55; margin: 0; }
-    .pipe-step .tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px; }
-    .pipe-step .tag { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; padding: 2px 8px; border-radius: 999px; background: var(--primary-light); color: var(--primary); font-weight: 500; }
-    .pipe-arrow { display: flex; justify-content: center; padding: 6px 0; color: var(--border); }
+    .pipe-step h3 { font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 600; margin-bottom: 2px; }
+    .pipe-step p { font-size: 0.72rem; color: var(--muted-fg); line-height: 1.45; margin: 0; }
+    .pipe-step .tags { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px; }
+    .pipe-step .tag { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; padding: 2px 7px; border-radius: 999px; background: var(--primary-light); color: var(--primary); font-weight: 500; }
+    .pipe-step .tag a { color: inherit; text-decoration: none; }
+    .pipe-step .tag a:hover { text-decoration: underline; }
+    .pipe-arrow { display: flex; justify-content: center; padding: 4px 0; color: var(--border); }
     .pipe-arrow svg { width: 16px; height: 16px; }
   </style>
 </head>
@@ -52,14 +54,13 @@
     <div class="sub-hero">
       <a href="../index.html" class="back-link">← Back to Home</a>
       <p class="section-label"><span class="picto">🧪</span> Research Design</p>
-      <h1 class="section-title">Methodology &amp; Team</h1>
-      <p>Our research approach and the team behind this project.</p>
+      <h1 class="section-title">Workflow &amp; Team</h1>
     </div>
 
     <div class="two-col">
       <!-- Left: Methodology Pipeline -->
       <div>
-        <h2 class="col-title">Methodology</h2>
+        <h2 class="col-title">Workflow</h2>
         <p class="col-subtitle">A structured workflow from data collection to interactive visualization.</p>
 
         <div class="pipeline">
@@ -70,7 +71,7 @@
             </div>
             <h3>Data Source</h3>
             <p>Data is collected from the Seoul Open Data Portal, including housing transactions and district-level amenity indicators.</p>
-            <div class="tags"><span class="tag">Seoul Open Data</span></div>
+            <div class="tags"><span class="tag"><a href="https://data.seoul.go.kr" target="_blank">Seoul Open Data</a></span></div>
           </div>
 
           <div class="pipe-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></div>
@@ -94,7 +95,7 @@
             </div>
             <h3>AI-Assisted Analysis</h3>
             <p>Initial ideas are written as detailed prompts and refined through AI-assisted discussions to structure analysis and explore variable relationships.</p>
-            <div class="tags"><span class="tag">AI Prompting</span></div>
+            <div class="tags"><span class="tag">Lovable.dev</span><span class="tag">Codex</span><span class="tag">Claude</span></div>
           </div>
 
           <div class="pipe-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></div>
