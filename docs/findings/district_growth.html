@@ -23,11 +23,133 @@
             background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
             padding: 24px; box-shadow: var(--shadow); min-height: 500px;
         }
-        .viz-container iframe { width: 100%; height: 700px; border: none; border-radius: 8px; }
+        .viz-container iframe { width: 100%; height: 750px; border: none; border-radius: 8px; }
         
         .insight-box {
             background: linear-gradient(135deg, rgba(30, 58, 138, 0.08), rgba(59, 130, 246, 0.06));
             border: 1px solid rgba(59, 130, 246, 0.2); border-left: 4px solid var(--primary);
             border-radius: 8px; padding: 20px 24px; margin-bottom: 20px; font-size: 14px; line-height: 1.7; color: var(--foreground);
         }
-        .insight-box h3 { margin: 0 0 10px 0; font-size: 1
+        .insight-box h3 { margin: 0 0 10px 0; font-size: 15px; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+        .insight-box ul { margin: 0; padding-left: 18px; }
+        .insight-box li { margin-bottom: 4px; }
+    </style>
+</head>
+
+<body class="sub-page">
+
+    <nav class="navbar scrolled">
+        <div class="navbar-inner">
+            <button class="navbar-brand" onclick="window.location.href='../index.html'">
+                <span>Seoul</span> Housing
+            </button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="sub-hero">
+            <a href="../index.html" class="back-link">← Back to Main</a>
+            <h1>🗺️ 2024–2025 District Price Increase</h1>
+            <p>
+                Explore how average housing prices changed from 2024 to 2025 across Seoul’s 25 districts,
+                <strong>utilizing Seoul Real Estate Actual Transaction Price Open API data.</strong>
+            </p>
+        </div>
+
+        <div class="tab-group">
+            <button class="tab-btn active" data-tab="map">Increase Map</button>
+            <button class="tab-btn" data-tab="trend">Price Trend</button>
+            <button class="tab-btn" data-tab="heatmap">Increase Heatmap</button>
+            <button class="tab-btn" data-tab="animated">Growth Animation</button>
+        </div>
+
+        <div id="tab-map" class="tab-panel active">
+            <div class="insight-box">
+                <h3>📈 Key Insights — 2024–2025 Increase Map</h3>
+                <ul>
+                    <li><strong>Riverside Concentration:</strong> Growth is heavily concentrated along the Han River corridor, particularly in <strong>Seongdong, Mapo, and Yongsan</strong>.</li>
+                    <li><strong>Gangnam Leadership:</strong> The southern cluster (Gangnam, Seocho, Songpa) continues to show the most resilient upward momentum.</li>
+                    <li><strong>Regional Disparity:</strong> A clear performance gap exists between high-demand business hubs and peripheral residential districts.</li>
+                    <li><strong>Urban Core Premium:</strong> Districts with proximity to major employment centers exhibit higher appreciation rates per square meter.</li>
+                </ul>
+            </div>
+            <div class="viz-container">
+                <iframe src="https://public.tableau.com/views/Book2_17729344095590/Dashboard1?:showVizHome=no&:embed=true" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <div id="tab-trend" class="tab-panel">
+            <div class="insight-box">
+                <h3>📊 Key Insights — Price per Area Trend</h3>
+                <ul>
+                    <li><strong>Premium Decoupling:</strong> <strong>Gangnam and Seocho</strong> remain significantly decoupled from the Seoul Average, maintaining a high-tier price floor.</li>
+                    <li><strong>Emerging Premium Tier:</strong> <strong>Seongdong and Songpa</strong> have established themselves as a secondary premium tier, consistently outperforming the city average.</li>
+                    <li><strong>Resistance Level:</strong> The "Seoul Average" line acts as a strong resistance level for many northern and peripheral districts.</li>
+                    <li><strong>Market Volatility:</strong> Higher-priced districts exhibit greater sensitivity and faster recovery responses to market shifts.</li>
+                </ul>
+            </div>
+            <div class="viz-container">
+                <iframe src="https://public.tableau.com/views/Book2_17729344095590/Dashboard2?:showVizHome=no&:embed=true" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <div id="tab-heatmap" class="tab-panel">
+            <div class="insight-box">
+                <h3>🔥 Key Insights — Increase Heatmap</h3>
+                <ul>
+                    <li><strong>Broad Recovery in 2025:</strong> The transition from orange (decline) to blue (growth) across most districts indicates a broad market recovery by mid-2025.</li>
+                    <li><strong>District Specific Volatility:</strong> <strong>Jongno</strong> shows isolated price spikes, likely driven by high-value redevelopment or specific policy impacts.</li>
+                    <li><strong>Cyclical Momentum:</strong> Quarterly data reveals a pattern where momentum builds in core districts before rippling to neighboring areas.</li>
+                    <li><strong>Market Sentiment Shift:</strong> The consistent blue shades in 2025 Q2 and Q3 reflect a strong shift toward a bullish housing sentiment.</li>
+                </ul>
+            </div>
+            <div class="viz-container">
+                <iframe src="https://public.tableau.com/views/Book2_17729344095590/Dashboard5?:showVizHome=no&:embed=true" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <div id="tab-animated" class="tab-panel">
+            <div class="insight-box">
+                <h3>✨ Key Insights — Evolution of Growth</h3>
+                <ul>
+                    <li><strong>Market Transition:</strong> Shift from a city-wide downward trend in early 2024 to a robust <strong>bullish transition</strong> following mid-2025.</li>
+                    <li><strong>Riverside Lead:</strong> Upward momentum initiated primarily in <strong>Gangnam and Han River-adjacent districts</strong>, acting as market precursors.</li>
+                    <li><strong>2026 Correction:</strong> A transition back toward a <strong>downward trend</strong> is observed as the market moves into the 2026 calendar year.</li>
+                    <li><strong>Lead-Lag Effect:</strong> High-demand areas (Gangnam/Riverside) that led the rally also exhibit the <strong>first signs of price correction</strong> during the 2026 downturn.</li>
+                </ul>
+            </div>
+            <div class="viz-container">
+                <iframe src="https://public.tableau.com/views/Book2_17729344095590/Dashboard3?:showVizHome=no&:embed=true" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <div class="bottom-nav" style="margin-top: 40px;">
+            <a href="../index.html" class="tab-btn" style="text-decoration: none; display: inline-block;">← Go back</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const tabs = document.querySelectorAll(".tab-btn[data-tab]");
+            const panels = document.querySelectorAll(".tab-panel");
+
+            tabs.forEach(btn => {
+                btn.addEventListener("click", function() {
+                    const targetTab = this.getAttribute("data-tab");
+                    
+                    // 탭 버튼 상태 업데이트
+                    tabs.forEach(b => b.classList.remove("active"));
+                    this.classList.add("active");
+
+                    // 패널 표시 업데이트
+                    panels.forEach(p => p.classList.remove("active"));
+                    const targetPanel = document.getElementById("tab-" + targetTab);
+                    if (targetPanel) {
+                        targetPanel.classList.add("active");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
