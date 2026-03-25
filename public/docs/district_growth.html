@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2024–2025 Price Increase by District — Seoul Housing</title>
+  <title>District Price Increase - Seoul Housing</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Tab styles aligned with apartment_analysis.html */
+    /* apartment_analysis-2.html과 동일한 탭 및 레이아웃 스타일 */
     .tab-group {
       display: flex;
       gap: 12px;
@@ -35,276 +35,195 @@
       color: var(--primary-fg);
       border-color: var(--primary);
     }
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
-
+    .tab-panel {
+      display: none;
+    }
+    .tab-panel.active {
+      display: block;
+    }
     .viz-container {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 24px;
       box-shadow: var(--shadow);
-      min-height: 520px;
+      min-height: 500px;
     }
-
-    .viz-header { margin-bottom: 14px; }
-    .viz-header h2 {
-      margin: 0 0 6px 0;
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-    .viz-header p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: 14px;
-      max-width: 900px;
-    }
-
-    .viz-container iframe {
-      width: 100%;
-      height: 650px;
-      border: none;
+    .insight-box {
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.08), rgba(59, 130, 246, 0.06));
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-left: 4px solid var(--primary);
       border-radius: 8px;
-      background: #f1f5f9;
-      display: block;
+      padding: 20px 24px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--foreground);
     }
-
-    /* Tableau placeholder should match card layout */
-    .tableauPlaceholder { width: 100%; }
-
-    @media (max-width: 768px) {
-      .viz-container { padding: 16px; }
-      .viz-container iframe { height: 520px; }
+    .insight-box h3 {
+      margin: 0 0 10px 0;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .insight-box ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+    .insight-box li {
+      margin-bottom: 4px;
+    }
+    .tableauPlaceholder {
+      width: 100%;
+      margin: 0 auto;
     }
   </style>
 </head>
 <body class="sub-page">
-  <nav class="navbar scrolled">
-    <div class="navbar-inner">
-      <button class="navbar-brand" onclick="window.location.href='index.html'"><span>Seoul</span> Housing</button>
-    </div>
-  </nav>
+<nav class="navbar scrolled">
+  <div class="navbar-inner">
+    <button class="navbar-brand" onclick="window.location.href='index.html'"><span>Seoul</span> Housing</button>
+  </div>
+</nav>
 
-  <div class="container">
-    <div class="sub-hero">
-      <a href="index.html" class="back-link">← back to main</a>
-      <h1>🗺️ 2024–2025 District Price Increase</h1>
-      <p>Explore how average housing prices changed from 2024 to 2025 across Seoul’s 25 districts.</p>
-    </div>
-
-    <div class="tab-group">
-      <button class="tab-btn active" onclick="switchTab('map')">2024–2025 Increase Map</button>
-      <button class="tab-btn" onclick="switchTab('trend')">Price per Area Trend</button>
-      <button class="tab-btn" onclick="switchTab('heatmap')">Increase Heatmap</button>
-      <button class="tab-btn" onclick="switchTab('animated')">Animated Growth Map</button>
-    </div>
-
-    <!-- TAB 1 -->
-    <div id="tab-map" class="tab-panel active">
-      <div class="viz-container">
-        <div class="viz-header">
-          <h2>District Map: Average Price Increase (2024 → 2025)</h2>
-          <p>
-            This map compares district-level average prices between 2024 and 2025 to show where prices rose the most.
-            Notable increases are concentrated around the Han River corridor—especially <strong>Gangnam-gu</strong>,
-            <strong>Songpa-gu</strong>, <strong>Mapo-gu</strong>, and <strong>Seongdong-gu</strong>—suggesting stronger momentum in riverside areas.
-          </p>
-        </div>
-
-        <!-- Tableau embed (initialized on first tab activation for correct sizing) -->
-        <div id="viz1772934700636" class="tableauPlaceholder" style="position: relative;">
-          <noscript>
-            <a href="#">
-              <img alt="Dashboard 1" src="https://public.tableau.com/static/images/Bo/Book2_17729344095590/Dashboard1/1_rss.png" style="border:none;" />
-            </a>
-          </noscript>
-          <object class="tableauViz" style="display:none;">
-            <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
-            <param name="embed_code_version" value="3" />
-            <param name="site_root" value="" />
-            <param name="name" value="Book2_17729344095590/Dashboard1" />
-            <param name="tabs" value="no" />
-            <param name="toolbar" value="yes" />
-            <param name="static_image" value="https://public.tableau.com/static/images/Bo/Book2_17729344095590/Dashboard1/1.png" />
-            <param name="animate_transition" value="yes" />
-            <param name="display_static_image" value="yes" />
-            <param name="display_spinner" value="yes" />
-            <param name="display_overlay" value="yes" />
-            <param name="display_count" value="yes" />
-            <param name="language" value="en-US" />
-          </object>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 2 -->
-    <div id="tab-trend" class="tab-panel">
-      <div class="viz-container">
-        <div class="viz-header">
-          <h2>Trend: Average Price per Area by District</h2>
-          <p>Compare district-level average price per area over time to see how appreciation differs across Seoul.</p>
-        </div>
-        
-<div class='tableauPlaceholder' id='viz1772934909302' style='position: relative'>
-  <noscript><a href='#'><img alt='Dashboard 2 ' src='https://public.tableau.com/static/images/Bo/Book2_17729344095590/Dashboard2/1_rss.png' style='border: none' /></a></noscript>
-  <object class='tableauViz' style='display:none;'>
-    <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-    <param name='embed_code_version' value='3' />
-    <param name='site_root' value='' />
-    <param name='name' value='Book2_17729344095590/Dashboard2' />
-    <param name='tabs' value='no' />
-    <param name='toolbar' value='yes' />
-    <param name='static_image' value='https://public.tableau.com/static/images/Bo/Book2_17729344095590/Dashboard2/1.png' />
-    <param name='animate_transition' value='yes' />
-    <param name='display_static_image' value='yes' />
-    <param name='display_spinner' value='yes' />
-    <param name='display_overlay' value='yes' />
-    <param name='display_count' value='yes' />
-    <param name='language' value='en-US' />
-  </object>
-</div>
-
-      </div>
-    </div>
-
-    <!-- TAB 3 -->
-    <div id="tab-heatmap" class="tab-panel">
-      <div class="viz-container">
-        <div class="viz-header">
-          <h2>Heatmap: Intensity of Price Increases</h2>
-          <p>A heatmap view of where price increases per area are strongest, highlighting district-to-district contrast.</p>
-        </div>
-        
-<div class='tableauPlaceholder' id='viz1772935095960' style='position: relative'>
-  <noscript><a href='#'><img alt='Dashboard 5 ' src='https://public.tableau.com/static/images/Bo/Book2_17729344095590/Dashboard5/1_rss.png' style='border: none' /></a></noscript>
-  <object class='tableauViz' style='display:none;'>
-    <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-    <param name='embed_code_version' value='3' />
-    <param name='site_root' value='' />
-    <param name='name' value='Book2_17729344095590/Dashboard5' />
-    <param name='tabs' value='no' />
-    <param name='toolbar' value='yes' />
-    <param name='static_image' value='https://public.tableau.com/static/images/Bo/Book2_17729344095590/Dashboard5/1.png' />
-    <param name='animate_transition' value='yes' />
-    <param name='display_static_image' value='yes' />
-    <param name='display_spinner' value='yes' />
-    <param name='display_overlay' value='yes' />
-    <param name='display_count' value='yes' />
-    <param name='language' value='en-US' />
-    <param name='filter' value='publish=yes' />
-  </object>
-</div>
-
-      </div>
-    </div>
-
-    <!-- TAB 4 -->
-    <div id="tab-animated" class="tab-panel">
-      <div class="viz-container">
-        <div class="viz-header">
-          <h2>Animated Map: How Growth Evolved Over Time</h2>
-          <p>An animated district map that shows how price growth patterns progressed across years.</p>
-        </div>
-        
-<div class='tableauPlaceholder' id='viz1772935175549' style='position: relative'>
-  <noscript><a href='#'><img alt='Dashboard 3 ' src='https://public.tableau.com/static/images/Bo/Book2_17729344095590/Dashboard3/1_rss.png' style='border: none' /></a></noscript>
-  <object class='tableauViz' style='display:none;'>
-    <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-    <param name='embed_code_version' value='3' />
-    <param name='site_root' value='' />
-    <param name='name' value='Book2_17729344095590/Dashboard3' />
-    <param name='tabs' value='no' />
-    <param name='toolbar' value='yes' />
-    <param name='static_image' value='https://public.tableau.com/static/images/Bo/Book2_17729344095590/Dashboard3/1.png' />
-    <param name='animate_transition' value='yes' />
-    <param name='display_static_image' value='yes' />
-    <param name='display_spinner' value='yes' />
-    <param name='display_overlay' value='yes' />
-    <param name='display_count' value='yes' />
-    <param name='language' value='en-US' />
-  </object>
-</div>
-
-      </div>
-    </div>
-
+<div class="container">
+  <div class="sub-hero">
+    <a href="index.html" class="back-link">← back to main</a>
+    <h1>🗺️ District Price Increase (2024–2025)</h1>
+    <p>Explore how average housing prices changed across Seoul's 25 districts with interactive spatial analysis.</p>
   </div>
 
-  
+  <div class="tab-group">
+    <button class="tab-btn active" onclick="switchTab('map')">Increase Map</button>
+    <button class="tab-btn" onclick="switchTab('trend')">Price per Area Trend</button>
+    <button class="tab-btn" onclick="switchTab('heatmap')">Increase Heatmap</button>
+    <button class="tab-btn" onclick="switchTab('animated')">Animated Growth</button>
+  </div>
+
+  <div id="tab-map" class="tab-panel active">
+    <div class="insight-box">
+      <h3>📍 Key Insights — 2024–2025 Map</h3>
+      <ul>
+        <li><strong>River Corridor Momentum:</strong> Notable increases are concentrated around the Han River—especially <strong>Gangnam, Songpa, Mapo, and Seongdong</strong>.</li>
+        <li><strong>Regional Contrast:</strong> Districts in the southwest and northeast show relatively stable price points compared to the central business hubs.</li>
+        <li><strong>Premium Persistence:</strong> Traditional high-value districts continue to lead the recovery in market sentiment.</li>
+      </ul>
+    </div>
+    <div class="viz-container">
+      <div id="viz1772934700636" class="tableauPlaceholder">
+        <object class="tableauViz" style="display:none;">
+          <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
+          <param name="name" value="Book2_17729344095590/Dashboard1" />
+          <param name="tabs" value="no" /><param name="toolbar" value="yes" />
+          <param name="language" value="en-US" />
+          <param name="display_count" value="yes" />
+        </object>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-trend" class="tab-panel">
+    <div class="insight-box">
+      <h3>📈 Key Insights — Price per Area</h3>
+      <ul>
+        <li><strong>Appreciation Velocity:</strong> Compare how fast each district is growing relative to its size and historical baseline.</li>
+        <li><strong>Density Impact:</strong> High-density residential zones show more price volatility during market shifts.</li>
+      </ul>
+    </div>
+    <div class="viz-container">
+      <div id="viz1772934909302" class="tableauPlaceholder">
+        <object class="tableauViz" style="display:none;">
+          <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
+          <param name="name" value="Book2_17729344095590/Dashboard2" />
+          <param name="tabs" value="no" /><param name="toolbar" value="yes" />
+        </object>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-heatmap" class="tab-panel">
+    <div class="insight-box">
+      <h3>🔥 Key Insights — Intensity Analysis</h3>
+      <ul>
+        <li><strong>Hotspot Identification:</strong> The heatmap clarifies the intensity of price spikes per square meter.</li>
+        <li><strong>Spillover Effects:</strong> Observe how price increases in core districts often influence neighboring areas.</li>
+      </ul>
+    </div>
+    <div class="viz-container">
+      <div id="viz1772935095960" class="tableauPlaceholder">
+        <object class="tableauViz" style="display:none;">
+          <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
+          <param name="name" value="Book2_17729344095590/Dashboard5" />
+          <param name="tabs" value="no" /><param name="toolbar" value="yes" />
+        </object>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-animated" class="tab-panel">
+    <div class="insight-box">
+      <h3>⏳ Key Insights — Temporal Evolution</h3>
+      <ul>
+        <li><strong>Growth Trajectory:</strong> Watch how market expansion starts from the center and moves outward over time.</li>
+        <li><strong>Cyclical Patterns:</strong> Identify seasonal or yearly cycles in district-level appreciation.</li>
+      </ul>
+    </div>
+    <div class="viz-container">
+      <div id="viz1772935175549" class="tableauPlaceholder">
+        <object class="tableauViz" style="display:none;">
+          <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
+          <param name="name" value="Book2_17729344095590/Dashboard3" />
+          <param name="tabs" value="no" /><param name="toolbar" value="yes" />
+        </object>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>© 2026 Seoul Housing Analysis Project. Data from Seoul Open Data Plaza.</p>
+</footer>
+
 <script>
-  // Tab switching (aligned with apartment_analysis.html) + safe Tableau init for all tabs
-  const vizInit = {
-    map: false,
-    trend: false,
-    heatmap: false,
-    animated: false
-  };
+  // Tab switching logic
+  const vizInit = { map: false, trend: false, heatmap: false, animated: false };
 
   function ensureTableauApiLoaded(anchorEl) {
     if (document.querySelector('script[data-tableau-api="viz_v1"]')) return;
     const s = document.createElement('script');
     s.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
     s.setAttribute('data-tableau-api', 'viz_v1');
-    // Insert near the first viz object if possible, otherwise append to head
-    if (anchorEl && anchorEl.parentNode) {
-      anchorEl.parentNode.insertBefore(s, anchorEl);
-    } else {
-      document.head.appendChild(s);
-    }
+    if (anchorEl && anchorEl.parentNode) anchorEl.parentNode.insertBefore(s, anchorEl);
+    else document.head.appendChild(s);
   }
 
   function initTableauVizById(placeholderId) {
     const divElement = document.getElementById(placeholderId);
     if (!divElement) return;
-
     const vizElement = divElement.getElementsByTagName('object')[0];
     if (!vizElement) return;
-
-    const w = divElement.offsetWidth;
-    if (w > 800) {
-      vizElement.style.width = '1000px';
-      vizElement.style.height = '827px';
-    } else if (w > 500) {
-      vizElement.style.width = '1000px';
-      vizElement.style.height = '827px';
-    } else {
-      vizElement.style.width = '100%';
-      vizElement.style.height = '727px';
-    }
-
+    
+    // 스타일 통일을 위해 높이 조정
+    vizElement.style.width = '100%';
+    vizElement.style.height = '650px';
     ensureTableauApiLoaded(vizElement);
   }
 
   function initTabViz(tab) {
-    if (tab === 'map' && !vizInit.map) {
-      initTableauVizById('viz1772934700636');
-      vizInit.map = true;
-    }
-    if (tab === 'trend' && !vizInit.trend) {
-      initTableauVizById('viz1772934909302');
-      vizInit.trend = true;
-    }
-    if (tab === 'heatmap' && !vizInit.heatmap) {
-      initTableauVizById('viz1772935095960');
-      vizInit.heatmap = true;
-    }
-    if (tab === 'animated' && !vizInit.animated) {
-      initTableauVizById('viz1772935175549');
-      vizInit.animated = true;
-    }
+    if (tab === 'map' && !vizInit.map) { initTableauVizById('viz1772934700636'); vizInit.map = true; }
+    if (tab === 'trend' && !vizInit.trend) { initTableauVizById('viz1772934909302'); vizInit.trend = true; }
+    if (tab === 'heatmap' && !vizInit.heatmap) { initTableauVizById('viz1772935095960'); vizInit.heatmap = true; }
+    if (tab === 'animated' && !vizInit.animated) { initTableauVizById('viz1772935175549'); vizInit.animated = true; }
   }
 
   function switchTab(tab) {
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
     event.currentTarget.classList.add('active');
-
-    const panel = document.getElementById('tab-' + tab);
-    panel.classList.add('active');
-
-    // Initialize Tableau only after the tab becomes visible (avoids 0-width sizing)
+    document.getElementById('tab-' + tab).classList.add('active');
     requestAnimationFrame(() => initTabViz(tab));
   }
 
@@ -312,7 +231,6 @@
     requestAnimationFrame(() => initTabViz('map'));
   });
 </script>
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
