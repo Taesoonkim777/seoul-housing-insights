@@ -7,85 +7,29 @@
     <title>District Growth - Seoul Housing</title>
     <link rel="stylesheet" href="../styles.css">
     <style>
-        /* apartment_analysis-3.html과 100% 동일한 스타일 시스템 */
-        .tab-group {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 32px;
-            flex-wrap: wrap;
-        }
-
+        .tab-group { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
         .tab-btn {
-            padding: 12px 28px;
-            border: 1px solid var(--border);
-            border-radius: 999px;
-            background: var(--card);
-            color: var(--muted-fg);
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: var(--shadow);
+            padding: 12px 28px; border: 1px solid var(--border); border-radius: 999px;
+            background: var(--card); color: var(--muted-fg); font-family: 'Inter', sans-serif;
+            font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: var(--shadow);
         }
-
-        .tab-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        .tab-btn.active {
-            background: var(--primary);
-            color: var(--primary-fg);
-            border-color: var(--primary);
-        }
-
-        .tab-panel {
-            display: none;
-        }
-
-        .tab-panel.active {
-            display: block;
-        }
-
+        .tab-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .tab-btn.active { background: var(--primary); color: var(--primary-fg); border-color: var(--primary); }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
         .viz-container {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 24px;
-            box-shadow: var(--shadow);
-            min-height: 500px;
+            background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+            padding: 24px; box-shadow: var(--shadow); min-height: 500px;
         }
-
-        /* 차트가 잘리지 않도록 iframe 높이를 명시적으로 고정 */
-        .viz-container iframe {
-            width: 100%;
-            height: 650px; /* 차트 내용에 따라 700px~800px로 조절 가능 */
-            border: none;
-            border-radius: 8px;
-        }
-
+        .viz-container iframe { width: 100%; height: 700px; border: none; border-radius: 8px; }
         .insight-box {
             background: linear-gradient(135deg, rgba(30, 58, 138, 0.08), rgba(59, 130, 246, 0.06));
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-left: 4px solid var(--primary);
-            border-radius: 8px;
-            padding: 20px 24px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            line-height: 1.7;
-            color: var(--foreground);
+            border: 1px solid rgba(59, 130, 246, 0.2); border-left: 4px solid var(--primary);
+            border-radius: 8px; padding: 20px 24px; margin-bottom: 20px; font-size: 14px; line-height: 1.7; color: var(--foreground);
         }
-
-        .insight-box h3 {
-            margin: 0 0 10px 0;
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .insight-box h3 { margin: 0 0 10px 0; font-size: 15px; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+        .insight-box ul { margin: 0; padding-left: 18px; }
+        .insight-box li { margin-bottom: 4px; }
     </style>
 </head>
 
@@ -103,7 +47,10 @@
         <div class="sub-hero">
             <a href="../index.html" class="back-link">← Back to Main</a>
             <h1>🗺️ 2024–2025 District Price Increase</h1>
-            <p>Explore how average housing prices changed from 2024 to 2025 across Seoul’s 25 districts.</p>
+            <p>
+                Explore how average housing prices changed from 2024 to 2025 across Seoul’s 25 districts,
+                <strong>utilizing Seoul Real Estate Actual Transaction Price Open API data (서울시 실거래가 공시 API).</strong>
+            </p>
         </div>
 
         <div class="tab-group">
@@ -115,10 +62,12 @@
 
         <div id="tab-map" class="tab-panel active">
             <div class="insight-box">
-                <h3>📈 Key Insights — 2024–2025 Increase</h3>
+                <h3>📈 Key Insights — 2024–2025 Increase Map</h3>
                 <ul>
-                    <li>Notable increases are concentrated around the <strong>Han River corridor</strong>.</li>
-                    <li><strong>Gangnam, Songpa, and Seongdong</strong> show the strongest upward momentum.</li>
+                    <li><strong>Riverside Concentration:</strong> Growth is heavily concentrated along the Han River corridor, particularly in <strong>Seongdong, Mapo, and Yongsan</strong>.</li>
+                    <li><strong>Gangnam Leadership:</strong> The southern cluster (Gangnam, Seocho, Songpa) continues to show the most resilient upward momentum.</li>
+                    <li><strong>Regional Disparity:</strong> A clear performance gap exists between high-demand business hubs and peripheral residential districts.</li>
+                    <li><strong>Urban Core Premium:</strong> Districts with proximity to major employment centers exhibit higher appreciation rates per square meter.</li>
                 </ul>
             </div>
             <div class="viz-container">
@@ -130,8 +79,10 @@
             <div class="insight-box">
                 <h3>📊 Key Insights — Price per Area Trend</h3>
                 <ul>
-                    <li>Comparison of district-level <strong>appreciation rates</strong> over time.</li>
-                    <li>Identifies which districts are leading the recovery in the housing market.</li>
+                    <li><strong>Premium Decoupling:</strong> <strong>Gangnam and Seocho</strong> remain significantly decoupled from the Seoul Average, maintaining a high-tier price floor.</li>
+                    <li><strong>Emerging Premium Tier:</strong> <strong>Seongdong and Songpa</strong> have established themselves as a secondary premium tier, consistently outperforming the city average.</li>
+                    <li><strong>Resistance Level:</strong> The "Seoul Average" line acts as a strong resistance level for many northern and peripheral districts.</li>
+                    <li><strong>Market Volatility:</strong> Higher-priced districts exhibit greater sensitivity and faster recovery responses to market shifts.</li>
                 </ul>
             </div>
             <div class="viz-container">
@@ -141,51 +92,15 @@
 
         <div id="tab-heatmap" class="tab-panel">
             <div class="insight-box">
-                <h3>🔥 Key Insights — Growth Intensity</h3>
+                <h3>🔥 Key Insights — Increase Heatmap</h3>
                 <ul>
-                    <li>Visualizes the <strong>intensity</strong> of price changes per unit area.</li>
-                    <li>Highlights specific "hotspots" where demand is rapidly increasing.</li>
+                    <li><strong>Broad Recovery in 2025:</strong> The transition from orange (decline) to blue (growth) across most districts indicates a broad market recovery by mid-2025.</li>
+                    <li><strong>District Specific Volatility:</strong> <strong>Jongno</strong> shows isolated price spikes, likely driven by high-value redevelopment or specific policy impacts.</li>
+                    <li><strong>Cyclical Momentum:</strong> Quarterly data reveals a pattern where momentum builds in core districts before rippling to neighboring areas.</li>
+                    <li><strong>Market Sentiment Shift:</strong> The consistent blue shades in 2025 Q2 and Q3 reflect a strong shift toward a bullish housing sentiment.</li>
                 </ul>
             </div>
             <div class="viz-container">
                 <iframe src="https://public.tableau.com/views/Book2_17729344095590/Dashboard5?:showVizHome=no&:embed=true" allowfullscreen></iframe>
             </div>
         </div>
-
-        <div id="tab-animated" class="tab-panel">
-            <div class="insight-box">
-                <h3>✨ Key Insights — Evolution of Growth</h3>
-                <ul>
-                    <li>Animated view showing how <strong>growth patterns shifted</strong> throughout the year.</li>
-                    <li>Observes the ripple effect of price increases starting from core districts.</li>
-                </ul>
-            </div>
-            <div class="viz-container">
-                <iframe src="https://public.tableau.com/views/Book2_17729344095590/Dashboard3?:showVizHome=no&:embed=true" allowfullscreen></iframe>
-            </div>
-        </div>
-
-        <div class="bottom-nav" style="margin-top: 40px;">
-            <a href="../index.html" class="tab-btn" style="text-decoration: none;">← Go back</a>
-        </div>
-    </div>
-
-    <script>
-        // 첫 번째 파일(apartment_analysis-3.html)과 동일한 탭 로직
-        const tabs = document.querySelectorAll(".tab-btn");
-        const panels = document.querySelectorAll(".tab-panel");
-
-        tabs.forEach(btn => {
-            btn.addEventListener("click", () => {
-                tabs.forEach(b => b.classList.remove("active"));
-                panels.forEach(p => p.classList.remove("active"));
-
-                btn.classList.add("active");
-                const tabId = btn.dataset.tab;
-                document.getElementById("tab-" + tabId).classList.add("active");
-            });
-        });
-    </script>
-</body>
-
-</html>
