@@ -7,89 +7,44 @@
     <title>District Growth - Seoul Housing</title>
     <link rel="stylesheet" href="../styles.css">
     <style>
-        /* apartment_analysis-3.html과 동일한 스타일 적용 */
         .tab-group {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 32px;
-            flex-wrap: wrap;
+            display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap;
         }
-
         .tab-btn {
-            padding: 12px 28px;
-            border: 1px solid var(--border);
-            border-radius: 999px;
-            background: var(--card);
-            color: var(--muted-fg);
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: var(--shadow);
+            padding: 12px 28px; border: 1px solid var(--border); border-radius: 999px;
+            background: var(--card); color: var(--muted-fg); font-family: 'Inter',sans-serif;
+            font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: var(--shadow);
         }
-
-        .tab-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        .tab-btn.active {
-            background: var(--primary);
-            color: var(--primary-fg);
-            border-color: var(--primary);
-        }
-
-        .tab-panel {
-            display: none;
-        }
-
-        .tab-panel.active {
-            display: block;
-        }
+        .tab-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .tab-btn.active { background: var(--primary); color: var(--primary-fg); border-color: var(--primary); }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
 
         .viz-container {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 24px;
-            box-shadow: var(--shadow);
-            min-height: 600px;
-            overflow: hidden;
+            background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+            padding: 24px; shadow: var(--shadow);
+            /* 높이를 확실하게 고정하여 차트가 잘리지 않게 합니다 */
+            height: 750px; 
+            overflow: visible; 
+            position: relative;
         }
 
         .insight-box {
             background: linear-gradient(135deg, rgba(30, 58, 138, 0.08), rgba(59, 130, 246, 0.06));
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-left: 4px solid var(--primary);
-            border-radius: 8px;
-            padding: 20px 24px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            line-height: 1.7;
-            color: var(--foreground);
+            border: 1px solid rgba(59, 130, 246, 0.2); border-left: 4px solid var(--primary);
+            border-radius: 8px; padding: 20px 24px; margin-bottom: 20px; font-size: 14px; line-height: 1.7; color: var(--foreground);
         }
+        .insight-box h3 { margin: 0 0 10px 0; font-size: 15px; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 8px; }
 
-        .insight-box h3 {
-            margin: 0 0 10px 0;
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* Tableau Placeholder 정렬 */
-        .tableauPlaceholder {
-            margin: 0 auto;
+        /* 태블로 차트가 부모 너비에 꽉 차도록 설정 */
+        .tableauPlaceholder, .tableauViz {
             width: 100% !important;
+            height: 100% !important;
         }
     </style>
 </head>
 
 <body class="sub-page">
-
     <nav class="navbar scrolled">
         <div class="navbar-inner">
             <button class="navbar-brand" onclick="window.location.href='../index.html'">
@@ -115,11 +70,7 @@
         <div id="tab-map" class="tab-panel active">
             <div class="insight-box">
                 <h3>📈 Key Insights — 2024–2025 Increase</h3>
-                <ul>
-                    <li>Notable increases are concentrated around the <strong>Han River corridor</strong>.</li>
-                    <li><strong>Gangnam-gu, Songpa-gu, and Seongdong-gu</strong> show the strongest upward momentum.</li>
-                    <li>Price appreciation in riverside areas significantly outpaces the city average.</li>
-                </ul>
+                <ul><li>Notable increases are concentrated around the <strong>Han River corridor</strong>.</li></ul>
             </div>
             <div class="viz-container">
                 <div id="viz1772934700636" class="tableauPlaceholder">
@@ -127,7 +78,6 @@
                         <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
                         <param name="name" value="Book2_17729344095590/Dashboard1" />
                         <param name="toolbar" value="yes" />
-                        <param name="language" value="en-US" />
                     </object>
                 </div>
             </div>
@@ -136,11 +86,7 @@
         <div id="tab-trend" class="tab-panel">
             <div class="insight-box">
                 <h3>📊 Key Insights — Price per Area Trend</h3>
-                <ul>
-                    <li>Comparison of district-level <strong>appreciation rates</strong> over time.</li>
-                    <li>Identifies which districts are leading the recovery in the housing market.</li>
-                    <li>Shows a widening gap between high-demand areas and the rest of Seoul.</li>
-                </ul>
+                <ul><li>Comparison of district-level <strong>appreciation rates</strong> over time.</li></ul>
             </div>
             <div class="viz-container">
                 <div id="viz1772934909302" class="tableauPlaceholder">
@@ -148,7 +94,6 @@
                         <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
                         <param name="name" value="Book2_17729344095590/Dashboard2" />
                         <param name="toolbar" value="yes" />
-                        <param name="language" value="en-US" />
                     </object>
                 </div>
             </div>
@@ -157,11 +102,7 @@
         <div id="tab-heatmap" class="tab-panel">
             <div class="insight-box">
                 <h3>🔥 Key Insights — Growth Intensity</h3>
-                <ul>
-                    <li>Visualizes the <strong>intensity</strong> of price changes per unit area.</li>
-                    <li>Highlights specific "hotspots" where demand is rapidly increasing.</li>
-                    <li>Provides a clear contrast between stable districts and volatile growth areas.</li>
-                </ul>
+                <ul><li>Visualizes the <strong>intensity</strong> of price changes per unit area.</li></ul>
             </div>
             <div class="viz-container">
                 <div id="viz1772935095960" class="tableauPlaceholder">
@@ -169,7 +110,6 @@
                         <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
                         <param name="name" value="Book2_17729344095590/Dashboard5" />
                         <param name="toolbar" value="yes" />
-                        <param name="language" value="en-US" />
                     </object>
                 </div>
             </div>
@@ -178,11 +118,7 @@
         <div id="tab-animated" class="tab-panel">
             <div class="insight-box">
                 <h3>✨ Key Insights — Evolution of Growth</h3>
-                <ul>
-                    <li>Animated view showing how <strong>growth patterns shifted</strong> throughout the year.</li>
-                    <li>Observes the ripple effect of price increases starting from the core districts.</li>
-                    <li>Useful for understanding the temporal flow of the Seoul real estate market.</li>
-                </ul>
+                <ul><li>Animated view showing how <strong>growth patterns shifted</strong> throughout the year.</li></ul>
             </div>
             <div class="viz-container">
                 <div id="viz1772935175549" class="tableauPlaceholder">
@@ -190,33 +126,20 @@
                         <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
                         <param name="name" value="Book2_17729344095590/Dashboard3" />
                         <param name="toolbar" value="yes" />
-                        <param name="language" value="en-US" />
                     </object>
                 </div>
             </div>
         </div>
-
-        <div class="bottom-nav" style="margin-top: 40px;">
-            <a href="../index.html" class="tab-btn" style="text-decoration: none;">← Go back</a>
-        </div>
     </div>
 
     <script>
-        // 탭 로직 및 태블로 초기화 통합
         const tabs = document.querySelectorAll(".tab-btn");
         const panels = document.querySelectorAll(".tab-panel");
         const vizInit = { map: false, trend: false, heatmap: false, animated: false };
 
-        function initTableauVizById(placeholderId) {
-            const divElement = document.getElementById(placeholderId);
-            if (!divElement) return;
+        function initTableau(id) {
+            const divElement = document.getElementById(id);
             const vizElement = divElement.getElementsByTagName('object')[0];
-            
-            // 컨테이너 너비에 맞게 조정 (잘림 방지)
-            const containerWidth = divElement.parentElement.offsetWidth - 48;
-            vizElement.style.width = containerWidth + 'px';
-            vizElement.style.height = '700px';
-
             const scriptElement = document.createElement('script');
             scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
             vizElement.parentNode.insertBefore(scriptElement, vizElement);
@@ -224,36 +147,29 @@
 
         tabs.forEach(btn => {
             btn.addEventListener("click", () => {
-                const targetTab = btn.dataset.tab;
-
-                // UI 업데이트
+                const target = btn.dataset.tab;
                 tabs.forEach(b => b.classList.remove("active"));
                 panels.forEach(p => p.classList.remove("active"));
                 btn.classList.add("active");
-                document.getElementById("tab-" + targetTab).classList.add("active");
+                document.getElementById("tab-" + target).classList.add("active");
 
-                // 해당 탭의 비주얼라이제이션이 처음 열릴 때만 로드
-                if (!vizInit[targetTab]) {
-                    requestAnimationFrame(() => {
-                        const ids = {
-                            map: 'viz1772934700636',
-                            trend: 'viz1772934909302',
-                            heatmap: 'viz1772935095960',
-                            animated: 'viz1772935175549'
-                        };
-                        initTableauVizById(ids[targetTab]);
-                        vizInit[targetTab] = true;
-                    });
+                // 탭이 활성화(display: block)된 직후에 태블로를 로드하여 올바른 너비를 갖게 함
+                if (!vizInit[target]) {
+                    const ids = { map: 'viz1772934700636', trend: 'viz1772934909302', heatmap: 'viz1772935095960', animated: 'viz1772935175549' };
+                    // 약간의 지연을 주어 브라우저가 레이아웃을 계산할 시간을 줌
+                    setTimeout(() => {
+                        initTableau(ids[target]);
+                        vizInit[target] = true;
+                    }, 50);
                 }
             });
         });
 
-        // 초기 페이지 로드 시 첫 번째 탭 로드
+        // 첫 페이지 로드 시 첫 번째 탭 초기화
         window.addEventListener('load', () => {
-            initTableauVizById('viz1772934700636');
+            initTableau('viz1772934700636');
             vizInit.map = true;
         });
     </script>
 </body>
-
 </html>
