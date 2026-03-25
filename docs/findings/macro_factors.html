@@ -109,7 +109,7 @@
 
     .insight-box{
       display:grid;
-      grid-template-columns:repeat(3,1fr);
+      grid-template-columns:repeat(auto-fit, minmax(190px, 1fr));
       gap:16px;
       margin-top:24px;
     }
@@ -155,14 +155,20 @@
       border:1px solid #ececec;
     }
 
-    @media (max-width:1000px){
-      .chart-row{
-        grid-template-columns:1fr;
-      }
+    .bottom-nav{
+      margin-top:28px;
+      padding-bottom:18px;
     }
 
-    @media (max-width:900px){
-      .insight-box{
+    .back-btn{
+      display:inline-block;
+      text-decoration:none;
+      color:#2563eb;
+      font-weight:600;
+    }
+
+    @media (max-width:1000px){
+      .chart-row{
         grid-template-columns:1fr;
       }
     }
@@ -216,14 +222,26 @@
           <div class="insight-value" id="latest-loan-yoy">-</div>
           <div class="insight-note">Year-over-year growth in household loans</div>
         </div>
+
+        <div class="insight-item">
+          <div class="insight-label">Supply Proxy YoY</div>
+          <div class="insight-value" id="latest-supply-yoy">-</div>
+          <div class="insight-note">Latest available estimated completion growth</div>
+        </div>
+
+        <div class="insight-item">
+          <div class="insight-label">Latest Total Listings</div>
+          <div class="insight-value" id="latest-total-listings">-</div>
+          <div class="insight-note">Latest available month-end apartment listings</div>
+        </div>
       </div>
 
       <div class="macro-note">
-        Short-term turning points in Seoul’s housing market tend to move closely with
-        changes in interest rates and credit conditions.
-        The charts below compare apartment price growth, the policy rate,
-        and household loan growth to show how macro tightening and easing aligned
-        with major shifts in the housing cycle.
+        Seoul's apartment cycle is shaped not only by rates and credit, but also by the supply pipeline and on-market inventory.
+        The added supply section uses two supplementary datasets:
+        (1) construction starts are translated into an expected-completion proxy using a 24-month Gaussian lag,
+        and (2) daily apartment listings are converted into month-end inventory snapshots to align with the monthly macro series.
+        Because the construction-start source ends in June 2022, the derived completion proxy is shown through June 2024 only.
       </div>
 
       <div class="macro-grid">
@@ -279,14 +297,48 @@
           </div>
         </section>
 
+        <section class="macro-card">
+          <h2>4. Supply Pipeline Proxy</h2>
+          <p>
+            Construction starts (total floor area) are mapped into an estimated completion series using a 24-month normal lag.
+            This is a leading supply proxy rather than observed completions.
+          </p>
+
+          <div class="chart-row">
+            <div class="chart-block">
+              <div id="chart-supply-yoy" class="chart"></div>
+            </div>
+            <div class="chart-block">
+              <div id="scatter-supply-yoy" class="chart"></div>
+              <div id="reg-supply-yoy" class="reg-box"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="macro-card">
+          <h2>5. Apartment Listing Inventory</h2>
+          <p>
+            Daily apartment listings are aggregated to month-end inventory, showing how sale, jeonse, and monthly-rent listings evolved alongside price momentum.
+          </p>
+
+          <div class="chart-row">
+            <div class="chart-block">
+              <div id="chart-listings" class="chart"></div>
+            </div>
+            <div class="chart-block">
+              <div id="scatter-listings" class="chart"></div>
+              <div id="reg-listings" class="reg-box"></div>
+            </div>
+          </div>
+        </section>
+
       </div>
 
     </div>
-<div class="bottom-nav">
-  <a href="index.html" class="back-btn">
-    ← Go back
-  </a>
-</div>
+
+    <div class="bottom-nav">
+      <a href="index.html" class="back-btn">← Go back</a>
+    </div>
   </div>
 
   <script>
@@ -303,6 +355,16 @@
       return v.toFixed(2) + "%";
     }
 
+    function formatNumber(v){
+      if(v === null || v === undefined || isNaN(v)) return "-";
+      return Math.round(v).toLocaleString();
+    }
+
+    function lastValid(data, key){
+      const valid = data.filter(d => d[key] !== null && !isNaN(d[key]));
+      return valid.length ? valid[valid.length - 1] : null;
+    }
+
     function parseData(rows){
       return rows
         .filter(r => r.date)
@@ -313,7 +375,16 @@
           price_index: toNumber(r.price_index),
           price_yoy: toNumber(r.price_yoy),
           base_rate: toNumber(r.base_rate),
-          loan_yoy: toNumber(r.loan_yoy)
+          loan_yoy: toNumber(r.loan_yoy),
+          construction_start_area_sqm: toNumber(r.construction_start_area_sqm),
+          completion_proxy_sqm: toNumber(r.completion_proxy_sqm),
+          completion_proxy_yoy: toNumber(r.completion_proxy_yoy),
+          sale_listings: toNumber(r.sale_listings),
+          jeonse_listings: toNumber(r.jeonse_listings),
+          wolse_listings: toNumber(r.wolse_listings),
+          total_listings: toNumber(r.total_listings),
+          sale_share_pct: toNumber(r.sale_share_pct),
+          total_listings_yoy: toNumber(r.total_listings_yoy)
         }))
         .sort((a, b) => a.date - b.date)
         .map((d, idx) => ({ ...d, time_index: idx + 1 }));
@@ -321,15 +392,14 @@
 
     function updateSummary(data){
       const latest = data[data.length - 1];
+      const latestSupply = lastValid(data, "completion_proxy_yoy");
+      const latestListings = lastValid(data, "total_listings");
 
-      document.getElementById("latest-price-yoy").textContent =
-        formatPercent(latest.price_yoy);
-
-      document.getElementById("latest-base-rate").textContent =
-        formatPercent(latest.base_rate);
-
-      document.getElementById("latest-loan-yoy").textContent =
-        formatPercent(latest.loan_yoy);
+      document.getElementById("latest-price-yoy").textContent = formatPercent(latest.price_yoy);
+      document.getElementById("latest-base-rate").textContent = formatPercent(latest.base_rate);
+      document.getElementById("latest-loan-yoy").textContent = formatPercent(latest.loan_yoy);
+      document.getElementById("latest-supply-yoy").textContent = latestSupply ? formatPercent(latestSupply.completion_proxy_yoy) : "-";
+      document.getElementById("latest-total-listings").textContent = latestListings ? formatNumber(latestListings.total_listings) : "-";
     }
 
     function linearRegression(x, y){
@@ -562,6 +632,74 @@
         { responsive: true, displayModeBar: false }
       );
 
+      Plotly.newPlot(
+        "chart-supply-yoy",
+        [
+          {
+            x: dates,
+            y: data.map(d => d.completion_proxy_yoy),
+            mode: "lines",
+            name: "Supply Proxy YoY",
+            line: { width: 3 }
+          },
+          {
+            x: dates,
+            y: data.map(d => d.price_yoy),
+            mode: "lines",
+            name: "Price YoY",
+            line: { width: 2, dash: "dash" }
+          }
+        ],
+        {
+          margin: { t: 20, r: 20, b: 50, l: 50 },
+          yaxis: { title: "YoY (%)" },
+          paper_bgcolor: "white",
+          plot_bgcolor: "white"
+        },
+        { responsive: true, displayModeBar: false }
+      );
+
+      Plotly.newPlot(
+        "chart-listings",
+        [
+          {
+            x: dates,
+            y: data.map(d => d.sale_listings),
+            mode: "lines",
+            name: "Sale Listings",
+            line: { width: 3 }
+          },
+          {
+            x: dates,
+            y: data.map(d => d.jeonse_listings),
+            mode: "lines",
+            name: "Jeonse Listings",
+            line: { width: 2 }
+          },
+          {
+            x: dates,
+            y: data.map(d => d.wolse_listings),
+            mode: "lines",
+            name: "Monthly Rent Listings",
+            line: { width: 2, dash: "dot" }
+          }
+        ],
+        {
+          margin: { t: 20, r: 20, b: 50, l: 60 },
+          yaxis: { title: "Listing count" },
+          paper_bgcolor: "white",
+          plot_bgcolor: "white",
+          legend: {
+            orientation: "h",
+            x: 0,
+            y: 1.15,
+            xanchor: "left",
+            yanchor: "bottom"
+          }
+        },
+        { responsive: true, displayModeBar: false }
+      );
+
       drawScatterWithRegression({
         elementId: "scatter-price-yoy",
         regBoxId: "reg-price-yoy",
@@ -593,6 +731,28 @@
         xLabel: "Loan YoY (%)",
         yLabel: "Price YoY (%)",
         title: "Price YoY vs Loan YoY"
+      });
+
+      drawScatterWithRegression({
+        elementId: "scatter-supply-yoy",
+        regBoxId: "reg-supply-yoy",
+        data: data,
+        xKey: "completion_proxy_yoy",
+        yKey: "price_yoy",
+        xLabel: "Supply Proxy YoY (%)",
+        yLabel: "Price YoY (%)",
+        title: "Price YoY vs Supply Proxy YoY"
+      });
+
+      drawScatterWithRegression({
+        elementId: "scatter-listings",
+        regBoxId: "reg-listings",
+        data: data,
+        xKey: "sale_share_pct",
+        yKey: "price_yoy",
+        xLabel: "Sale Listings Share (%)",
+        yLabel: "Price YoY (%)",
+        title: "Price YoY vs Sale Listings Share"
       });
     }
 
