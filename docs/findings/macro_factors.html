@@ -63,14 +63,14 @@
     }
 
     .macro-card{
-  background:white;
-  border-radius:18px;
-  padding:24px;
-  box-shadow:0 4px 16px rgba(0,0,0,0.06);
-  border:1px solid #ececec;
-  box-sizing:border-box;
-  overflow:hidden;
-}
+      background:white;
+      border-radius:18px;
+      padding:24px;
+      box-shadow:0 4px 16px rgba(0,0,0,0.06);
+      border:1px solid #ececec;
+      box-sizing:border-box;
+      overflow:hidden;
+    }
 
     .macro-card h2{
       margin:0 0 8px 0;
@@ -344,7 +344,7 @@
   </div>
 
   <script>
-    const CSV_PATH = "macro_city_monthly.csv";
+    const CSV_PATH = "macro_city_monthly.csv?v=3";
 
     function toNumber(v){
       if(v === null || v === undefined || v === "") return null;
@@ -555,6 +555,10 @@
 
     function drawCharts(data){
       const dates = data.map(d => d.date);
+      const supplyData = data.filter(d => d.completion_proxy_yoy !== null && !isNaN(d.completion_proxy_yoy));
+      const listingData = data.filter(d => d.total_listings !== null && !isNaN(d.total_listings));
+      const listingDates = listingData.map(d => d.dateLabel);
+      const listingRange = listingData.length ? [listingData[0].dateLabel, listingData[listingData.length - 1].dateLabel] : undefined;
 
       Plotly.newPlot(
         "chart-price-yoy",
@@ -638,15 +642,15 @@
         "chart-supply-yoy",
         [
           {
-            x: dates,
-            y: data.map(d => d.completion_proxy_yoy),
+            x: supplyData.map(d => d.date),
+            y: supplyData.map(d => d.completion_proxy_yoy),
             mode: "lines",
             name: "Supply Proxy YoY",
             line: { width: 3 }
           },
           {
-            x: dates,
-            y: data.map(d => d.price_yoy),
+            x: supplyData.map(d => d.date),
+            y: supplyData.map(d => d.price_yoy),
             mode: "lines",
             name: "Price YoY",
             line: { width: 2, dash: "dash" }
@@ -654,6 +658,7 @@
         ],
         {
           margin: { t: 20, r: 20, b: 50, l: 50 },
+          xaxis: { range: supplyData.length ? [supplyData[0].date, supplyData[supplyData.length - 1].date] : undefined },
           yaxis: { title: "YoY (%)" },
           paper_bgcolor: "white",
           plot_bgcolor: "white"
@@ -665,22 +670,22 @@
         "chart-listings",
         [
           {
-            x: dates,
-            y: data.map(d => d.sale_listings),
+            x: listingDates,
+            y: listingData.map(d => d.sale_listings),
             mode: "lines",
             name: "Sale Listings",
             line: { width: 3 }
           },
           {
-            x: dates,
-            y: data.map(d => d.jeonse_listings),
+            x: listingDates,
+            y: listingData.map(d => d.jeonse_listings),
             mode: "lines",
             name: "Jeonse Listings",
             line: { width: 2 }
           },
           {
-            x: dates,
-            y: data.map(d => d.wolse_listings),
+            x: listingDates,
+            y: listingData.map(d => d.wolse_listings),
             mode: "lines",
             name: "Monthly Rent Listings",
             line: { width: 2, dash: "dot" }
@@ -688,6 +693,14 @@
         ],
         {
           margin: { t: 20, r: 20, b: 50, l: 60 },
+          xaxis: {
+            type: "date",
+            autorange: false,
+            range: listingRange,
+            tick0: listingData.length ? listingData[0].dateLabel : undefined,
+            dtick: "M3",
+            tickformat: "%Y-%m"
+          },
           yaxis: { title: "Listing count" },
           paper_bgcolor: "white",
           plot_bgcolor: "white",
@@ -738,7 +751,7 @@
       drawScatterWithRegression({
         elementId: "scatter-supply-yoy",
         regBoxId: "reg-supply-yoy",
-        data: data,
+        data: supplyData,
         xKey: "completion_proxy_yoy",
         yKey: "price_yoy",
         xLabel: "Supply Proxy YoY (%)",
@@ -749,7 +762,7 @@
       drawScatterWithRegression({
         elementId: "scatter-listings",
         regBoxId: "reg-listings",
-        data: data,
+        data: listingData,
         xKey: "sale_share_pct",
         yKey: "price_yoy",
         xLabel: "Sale Listings Share (%)",
@@ -776,25 +789,23 @@
 
           updateSummary(data);
 
-document.getElementById("loading").style.display = "none";
-document.getElementById("macro-content").style.display = "block";
+          document.getElementById("loading").style.display = "none";
+          document.getElementById("macro-content").style.display = "block";
 
-requestAnimationFrame(() => {
-  drawCharts(data);
+          requestAnimationFrame(() => {
+            drawCharts(data);
 
-  const chartIds = [
-    "chart-price-yoy", "scatter-price-yoy",
-    "chart-price-rate", "scatter-price-rate",
-    "chart-loan-yoy", "scatter-loan-yoy",
-    "chart-supply-yoy", "scatter-supply-yoy",
-    "chart-listings", "scatter-listings"
-  ];
-
-  chartIds.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) Plotly.Plots.resize(el);
-  });
-});
+            [
+              "chart-price-yoy", "scatter-price-yoy",
+              "chart-price-rate", "scatter-price-rate",
+              "chart-loan-yoy", "scatter-loan-yoy",
+              "chart-supply-yoy", "scatter-supply-yoy",
+              "chart-listings", "scatter-listings"
+            ].forEach(id => {
+              const el = document.getElementById(id);
+              if(el && window.Plotly) Plotly.Plots.resize(el);
+            });
+          });
         },
 
         error: function(err){
