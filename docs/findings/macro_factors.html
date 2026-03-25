@@ -773,10 +773,26 @@
           }
 
           updateSummary(data);
-          drawCharts(data);
 
-          document.getElementById("loading").style.display = "none";
-          document.getElementById("macro-content").style.display = "block";
+document.getElementById("loading").style.display = "none";
+document.getElementById("macro-content").style.display = "block";
+
+requestAnimationFrame(() => {
+  drawCharts(data);
+
+  const chartIds = [
+    "chart-price-yoy", "scatter-price-yoy",
+    "chart-price-rate", "scatter-price-rate",
+    "chart-loan-yoy", "scatter-loan-yoy",
+    "chart-supply-yoy", "scatter-supply-yoy",
+    "chart-listings", "scatter-listings"
+  ];
+
+  chartIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) Plotly.Plots.resize(el);
+  });
+});
         },
 
         error: function(err){
